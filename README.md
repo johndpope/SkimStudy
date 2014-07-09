@@ -1,0 +1,2 @@
+Study skim source code.
+

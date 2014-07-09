@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Archive.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>HeaderDocs.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>SkimNotes Tool.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>SkimNotes.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>SkimNotesBase.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>SkimNotesTest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>SkimPDF Tool.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>8DC2EF4F0486A6940098B216</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CE14113E1229B64D00C9EBA0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CE665A840E1C086D00D0704D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEA5F53C0E2CED0E00F65088</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEBA2B540E0566B00000B2E6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEBA2EA20E0673B60000B2E6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEDB9AE80E2E9F090057FD09</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
