@@ -58,7 +58,6 @@
 - (IBAction)toggleDisplayAsBook:(id)sender;
 - (IBAction)toggleDisplayPageBreaks:(id)sender;
 - (IBAction)changeDisplayBox:(id)sender;
-- (IBAction)doGoToPreviousPage:(id)sender;
 - (IBAction)doGoToFirstPage:(id)sender;
 - (IBAction)doGoToLastPage:(id)sender;
 - (IBAction)allGoToNextPage:(id)sender;

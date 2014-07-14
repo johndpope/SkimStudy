@@ -1666,15 +1666,6 @@
 						<object class="NSMenu" key="NSSubmenu" id="739461857">
 							<string key="NSTitle">Go</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="445166178">
-									<reference key="NSMenu" ref="739461857"/>
-									<string key="NSTitle">Previous</string>
-									<string key="NSKeyEquiv"></string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
 								<object class="NSMenuItem" id="368894235">
 									<reference key="NSMenu" ref="739461857"/>
 									<string key="NSTitle">First</string>
@@ -2112,14 +2103,6 @@
 						<reference key="destination" ref="877483876"/>
 					</object>
 					<int key="connectionID">281</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">doGoToPreviousPage:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="445166178"/>
-					</object>
-					<int key="connectionID">283</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3565,7 +3548,6 @@
 						<int key="objectID">272</int>
 						<reference key="object" ref="739461857"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="445166178"/>
 							<reference ref="877483876"/>
 							<reference ref="418699339"/>
 							<reference ref="1029986063"/>
@@ -3578,11 +3560,6 @@
 							<reference ref="761037236"/>
 						</array>
 						<reference key="parent" ref="978176641"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">274</int>
-						<reference key="object" ref="445166178"/>
-						<reference key="parent" ref="739461857"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">275</int>
@@ -4233,7 +4210,6 @@
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="271.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="272.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="274.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="275.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="276.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="277.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5195,7 +5171,6 @@
 						<string key="doGoToFirstPage:">id</string>
 						<string key="doGoToLastPage:">id</string>
 						<string key="doGoToPage:">id</string>
-						<string key="doGoToPreviousPage:">id</string>
 						<string key="doZoomIn:">id</string>
 						<string key="doZoomOut:">id</string>
 						<string key="doZoomToActualSize:">id</string>
@@ -5216,6 +5191,7 @@
 						<string key="search:">id</string>
 						<string key="searchNotes:">id</string>
 						<string key="searchPDF:">id</string>
+						<string key="statusBarClicked:">id</string>
 						<string key="takeSnapshot:">id</string>
 						<string key="toggleAutoScale:">id</string>
 						<string key="toggleCaseInsensitiveNoteSearch:">id</string>
@@ -5357,10 +5333,6 @@
 							<string key="name">doGoToPage:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="doGoToPreviousPage:">
-							<string key="name">doGoToPreviousPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="doZoomIn:">
 							<string key="name">doZoomIn:</string>
 							<string key="candidateClassName">id</string>
@@ -5439,6 +5411,10 @@
 						</object>
 						<object class="IBActionInfo" key="searchPDF:">
 							<string key="name">searchPDF:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="statusBarClicked:">
+							<string key="name">statusBarClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="takeSnapshot:">

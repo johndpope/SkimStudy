@@ -1650,7 +1650,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 - (BOOL)handleRightMouseDown:(NSEvent *)theEvent {
     if ([self interactionMode] == SKPresentationMode) {
-        [self doGoToPreviousPage:nil];
         return YES;
     }
     return NO;
@@ -2692,8 +2691,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         case kHIDRemoteButtonCodeLeft:
             if (remoteScrolling)
                 [[[self pdfView] documentView] scrollLineLeft];
-            else 
-                [self doGoToPreviousPage:nil];
             break;
         case kHIDRemoteButtonCodeCenter:        
             [self togglePresentation:nil];

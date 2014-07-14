@@ -253,11 +253,6 @@
     [pdfView setDisplayBox:[sender tag]];
 }
 
-- (IBAction)doGoToPreviousPage:(id)sender {
-    [pdfView goToPreviousPage:sender];
-}
-
-
 - (IBAction)doGoToFirstPage:(id)sender {
     [pdfView goToFirstPage:sender];
 }

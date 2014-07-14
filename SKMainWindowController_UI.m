@@ -1466,8 +1466,6 @@ static NSArray *allMainDocumentPDFViews() {
         return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(delete:) || action == @selector(copy:) || action == @selector(cut:) || action == @selector(paste:) || action == @selector(alternatePaste:) || action == @selector(pasteAsPlainText:) || action == @selector(deselectAll:) || action == @selector(changeAnnotationMode:) || action == @selector(changeToolMode:) || action == @selector(changeToolMode:)) {
         return [pdfView validateMenuItem:menuItem];
-    } else if (action == @selector(doGoToPreviousPage:) ) {
-        return [pdfView canGoToPreviousPage];
     } else if (action == @selector(doGoToFirstPage:)) {
         return [pdfView canGoToFirstPage];
     } else if (action == @selector(doGoToLastPage:)) {
