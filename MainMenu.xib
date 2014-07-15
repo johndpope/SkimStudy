@@ -1422,169 +1422,6 @@
 						<object class="NSMenu" key="NSSubmenu" id="952835084">
 							<string key="NSTitle">PDF</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="759805106">
-									<reference key="NSMenu" ref="952835084"/>
-									<string key="NSTitle">PDF Display</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-									<string key="NSAction">submenuAction:</string>
-									<object class="NSMenu" key="NSSubmenu" id="548272754">
-										<string key="NSTitle">PDF Display</string>
-										<array class="NSMutableArray" key="NSMenuItems">
-											<object class="NSMenuItem" id="905422809">
-												<reference key="NSMenu" ref="548272754"/>
-												<string key="NSTitle">Single Page</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-											</object>
-											<object class="NSMenuItem" id="737309585">
-												<reference key="NSMenu" ref="548272754"/>
-												<string key="NSTitle">Single Page Continuous</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-												<int key="NSTag">1</int>
-											</object>
-											<object class="NSMenuItem" id="201242086">
-												<reference key="NSMenu" ref="548272754"/>
-												<string key="NSTitle">Two Pages</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-												<int key="NSTag">2</int>
-											</object>
-											<object class="NSMenuItem" id="618195290">
-												<reference key="NSMenu" ref="548272754"/>
-												<string key="NSTitle">Two Pages Continuous</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-												<int key="NSTag">3</int>
-											</object>
-											<object class="NSMenuItem" id="1016602768">
-												<reference key="NSMenu" ref="548272754"/>
-												<bool key="NSIsDisabled">YES</bool>
-												<bool key="NSIsSeparator">YES</bool>
-												<string key="NSTitle"/>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-											</object>
-											<object class="NSMenuItem" id="868291721">
-												<reference key="NSMenu" ref="548272754"/>
-												<string key="NSTitle">Book Mode</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-											</object>
-											<object class="NSMenuItem" id="181204401">
-												<reference key="NSMenu" ref="548272754"/>
-												<string key="NSTitle">Page Breaks</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-											</object>
-											<object class="NSMenuItem" id="292927709">
-												<reference key="NSMenu" ref="548272754"/>
-												<bool key="NSIsDisabled">YES</bool>
-												<bool key="NSIsSeparator">YES</bool>
-												<string key="NSTitle"/>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-											</object>
-											<object class="NSMenuItem" id="630044631">
-												<reference key="NSMenu" ref="548272754"/>
-												<string key="NSTitle">Media Box</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-											</object>
-											<object class="NSMenuItem" id="520337417">
-												<reference key="NSMenu" ref="548272754"/>
-												<string key="NSTitle">Crop Box</string>
-												<string key="NSKeyEquiv"/>
-												<int key="NSKeyEquivModMask">1048576</int>
-												<int key="NSMnemonicLoc">2147483647</int>
-												<reference key="NSOnImage" ref="1022008517"/>
-												<reference key="NSMixedImage" ref="290280874"/>
-												<int key="NSTag">1</int>
-											</object>
-										</array>
-									</object>
-								</object>
-								<object class="NSMenuItem" id="713783713">
-									<reference key="NSMenu" ref="952835084"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
-								<object class="NSMenuItem" id="1018941691">
-									<reference key="NSMenu" ref="952835084"/>
-									<string key="NSTitle">Automatically Resize</string>
-									<string key="NSKeyEquiv">R</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
-								<object class="NSMenuItem" id="629033988">
-									<reference key="NSMenu" ref="952835084"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
-								<object class="NSMenuItem" id="652251505">
-									<reference key="NSMenu" ref="952835084"/>
-									<string key="NSTitle">Actual Size</string>
-									<string key="NSKeyEquiv">0</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
-								<object class="NSMenuItem" id="856382538">
-									<reference key="NSMenu" ref="952835084"/>
-									<bool key="NSIsAlternate">YES</bool>
-									<string key="NSTitle">Physical Size</string>
-									<string key="NSKeyEquiv">0</string>
-									<int key="NSKeyEquivModMask">1572864</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
 								<object class="NSMenuItem" id="458648215">
 									<reference key="NSMenu" ref="952835084"/>
 									<string key="NSTitle">Zoom To Fit</string>
@@ -2299,14 +2136,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayBox:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="520337417"/>
-					</object>
-					<int key="connectionID">899</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">doZoomIn:</string>
 						<reference key="source" ref="660174102"/>
 						<reference key="destination" ref="14985790"/>
@@ -2328,54 +2157,6 @@
 						<reference key="destination" ref="529695502"/>
 					</object>
 					<int key="connectionID">902</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">doZoomToPhysicalSize:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="856382538"/>
-					</object>
-					<int key="connectionID">903</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">doZoomToActualSize:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="652251505"/>
-					</object>
-					<int key="connectionID">904</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleDisplayPageBreaks:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="181204401"/>
-					</object>
-					<int key="connectionID">906</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleAutoScale:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="1018941691"/>
-					</object>
-					<int key="connectionID">908</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleDisplayAsBook:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="868291721"/>
-					</object>
-					<int key="connectionID">909</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayBox:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="630044631"/>
-					</object>
-					<int key="connectionID">910</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2520,38 +2301,6 @@
 						<reference key="destination" ref="477443287"/>
 					</object>
 					<int key="connectionID">1023</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayMode:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="905422809"/>
-					</object>
-					<int key="connectionID">1036</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayMode:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="737309585"/>
-					</object>
-					<int key="connectionID">1038</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayMode:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="201242086"/>
-					</object>
-					<int key="connectionID">1040</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayMode:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="618195290"/>
-					</object>
-					<int key="connectionID">1044</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3485,13 +3234,7 @@
 						<int key="objectID">873</int>
 						<reference key="object" ref="952835084"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="759805106"/>
 							<reference ref="494942330"/>
-							<reference ref="713783713"/>
-							<reference ref="1018941691"/>
-							<reference ref="629033988"/>
-							<reference ref="652251505"/>
-							<reference ref="856382538"/>
 							<reference ref="458648215"/>
 							<reference ref="14985790"/>
 							<reference ref="755754"/>
@@ -3502,93 +3245,8 @@
 						<reference key="parent" ref="809857625"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">875</int>
-						<reference key="object" ref="759805106"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="548272754"/>
-						</array>
-						<reference key="parent" ref="952835084"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">876</int>
-						<reference key="object" ref="548272754"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="181204401"/>
-							<reference ref="292927709"/>
-							<reference ref="1016602768"/>
-							<reference ref="630044631"/>
-							<reference ref="868291721"/>
-							<reference ref="520337417"/>
-							<reference ref="905422809"/>
-							<reference ref="737309585"/>
-							<reference ref="201242086"/>
-							<reference ref="618195290"/>
-						</array>
-						<reference key="parent" ref="759805106"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">877</int>
-						<reference key="object" ref="181204401"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">878</int>
-						<reference key="object" ref="292927709"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">879</int>
-						<reference key="object" ref="1016602768"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">881</int>
-						<reference key="object" ref="630044631"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">882</int>
-						<reference key="object" ref="868291721"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">883</int>
-						<reference key="object" ref="520337417"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">884</int>
-						<reference key="object" ref="905422809"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">886</int>
 						<reference key="object" ref="494942330"/>
-						<reference key="parent" ref="952835084"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">887</int>
-						<reference key="object" ref="713783713"/>
-						<reference key="parent" ref="952835084"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">888</int>
-						<reference key="object" ref="1018941691"/>
-						<reference key="parent" ref="952835084"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">889</int>
-						<reference key="object" ref="629033988"/>
-						<reference key="parent" ref="952835084"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">890</int>
-						<reference key="object" ref="652251505"/>
-						<reference key="parent" ref="952835084"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">891</int>
-						<reference key="object" ref="856382538"/>
 						<reference key="parent" ref="952835084"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -3851,21 +3509,6 @@
 						<reference key="parent" ref="736262900"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">1037</int>
-						<reference key="object" ref="737309585"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1039</int>
-						<reference key="object" ref="201242086"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1043</int>
-						<reference key="object" ref="618195290"/>
-						<reference key="parent" ref="548272754"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">1085</int>
 						<reference key="object" ref="316578428"/>
 						<reference key="parent" ref="934112995"/>
@@ -3916,9 +3559,6 @@
 				<string key="1001.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1002.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="103.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1037.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1039.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1043.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1049.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1050.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1052.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4046,21 +3686,7 @@
 				<string key="870.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="872.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="873.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="875.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="876.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="877.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="878.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="879.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="881.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="882.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="883.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="884.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="886.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="887.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="888.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="889.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="890.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="891.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="892.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="893.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="894.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4644,9 +4270,6 @@
 					<string key="className">SKMainToolbarController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="changeDisplayBox:">id</string>
-						<string key="changeDisplayContinuous:">id</string>
-						<string key="changeDisplayMode:">id</string>
 						<string key="changeDisplaySinglePages:">id</string>
 						<string key="changeScaleFactor:">id</string>
 						<string key="changeToolMode:">id</string>
@@ -4656,23 +4279,10 @@
 						<string key="selectColor:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
 						<string key="toggleRightSidePane:">id</string>
-						<string key="zoomInActualOut:">id</string>
 						<string key="zoomToFit:">id</string>
 						<string key="zoomToSelection:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="changeDisplayBox:">
-							<string key="name">changeDisplayBox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplayContinuous:">
-							<string key="name">changeDisplayContinuous:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplayMode:">
-							<string key="name">changeDisplayMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="changeDisplaySinglePages:">
 							<string key="name">changeDisplaySinglePages:</string>
 							<string key="candidateClassName">id</string>
@@ -4709,10 +4319,6 @@
 							<string key="name">toggleRightSidePane:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="zoomInActualOut:">
-							<string key="name">zoomInActualOut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="zoomToFit:">
 							<string key="name">zoomToFit:</string>
 							<string key="candidateClassName">id</string>
@@ -4725,10 +4331,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="circleNoteButton">NSSegmentedControl</string>
 						<string key="colorSwatch">SKColorSwatch</string>
-						<string key="continuousButton">NSSegmentedControl</string>
 						<string key="customizeButton">NSSegmentedControl</string>
-						<string key="displayBoxButton">NSSegmentedControl</string>
-						<string key="displayModeButton">NSSegmentedControl</string>
 						<string key="fontsButton">NSSegmentedControl</string>
 						<string key="fullScreenButton">NSSegmentedControl</string>
 						<string key="infoButton">NSSegmentedControl</string>
@@ -4742,13 +4345,9 @@
 						<string key="printButton">NSSegmentedControl</string>
 						<string key="rightPaneButton">NSSegmentedControl</string>
 						<string key="scaleField">NSTextField</string>
-						<string key="singleTwoUpButton">NSSegmentedControl</string>
 						<string key="textNoteButton">NSSegmentedControl</string>
 						<string key="toolModeButton">NSSegmentedControl</string>
-						<string key="zoomActualButton">NSSegmentedControl</string>
 						<string key="zoomFitButton">NSSegmentedControl</string>
-						<string key="zoomInActualOutButton">NSSegmentedControl</string>
-						<string key="zoomInOutButton">NSSegmentedControl</string>
 						<string key="zoomSelectionButton">NSSegmentedControl</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -4760,20 +4359,8 @@
 							<string key="name">colorSwatch</string>
 							<string key="candidateClassName">SKColorSwatch</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="continuousButton">
-							<string key="name">continuousButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="customizeButton">
 							<string key="name">customizeButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="displayBoxButton">
-							<string key="name">displayBoxButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="displayModeButton">
-							<string key="name">displayModeButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="fontsButton">
@@ -4828,10 +4415,6 @@
 							<string key="name">scaleField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="singleTwoUpButton">
-							<string key="name">singleTwoUpButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="textNoteButton">
 							<string key="name">textNoteButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
@@ -4840,20 +4423,8 @@
 							<string key="name">toolModeButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="zoomActualButton">
-							<string key="name">zoomActualButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="zoomFitButton">
 							<string key="name">zoomFitButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="zoomInActualOutButton">
-							<string key="name">zoomInActualOutButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="zoomInOutButton">
-							<string key="name">zoomInOutButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="zoomSelectionButton">
@@ -4881,10 +4452,6 @@
 						<string key="alternateZoomToFit:">id</string>
 						<string key="changeAttributes:">id</string>
 						<string key="changeColor:">id</string>
-						<string key="changeDisplayBox:">id</string>
-						<string key="changeDisplayContinuous:">id</string>
-						<string key="changeDisplayMode:">id</string>
-						<string key="changeDisplaySinglePages:">id</string>
 						<string key="changeFindPaneState:">id</string>
 						<string key="changeFont:">id</string>
 						<string key="changeLeftSidePaneState:">id</string>
@@ -4898,9 +4465,7 @@
 						<string key="doAutoScale:">id</string>
 						<string key="doZoomIn:">id</string>
 						<string key="doZoomOut:">id</string>
-						<string key="doZoomToActualSize:">id</string>
 						<string key="doZoomToFit:">id</string>
-						<string key="doZoomToPhysicalSize:">id</string>
 						<string key="doZoomToSelection:">id</string>
 						<string key="editNote:">id</string>
 						<string key="enterFullscreen:">id</string>
@@ -4915,11 +4480,8 @@
 						<string key="searchNotes:">id</string>
 						<string key="searchPDF:">id</string>
 						<string key="takeSnapshot:">id</string>
-						<string key="toggleAutoScale:">id</string>
 						<string key="toggleCaseInsensitiveNoteSearch:">id</string>
 						<string key="toggleCaseInsensitiveSearch:">id</string>
-						<string key="toggleDisplayAsBook:">id</string>
-						<string key="toggleDisplayPageBreaks:">id</string>
 						<string key="toggleFullscreen:">id</string>
 						<string key="toggleHideNotes:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
@@ -4975,22 +4537,6 @@
 							<string key="name">changeColor:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="changeDisplayBox:">
-							<string key="name">changeDisplayBox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplayContinuous:">
-							<string key="name">changeDisplayContinuous:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplayMode:">
-							<string key="name">changeDisplayMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplaySinglePages:">
-							<string key="name">changeDisplaySinglePages:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="changeFindPaneState:">
 							<string key="name">changeFindPaneState:</string>
 							<string key="candidateClassName">id</string>
@@ -5043,16 +4589,8 @@
 							<string key="name">doZoomOut:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="doZoomToActualSize:">
-							<string key="name">doZoomToActualSize:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="doZoomToFit:">
 							<string key="name">doZoomToFit:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doZoomToPhysicalSize:">
-							<string key="name">doZoomToPhysicalSize:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="doZoomToSelection:">
@@ -5111,24 +4649,12 @@
 							<string key="name">takeSnapshot:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="toggleAutoScale:">
-							<string key="name">toggleAutoScale:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="toggleCaseInsensitiveNoteSearch:">
 							<string key="name">toggleCaseInsensitiveNoteSearch:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleCaseInsensitiveSearch:">
 							<string key="name">toggleCaseInsensitiveSearch:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleDisplayAsBook:">
-							<string key="name">toggleDisplayAsBook:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleDisplayPageBreaks:">
-							<string key="name">toggleDisplayPageBreaks:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleFullscreen:">

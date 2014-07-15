@@ -44,9 +44,6 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 
 @interface SKMainToolbarController : NSViewController <NSToolbarDelegate> {
     SKMainWindowController *mainController;
-    NSSegmentedControl *zoomInOutButton;
-    NSSegmentedControl *zoomInActualOutButton;
-    NSSegmentedControl *zoomActualButton;
     NSSegmentedControl *zoomFitButton;
     NSSegmentedControl *zoomSelectionButton;
     NSSegmentedControl *fullScreenButton;
@@ -58,10 +55,6 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
     NSSegmentedControl *circleNoteButton;
     NSSegmentedControl *markupNoteButton;
     NSSegmentedControl *lineNoteButton;
-    NSSegmentedControl *singleTwoUpButton;
-    NSSegmentedControl *continuousButton;
-    NSSegmentedControl *displayModeButton;
-    NSSegmentedControl *displayBoxButton;
     NSSegmentedControl *infoButton;
     NSSegmentedControl *fontsButton;
     NSSegmentedControl *linesButton;
@@ -74,7 +67,7 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 }
 
 @property (nonatomic, assign) IBOutlet SKMainWindowController *mainController;
-@property (nonatomic, retain) IBOutlet NSSegmentedControl *zoomInOutButton, *zoomInActualOutButton, *zoomActualButton, *zoomFitButton, *zoomSelectionButton, *fullScreenButton, *presentationButton, *leftPaneButton, *rightPaneButton, *toolModeButton, *textNoteButton, *circleNoteButton, *markupNoteButton, *lineNoteButton, *singleTwoUpButton, *continuousButton, *displayModeButton, *displayBoxButton, *infoButton, *fontsButton, *linesButton, *printButton, *customizeButton, *noteButton;
+@property (nonatomic, retain) IBOutlet NSSegmentedControl *zoomFitButton, *zoomSelectionButton, *fullScreenButton, *presentationButton, *leftPaneButton, *rightPaneButton, *toolModeButton, *textNoteButton, *circleNoteButton, *markupNoteButton, *lineNoteButton, *infoButton, *fontsButton, *linesButton, *printButton, *customizeButton, *noteButton;
 @property (nonatomic, retain) IBOutlet NSTextField *scaleField;
 @property (nonatomic, retain) IBOutlet SKColorSwatch *colorSwatch;
 
@@ -87,18 +80,12 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 
 - (IBAction)changeScaleFactor:(id)sender;
 - (void)chooseScale:(id)sender;
-- (void)zoomActualPhysical:(id)sender;
-- (IBAction)zoomInActualOut:(id)sender;
 - (IBAction)zoomToFit:(id)sender;
 - (IBAction)zoomToSelection:(id)sender;
 - (IBAction)enterFullscreen:(id)sender;
 - (IBAction)enterPresentation:(id)sender;
 - (IBAction)toggleLeftSidePane:(id)sender;
 - (IBAction)toggleRightSidePane:(id)sender;
-- (IBAction)changeDisplayBox:(id)sender;
-- (IBAction)changeDisplaySinglePages:(id)sender;
-- (IBAction)changeDisplayContinuous:(id)sender;
-- (IBAction)changeDisplayMode:(id)sender;
 - (void)createNewTextNote:(id)sender;
 - (void)createNewCircleNote:(id)sender;
 - (void)createNewMarkupNote:(id)sender;

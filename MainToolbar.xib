@@ -112,10 +112,10 @@
 					<object class="NSTextField" id="404684452">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{145, 249}, {50, 22}}</string>
+						<string key="NSFrame">{{183, 163}, {50, 22}}</string>
 						<reference key="NSSuperview" ref="850098044"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="69299456"/>
+						<reference key="NSNextKeyView" ref="373684916"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="980653423">
 							<int key="NSCellFlags">-1804468671</int>
@@ -288,119 +288,10 @@
 							<int key="NSSegmentStyle">5</int>
 						</object>
 					</object>
-					<object class="NSSegmentedControl" id="69299456">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{20, 218}, {61, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="390362245"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="674816434">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="586405658"/>
-							<reference key="NSControlView" ref="69299456"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage" id="431910268">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarZoomOut</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">-1</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage" id="635856345">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarZoomIn</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">1</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSTrackingMode">2</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
-					<object class="NSSegmentedControl" id="390362245">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{85, 218}, {89, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="519108589"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="706485920">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="586405658"/>
-							<reference key="NSControlView" ref="390362245"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<reference key="NSSegmentItemImage" ref="431910268"/>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">-1</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage" id="894630523">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarZoomActual</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<reference key="NSSegmentItemImage" ref="635856345"/>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">1</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSTrackingMode">2</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
-					<object class="NSSegmentedControl" id="519108589">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{178, 218}, {33, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="697963551"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="530854302">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="586405658"/>
-							<reference key="NSControlView" ref="519108589"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<reference key="NSSegmentItemImage" ref="894630523"/>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSTrackingMode">2</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
 					<object class="NSSegmentedControl" id="697963551">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{215, 218}, {33, 23}}</string>
+						<string key="NSFrame">{{178, 104}, {33, 23}}</string>
 						<reference key="NSSuperview" ref="850098044"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="838752059"/>
@@ -429,7 +320,7 @@
 					<object class="NSSegmentedControl" id="838752059">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{252, 218}, {33, 23}}</string>
+						<string key="NSFrame">{{224, 104}, {33, 23}}</string>
 						<reference key="NSSuperview" ref="850098044"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="206221324"/>
@@ -458,7 +349,7 @@
 					<object class="NSSegmentedControl" id="206221324">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{20, 188}, {33, 23}}</string>
+						<string key="NSFrame">{{20, 162}, {33, 23}}</string>
 						<reference key="NSSuperview" ref="850098044"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1058504007"/>
@@ -487,7 +378,7 @@
 					<object class="NSSegmentedControl" id="1058504007">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{57, 188}, {33, 23}}</string>
+						<string key="NSFrame">{{57, 162}, {33, 23}}</string>
 						<reference key="NSSuperview" ref="850098044"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="633037374"/>
@@ -516,7 +407,7 @@
 					<object class="NSSegmentedControl" id="633037374">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{94, 188}, {33, 23}}</string>
+						<string key="NSFrame">{{94, 162}, {33, 23}}</string>
 						<reference key="NSSuperview" ref="850098044"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1047787411"/>
@@ -545,10 +436,10 @@
 					<object class="NSSegmentedControl" id="1047787411">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{131, 188}, {33, 23}}</string>
+						<string key="NSFrame">{{131, 162}, {33, 23}}</string>
 						<reference key="NSSuperview" ref="850098044"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="854737512"/>
+						<reference key="NSNextKeyView" ref="404684452"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSegmentedCell" key="NSCell" id="257612657">
 							<int key="NSCellFlags">67239424</int>
@@ -716,48 +607,6 @@
 							<int key="NSSegmentStyle">5</int>
 						</object>
 					</object>
-					<object class="NSSegmentedControl" id="854737512">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{168, 188}, {61, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="568316381"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="149920704">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<object class="NSFont" key="NSSupport" id="161875857">
-								<string key="NSName">LucidaGrande</string>
-								<double key="NSSize">13</double>
-								<int key="NSfFlags">16</int>
-							</object>
-							<reference key="NSControlView" ref="854737512"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarMediaBox</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarCropBox</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">1</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
 					<object class="NSSegmentedControl" id="554203995">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
@@ -769,7 +618,11 @@
 						<object class="NSSegmentedCell" key="NSCell" id="877103443">
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="161875857"/>
+							<object class="NSFont" key="NSSupport" id="161875857">
+								<string key="NSName">LucidaGrande</string>
+								<double key="NSSize">13</double>
+								<int key="NSfFlags">16</int>
+							</object>
 							<reference key="NSControlView" ref="554203995"/>
 							<array class="NSMutableArray" key="NSSegmentImages">
 								<object class="NSSegmentItem">
@@ -874,130 +727,8 @@
 							<int key="NSSegmentStyle">5</int>
 						</object>
 					</object>
-					<object class="NSSegmentedControl" id="568316381">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{20, 160}, {61, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="864974698"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="776110356">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="161875857"/>
-							<reference key="NSControlView" ref="568316381"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage" id="1011487629">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarSinglePage</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage" id="192536110">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarTwoUp</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">2</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
-					<object class="NSSegmentedControl" id="26223638">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{150, 160}, {117, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="373684916"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="305837989">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="161875857"/>
-							<reference key="NSControlView" ref="26223638"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<reference key="NSSegmentItemImage" ref="1011487629"/>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage" id="143965130">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarSinglePageContinuous</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">1</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<reference key="NSSegmentItemImage" ref="192536110"/>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">2</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarTwoUpContinuous</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">3</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
-					<object class="NSSegmentedControl" id="864974698">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{85, 160}, {61, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="26223638"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="627087466">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="161875857"/>
-							<reference key="NSControlView" ref="864974698"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<reference key="NSSegmentItemImage" ref="1011487629"/>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<reference key="NSSegmentItemImage" ref="143965130"/>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemTag">1</int>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
 				</array>
-				<string key="NSFrameSize">{348, 292}</string>
+				<string key="NSFrameSize">{348, 205}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView"/>
@@ -1098,35 +829,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">zoomInOutButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="69299456"/>
-					</object>
-					<int key="connectionID">99</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">zoomInActualOutButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="390362245"/>
-					</object>
-					<int key="connectionID">100</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">zoomSelectionButton</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="838752059"/>
 					</object>
 					<int key="connectionID">101</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">zoomActualButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="519108589"/>
-					</object>
-					<int key="connectionID">102</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1170,38 +877,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">displayBoxButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="854737512"/>
-					</object>
-					<int key="connectionID">113</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">singleTwoUpButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="568316381"/>
-					</object>
-					<int key="connectionID">114</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">continuousButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="864974698"/>
-					</object>
-					<int key="connectionID">115</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">displayModeButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="26223638"/>
-					</object>
-					<int key="connectionID">116</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">textNoteButton</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="554203995"/>
@@ -1242,30 +917,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">zoomInActualOut:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="69299456"/>
-					</object>
-					<int key="connectionID">164</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">zoomInActualOut:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="390362245"/>
-					</object>
-					<int key="connectionID">165</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">zoomInActualOut:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="519108589"/>
-					</object>
-					<int key="connectionID">166</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">zoomToFit:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="697963551"/>
@@ -1295,38 +946,6 @@
 						<reference key="destination" ref="1047787411"/>
 					</object>
 					<int key="connectionID">176</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayBox:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="854737512"/>
-					</object>
-					<int key="connectionID">177</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplaySinglePages:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="568316381"/>
-					</object>
-					<int key="connectionID">178</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayMode:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="26223638"/>
-					</object>
-					<int key="connectionID">179</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeDisplayContinuous:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="864974698"/>
-					</object>
-					<int key="connectionID">180</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1487,14 +1106,10 @@
 						<int key="objectID">2</int>
 						<reference key="object" ref="850098044"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="864974698"/>
-							<reference ref="26223638"/>
-							<reference ref="568316381"/>
 							<reference ref="986113263"/>
 							<reference ref="171355934"/>
 							<reference ref="89418761"/>
 							<reference ref="554203995"/>
-							<reference ref="854737512"/>
 							<reference ref="20120304"/>
 							<reference ref="354912557"/>
 							<reference ref="511485571"/>
@@ -1506,9 +1121,6 @@
 							<reference ref="206221324"/>
 							<reference ref="838752059"/>
 							<reference ref="697963551"/>
-							<reference ref="519108589"/>
-							<reference ref="390362245"/>
-							<reference ref="69299456"/>
 							<reference ref="76372141"/>
 							<reference ref="177296294"/>
 							<reference ref="404684452"/>
@@ -1516,30 +1128,6 @@
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">ToolbarViews</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">3</int>
-						<reference key="object" ref="864974698"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="627087466"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="26223638"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="305837989"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">5</int>
-						<reference key="object" ref="568316381"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="776110356"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">7</int>
@@ -1570,14 +1158,6 @@
 						<reference key="object" ref="554203995"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="877103443"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">11</int>
-						<reference key="object" ref="854737512"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="149920704"/>
 						</array>
 						<reference key="parent" ref="850098044"/>
 					</object>
@@ -1670,30 +1250,6 @@
 						<reference key="parent" ref="850098044"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">29</int>
-						<reference key="object" ref="519108589"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="530854302"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">31</int>
-						<reference key="object" ref="390362245"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="706485920"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">32</int>
-						<reference key="object" ref="69299456"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="674816434"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">34</int>
 						<reference key="object" ref="76372141"/>
 						<array class="NSMutableArray" key="children">
@@ -1744,21 +1300,6 @@
 						<int key="objectID">45</int>
 						<reference key="object" ref="259829563"/>
 						<reference key="parent" ref="76372141"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">47</int>
-						<reference key="object" ref="674816434"/>
-						<reference key="parent" ref="69299456"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">48</int>
-						<reference key="object" ref="706485920"/>
-						<reference key="parent" ref="390362245"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">50</int>
-						<reference key="object" ref="530854302"/>
-						<reference key="parent" ref="519108589"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">53</int>
@@ -1816,11 +1357,6 @@
 						<reference key="parent" ref="20120304"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">68</int>
-						<reference key="object" ref="149920704"/>
-						<reference key="parent" ref="854737512"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">69</int>
 						<reference key="object" ref="877103443"/>
 						<reference key="parent" ref="554203995"/>
@@ -1841,21 +1377,6 @@
 						<reference key="parent" ref="986113263"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">74</int>
-						<reference key="object" ref="776110356"/>
-						<reference key="parent" ref="568316381"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">75</int>
-						<reference key="object" ref="305837989"/>
-						<reference key="parent" ref="26223638"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">76</int>
-						<reference key="object" ref="627087466"/>
-						<reference key="parent" ref="864974698"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">190</int>
 						<reference key="object" ref="622374864"/>
 						<reference key="parent" ref="0"/>
@@ -1868,7 +1389,6 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1882,24 +1402,15 @@
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="43.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="0" key="45.IBSegmentedControlInspectorSelectedSegmentMetadataKey"/>
-				<string key="47.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="48.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="50.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="53.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="55.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1911,15 +1422,11 @@
 				<string key="64.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="70.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="71.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="75.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="76.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
@@ -2024,10 +1531,6 @@
 					<string key="className">SKMainToolbarController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="changeDisplayBox:">id</string>
-						<string key="changeDisplayContinuous:">id</string>
-						<string key="changeDisplayMode:">id</string>
-						<string key="changeDisplaySinglePages:">id</string>
 						<string key="changeScaleFactor:">id</string>
 						<string key="changeToolMode:">id</string>
 						<string key="createNewNote:">id</string>
@@ -2036,27 +1539,10 @@
 						<string key="selectColor:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
 						<string key="toggleRightSidePane:">id</string>
-						<string key="zoomInActualOut:">id</string>
 						<string key="zoomToFit:">id</string>
 						<string key="zoomToSelection:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="changeDisplayBox:">
-							<string key="name">changeDisplayBox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplayContinuous:">
-							<string key="name">changeDisplayContinuous:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplayMode:">
-							<string key="name">changeDisplayMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplaySinglePages:">
-							<string key="name">changeDisplaySinglePages:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="changeScaleFactor:">
 							<string key="name">changeScaleFactor:</string>
 							<string key="candidateClassName">id</string>
@@ -2089,10 +1575,6 @@
 							<string key="name">toggleRightSidePane:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="zoomInActualOut:">
-							<string key="name">zoomInActualOut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="zoomToFit:">
 							<string key="name">zoomToFit:</string>
 							<string key="candidateClassName">id</string>
@@ -2105,10 +1587,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="circleNoteButton">NSSegmentedControl</string>
 						<string key="colorSwatch">SKColorSwatch</string>
-						<string key="continuousButton">NSSegmentedControl</string>
 						<string key="customizeButton">NSSegmentedControl</string>
-						<string key="displayBoxButton">NSSegmentedControl</string>
-						<string key="displayModeButton">NSSegmentedControl</string>
 						<string key="fontsButton">NSSegmentedControl</string>
 						<string key="fullScreenButton">NSSegmentedControl</string>
 						<string key="infoButton">NSSegmentedControl</string>
@@ -2122,13 +1601,9 @@
 						<string key="printButton">NSSegmentedControl</string>
 						<string key="rightPaneButton">NSSegmentedControl</string>
 						<string key="scaleField">NSTextField</string>
-						<string key="singleTwoUpButton">NSSegmentedControl</string>
 						<string key="textNoteButton">NSSegmentedControl</string>
 						<string key="toolModeButton">NSSegmentedControl</string>
-						<string key="zoomActualButton">NSSegmentedControl</string>
 						<string key="zoomFitButton">NSSegmentedControl</string>
-						<string key="zoomInActualOutButton">NSSegmentedControl</string>
-						<string key="zoomInOutButton">NSSegmentedControl</string>
 						<string key="zoomSelectionButton">NSSegmentedControl</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -2140,20 +1615,8 @@
 							<string key="name">colorSwatch</string>
 							<string key="candidateClassName">SKColorSwatch</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="continuousButton">
-							<string key="name">continuousButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="customizeButton">
 							<string key="name">customizeButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="displayBoxButton">
-							<string key="name">displayBoxButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="displayModeButton">
-							<string key="name">displayModeButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="fontsButton">
@@ -2208,10 +1671,6 @@
 							<string key="name">scaleField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="singleTwoUpButton">
-							<string key="name">singleTwoUpButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="textNoteButton">
 							<string key="name">textNoteButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
@@ -2220,20 +1679,8 @@
 							<string key="name">toolModeButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="zoomActualButton">
-							<string key="name">zoomActualButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="zoomFitButton">
 							<string key="name">zoomFitButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="zoomInActualOutButton">
-							<string key="name">zoomInActualOutButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="zoomInOutButton">
-							<string key="name">zoomInOutButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="zoomSelectionButton">
@@ -2261,10 +1708,6 @@
 						<string key="alternateZoomToFit:">id</string>
 						<string key="changeAttributes:">id</string>
 						<string key="changeColor:">id</string>
-						<string key="changeDisplayBox:">id</string>
-						<string key="changeDisplayContinuous:">id</string>
-						<string key="changeDisplayMode:">id</string>
-						<string key="changeDisplaySinglePages:">id</string>
 						<string key="changeFindPaneState:">id</string>
 						<string key="changeFont:">id</string>
 						<string key="changeLeftSidePaneState:">id</string>
@@ -2276,13 +1719,9 @@
 						<string key="delete:">id</string>
 						<string key="deselectAll:">id</string>
 						<string key="doAutoScale:">id</string>
-						<string key="doGoBack:">id</string>
-						<string key="doGoForward:">id</string>
 						<string key="doZoomIn:">id</string>
 						<string key="doZoomOut:">id</string>
-						<string key="doZoomToActualSize:">id</string>
 						<string key="doZoomToFit:">id</string>
-						<string key="doZoomToPhysicalSize:">id</string>
 						<string key="doZoomToSelection:">id</string>
 						<string key="editNote:">id</string>
 						<string key="enterFullscreen:">id</string>
@@ -2297,11 +1736,8 @@
 						<string key="searchNotes:">id</string>
 						<string key="searchPDF:">id</string>
 						<string key="takeSnapshot:">id</string>
-						<string key="toggleAutoScale:">id</string>
 						<string key="toggleCaseInsensitiveNoteSearch:">id</string>
 						<string key="toggleCaseInsensitiveSearch:">id</string>
-						<string key="toggleDisplayAsBook:">id</string>
-						<string key="toggleDisplayPageBreaks:">id</string>
 						<string key="toggleFullscreen:">id</string>
 						<string key="toggleHideNotes:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
@@ -2357,22 +1793,6 @@
 							<string key="name">changeColor:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="changeDisplayBox:">
-							<string key="name">changeDisplayBox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplayContinuous:">
-							<string key="name">changeDisplayContinuous:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplayMode:">
-							<string key="name">changeDisplayMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeDisplaySinglePages:">
-							<string key="name">changeDisplaySinglePages:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="changeFindPaneState:">
 							<string key="name">changeFindPaneState:</string>
 							<string key="candidateClassName">id</string>
@@ -2417,14 +1837,6 @@
 							<string key="name">doAutoScale:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="doGoBack:">
-							<string key="name">doGoBack:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doGoForward:">
-							<string key="name">doGoForward:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="doZoomIn:">
 							<string key="name">doZoomIn:</string>
 							<string key="candidateClassName">id</string>
@@ -2433,16 +1845,8 @@
 							<string key="name">doZoomOut:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="doZoomToActualSize:">
-							<string key="name">doZoomToActualSize:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="doZoomToFit:">
 							<string key="name">doZoomToFit:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doZoomToPhysicalSize:">
-							<string key="name">doZoomToPhysicalSize:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="doZoomToSelection:">
@@ -2501,24 +1905,12 @@
 							<string key="name">takeSnapshot:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="toggleAutoScale:">
-							<string key="name">toggleAutoScale:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="toggleCaseInsensitiveNoteSearch:">
 							<string key="name">toggleCaseInsensitiveNoteSearch:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleCaseInsensitiveSearch:">
 							<string key="name">toggleCaseInsensitiveSearch:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleDisplayAsBook:">
-							<string key="name">toggleDisplayAsBook:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleDisplayPageBreaks:">
-							<string key="name">toggleDisplayPageBreaks:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleFullscreen:">
@@ -2765,7 +2157,6 @@
 			<string key="ToolbarAddTextNote">{128, 128}</string>
 			<string key="ToolbarAddTextNoteMenu">{128, 128}</string>
 			<string key="ToolbarAddUnderlineNote">{128, 128}</string>
-			<string key="ToolbarCropBox">{128, 128}</string>
 			<string key="ToolbarCustomize">{27, 19}</string>
 			<string key="ToolbarFonts">{27, 20}</string>
 			<string key="ToolbarFullScreen">{128, 128}</string>
@@ -2773,20 +2164,12 @@
 			<string key="ToolbarLeftPane">{128, 128}</string>
 			<string key="ToolbarLines">{27, 20}</string>
 			<string key="ToolbarMagnifyTool">{128, 128}</string>
-			<string key="ToolbarMediaBox">{128, 128}</string>
 			<string key="ToolbarMoveTool">{27, 19}</string>
 			<string key="ToolbarPresentation">{128, 128}</string>
 			<string key="ToolbarPrint">{27, 20}</string>
 			<string key="ToolbarRightPane">{128, 128}</string>
 			<string key="ToolbarSelectTool">{128, 128}</string>
-			<string key="ToolbarSinglePage">{128, 128}</string>
-			<string key="ToolbarSinglePageContinuous">{128, 128}</string>
 			<string key="ToolbarTextTool">{128, 128}</string>
-			<string key="ToolbarTwoUp">{128, 128}</string>
-			<string key="ToolbarTwoUpContinuous">{128, 128}</string>
-			<string key="ToolbarZoomActual">{128, 128}</string>
-			<string key="ToolbarZoomIn">{128, 128}</string>
-			<string key="ToolbarZoomOut">{128, 128}</string>
 			<string key="ToolbarZoomToFit">{128, 128}</string>
 			<string key="ToolbarZoomToSelection">{128, 128}</string>
 		</dictionary>

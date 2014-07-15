@@ -1442,24 +1442,6 @@ static NSArray *allMainDocumentPDFViews() {
         else
             [menuItem setTitle:NSLocalizedString(@"Hide Notes", @"Menu item title")];
         return YES;
-    } else if (action == @selector(changeDisplaySinglePages:)) {
-        [menuItem setState:([pdfView displayMode] & kPDFDisplayTwoUp) == (PDFDisplayMode)[menuItem tag] ? NSOnState : NSOffState];
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
-    } else if (action == @selector(changeDisplayContinuous:)) {
-        [menuItem setState:([pdfView displayMode] & kPDFDisplaySinglePageContinuous) == (PDFDisplayMode)[menuItem tag] ? NSOnState : NSOffState];
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
-    } else if (action == @selector(changeDisplayMode:)) {
-        [menuItem setState:[pdfView displayMode] == (PDFDisplayMode)[menuItem tag] ? NSOnState : NSOffState];
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
-    } else if (action == @selector(toggleDisplayAsBook:)) {
-        [menuItem setState:[pdfView displaysAsBook] ? NSOnState : NSOffState];
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO && ([pdfView displayMode] == kPDFDisplayTwoUp || [pdfView displayMode] == kPDFDisplayTwoUpContinuous);
-    } else if (action == @selector(toggleDisplayPageBreaks:)) {
-        [menuItem setState:[pdfView displaysPageBreaks] ? NSOnState : NSOffState];
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
-    } else if (action == @selector(changeDisplayBox:)) {
-        [menuItem setState:[pdfView displayBox] == (PDFDisplayBox)[menuItem tag] ? NSOnState : NSOffState];
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(delete:) || action == @selector(copy:) || action == @selector(cut:) || action == @selector(paste:) || action == @selector(alternatePaste:) || action == @selector(pasteAsPlainText:) || action == @selector(deselectAll:) || action == @selector(changeAnnotationMode:) || action == @selector(changeToolMode:) || action == @selector(changeToolMode:)) {
         return [pdfView validateMenuItem:menuItem];
     } else if (action == @selector(allGoToNextPage:)) {
@@ -1474,10 +1456,6 @@ static NSArray *allMainDocumentPDFViews() {
         return [self interactionMode] != SKPresentationMode && [pdfView canZoomIn];
     } else if (action == @selector(doZoomOut:)) {
         return [self interactionMode] != SKPresentationMode && [pdfView canZoomOut];
-    } else if (action == @selector(doZoomToActualSize:)) {
-        return [[self pdfDocument] isLocked] == NO && ([pdfView autoScales] || fabs([pdfView scaleFactor] - 1.0 ) > 0.01);
-    } else if (action == @selector(doZoomToPhysicalSize:)) {
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO && ([pdfView autoScales] || fabs([pdfView physicalScaleFactor] - 1.0 ) > 0.01);
     } else if (action == @selector(doZoomToSelection:)) {
         return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO && NSIsEmptyRect([pdfView currentSelectionRect]) == NO;
     } else if (action == @selector(doZoomToFit:)) {
@@ -1492,9 +1470,6 @@ static NSArray *allMainDocumentPDFViews() {
         return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(doAutoScale:)) {
         return [[self pdfDocument] isLocked] == NO && [pdfView autoScales] == NO;
-    } else if (action == @selector(toggleAutoScale:)) {
-        [menuItem setState:[pdfView autoScales] ? NSOnState : NSOffState];
-        return [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(takeSnapshot:)) {
         return [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(toggleLeftSidePane:)) {

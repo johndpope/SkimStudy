@@ -229,30 +229,6 @@
     [pdfView takeSnapshot:sender];
 }
 
-- (IBAction)changeDisplaySinglePages:(id)sender {
-    [pdfView setDisplayMode:([pdfView displayMode] & ~kPDFDisplayTwoUp) | [sender tag]];
-}
-
-- (IBAction)changeDisplayContinuous:(id)sender {
-    [pdfView setDisplayMode:([pdfView displayMode] & ~kPDFDisplaySinglePageContinuous) | [sender tag]];
-}
-
-- (IBAction)changeDisplayMode:(id)sender {
-    [pdfView setDisplayMode:[sender tag]];
-}
-
-- (IBAction)toggleDisplayAsBook:(id)sender {
-    [pdfView setDisplaysAsBook:[pdfView displaysAsBook] == NO];
-}
-
-- (IBAction)toggleDisplayPageBreaks:(id)sender {
-    [pdfView setDisplaysPageBreaks:[pdfView displaysPageBreaks] == NO];
-}
-
-- (IBAction)changeDisplayBox:(id)sender {
-    [pdfView setDisplayBox:[sender tag]];
-}
-
 static NSArray *allMainDocumentPDFViews() {
     NSMutableArray *array = [NSMutableArray array];
     for (id document in [[NSDocumentController sharedDocumentController] documents]) {
@@ -289,14 +265,6 @@ static NSArray *allMainDocumentPDFViews() {
 
 - (IBAction)doZoomOut:(id)sender {
     [pdfView zoomOut:sender];
-}
-
-- (IBAction)doZoomToPhysicalSize:(id)sender {
-    [pdfView setPhysicalScaleFactor:1.0];
-}
-
-- (IBAction)doZoomToActualSize:(id)sender {
-    [pdfView setScaleFactor:1.0];
 }
 
 - (IBAction)doZoomToSelection:(id)sender {
@@ -364,13 +332,6 @@ static NSArray *allMainDocumentPDFViews() {
 
 - (IBAction)doAutoScale:(id)sender {
     [pdfView setAutoScales:YES];
-}
-
-- (IBAction)toggleAutoScale:(id)sender {
-    if ([self interactionMode] == SKPresentationMode)
-        [pdfView toggleAutoActualSize:sender];
-    else
-        [pdfView setAutoScales:[pdfView autoScales] == NO];
 }
 
 - (IBAction)delete:(id)sender {

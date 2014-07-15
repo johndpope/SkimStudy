@@ -1214,10 +1214,6 @@
                 description="Is the first page in two-up displayed as in book mode?">
                 <cocoa key="displaysAsBook"/>
             </property>
-            <property name="display box" code="DBox" type="PDF display box"
-                description="The display box for the PDF.">
-                <cocoa key="displayBox"/>
-            </property>
         </record-type>
 
         <record-type name="document attributes" code="DAtr">
@@ -1659,36 +1655,6 @@
             <enumerator name="underline line" code="Undl"
                 description="Underline line.">
                 <cocoa integer-value="4"/>
-            </enumerator>
-        </enumeration>
-
-        <enumeration name="PDF display box" code="BoxE">
-            <enumerator name="media box" code="Mdia"
-                description="Media box.">
-                <cocoa integer-value="0"/>
-            </enumerator>
-            <enumerator name="crop box" code="Crop"
-                description="Crop box.">
-                <cocoa integer-value="1"/>
-            </enumerator>
-        </enumeration>
-
-        <enumeration name="PDF display mode" code="ModE">
-            <enumerator name="single page" code="1Pg "
-                description="Display single pages.">
-                <cocoa integer-value="0"/>
-            </enumerator>
-            <enumerator name="single page continuous" code="1PgC"
-                description="Display single pages vertically continuously.">
-                <cocoa integer-value="1"/>
-            </enumerator>
-            <enumerator name="two up" code="2Up "
-                description="Display pages side-by-side.">
-                <cocoa integer-value="2"/>
-            </enumerator>
-            <enumerator name="two up continuous" code="2UpC"
-                description="Display pages side-by-side vertically continuously.">
-                <cocoa integer-value="3"/>
             </enumerator>
         </enumeration>
 

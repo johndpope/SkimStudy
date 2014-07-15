@@ -144,8 +144,6 @@
 #define AUTOSCALES_KEY              @"autoScales"
 #define DISPLAYSPAGEBREAKS_KEY      @"displaysPageBreaks"
 #define DISPLAYSASBOOK_KEY          @"displaysAsBook" 
-#define DISPLAYMODE_KEY             @"displayMode"
-#define DISPLAYBOX_KEY              @"displayBox"
 #define HASHORIZONTALSCROLLER_KEY   @"hasHorizontalScroller"
 #define HASVERTICALSCROLLER_KEY     @"hasVerticalScroller"
 #define AUTOHIDESSCROLLERS_KEY      @"autoHidesScrollers"
@@ -616,10 +614,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [pdfView setDisplaysPageBreaks:[number boolValue]];
     if ((number = [setup objectForKey:DISPLAYSASBOOK_KEY]))
         [pdfView setDisplaysAsBook:[number boolValue]];
-    if ((number = [setup objectForKey:DISPLAYMODE_KEY]))
-        [pdfView setDisplayMode:[number integerValue]];
-    if ((number = [setup objectForKey:DISPLAYBOX_KEY]))
-        [pdfView setDisplayBox:[number integerValue]];
 }
 
 - (NSDictionary *)currentPDFSettings {
@@ -627,10 +621,8 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     
     [setup setObject:[NSNumber numberWithBool:[pdfView displaysPageBreaks]] forKey:DISPLAYSPAGEBREAKS_KEY];
     [setup setObject:[NSNumber numberWithBool:[pdfView displaysAsBook]] forKey:DISPLAYSASBOOK_KEY];
-    [setup setObject:[NSNumber numberWithInteger:[pdfView displayBox]] forKey:DISPLAYBOX_KEY];
     [setup setObject:[NSNumber numberWithDouble:[pdfView scaleFactor]] forKey:SCALEFACTOR_KEY];
     [setup setObject:[NSNumber numberWithBool:[pdfView autoScales]] forKey:AUTOSCALES_KEY];
-    [setup setObject:[NSNumber numberWithInteger:[pdfView displayMode]] forKey:DISPLAYMODE_KEY];
     
     return setup;
 }
@@ -2674,8 +2666,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         case kHIDRemoteButtonCodeDown:
             if (remoteScrolling)
                 [[[self pdfView] documentView] scrollLineDown];
-            else if ([self interactionMode] == SKPresentationMode)
-                [self doZoomToActualSize:nil];
             else
                 [self doZoomOut:nil];
             break;

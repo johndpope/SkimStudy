@@ -165,14 +165,7 @@
             }
         }
         if (CGPDFDictionaryGetDictionary(catalog, "ViewerPreferences", &viewerPrefs)) {
-            const char *viewArea = NULL;
             CGPDFBoolean fitWindow = false;
-            if (CGPDFDictionaryGetName(catalog, "ViewArea", &viewArea)) {
-                if (0 == strcmp(viewArea, "CropBox"))
-                    [settings setObject:[NSNumber numberWithInteger:kPDFDisplayBoxCropBox] forKey:@"displayBox"];
-                else if (0 == strcmp(viewArea, "MediaBox"))
-                    [settings setObject:[NSNumber numberWithInteger:kPDFDisplayBoxMediaBox] forKey:@"displayBox"];
-            }
             if (CGPDFDictionaryGetBoolean(catalog, "FitWindow", &fitWindow))
                 [settings setObject:[NSNumber numberWithBool:(BOOL)fitWindow] forKey:@"fitWindow"];
         }
