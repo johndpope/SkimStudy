@@ -71,7 +71,7 @@ enum {
 @class SKPDFView, SKSecondaryPDFView, SKStatusBar, SKFindController, SKSplitView, SKFieldEditor, SKSideWindow;
 @class SKLeftSideViewController, SKRightSideViewController, SKMainToolbarController, SKProgressController, SKPresentationOptionsSheetController, SKNoteTypeSheetController;
 
-@interface SKMainWindowController : NSWindowController <SKSnapshotWindowControllerDelegate, SKThumbnailDelegate, SKFindControllerDelegate> {
+@interface SKMainWindowController : NSWindowController <SKThumbnailDelegate, SKFindControllerDelegate> {
     SKSplitView                         *splitView;
     
     NSView                              *centerContentView;

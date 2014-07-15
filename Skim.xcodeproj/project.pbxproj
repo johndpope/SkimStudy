@@ -85,8 +85,6 @@
 		CE19446510627483007E8770 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE19445E10627483007E8770 /* MainWindow.xib */; };
 		CE19446610627483007E8770 /* NotesDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE19445F10627483007E8770 /* NotesDocument.xib */; };
 		CE19446710627483007E8770 /* ProgressSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE19446010627483007E8770 /* ProgressSheet.xib */; };
-		CE19446910627483007E8770 /* SnapshotWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE19446210627483007E8770 /* SnapshotWindow.xib */; };
-		CE19641516E811D40027E2CF /* SKSnapshotWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19641416E811D40027E2CF /* SKSnapshotWindow.m */; };
 		CE199DFD0D957A16009B2055 /* SKAnnotationTypeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE199DFC0D957A16009B2055 /* SKAnnotationTypeImageCell.m */; };
 		CE1ADEBF0C4C341100071840 /* SKTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1ADEBE0C4C341100071840 /* SKTransitionController.m */; };
 		CE1C77B6123FB41E00C73F1A /* SKNoteTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1C77B5123FB41E00C73F1A /* SKNoteTextView.m */; };
@@ -280,7 +278,6 @@
 		CEFDF8BE0B3848C40091C61A /* SKNavigationWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFDF8BD0B3848C40091C61A /* SKNavigationWindow.m */; };
 		CEFE71951129AAA30018CD74 /* ServicesMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEFE71941129AAA30018CD74 /* ServicesMenu.strings */; };
 		CEFF6B9D122B1495008CDE73 /* skimpdf in Copy Files: Shared Support */ = {isa = PBXBuildFile; fileRef = CE1411451229B66B00C9EBA0 /* skimpdf */; };
-		F92DB5AD0B36FE1F002A26E9 /* SKSnapshotPDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = F92DB5AB0B36FE1F002A26E9 /* SKSnapshotPDFView.m */; };
 		F968C5A30C036E9D000BD1B2 /* NSBitmapImageRep_SKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F968C5A10C036E9D000BD1B2 /* NSBitmapImageRep_SKExtensions.m */; };
 		F97751630B37461000DF673B /* SKConversionProgressController.m in Sources */ = {isa = PBXBuildFile; fileRef = F97751620B37461000DF673B /* SKConversionProgressController.m */; };
 		F98E24BF0B702D9400914AF0 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98E24BE0B702D9400914AF0 /* Carbon.framework */; };
@@ -647,9 +644,6 @@
 		CE19445E10627483007E8770 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		CE19445F10627483007E8770 /* NotesDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesDocument.xib; sourceTree = "<group>"; };
 		CE19446010627483007E8770 /* ProgressSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressSheet.xib; sourceTree = "<group>"; };
-		CE19446210627483007E8770 /* SnapshotWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SnapshotWindow.xib; sourceTree = "<group>"; };
-		CE19641316E811D40027E2CF /* SKSnapshotWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSnapshotWindow.h; sourceTree = "<group>"; };
-		CE19641416E811D40027E2CF /* SKSnapshotWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSnapshotWindow.m; sourceTree = "<group>"; };
 		CE199DFB0D957A16009B2055 /* SKAnnotationTypeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAnnotationTypeImageCell.h; sourceTree = "<group>"; };
 		CE199DFC0D957A16009B2055 /* SKAnnotationTypeImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAnnotationTypeImageCell.m; sourceTree = "<group>"; };
 		CE1ADB170C4BC6DE00071840 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
@@ -1139,8 +1133,6 @@
 		CEFE719A1129AAC80018CD74 /* Italian */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
 		CEFE719B1129AAD00018CD74 /* ru */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
 		CEFE719C1129AAD80018CD74 /* zh_TW */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
-		F92DB5AA0B36FE1F002A26E9 /* SKSnapshotPDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSnapshotPDFView.h; sourceTree = "<group>"; };
-		F92DB5AB0B36FE1F002A26E9 /* SKSnapshotPDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSnapshotPDFView.m; sourceTree = "<group>"; };
 		F968C5A00C036E9D000BD1B2 /* NSBitmapImageRep_SKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBitmapImageRep_SKExtensions.h; sourceTree = "<group>"; };
 		F968C5A10C036E9D000BD1B2 /* NSBitmapImageRep_SKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBitmapImageRep_SKExtensions.m; sourceTree = "<group>"; };
 		F97751610B37461000DF673B /* SKConversionProgressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKConversionProgressController.h; sourceTree = "<group>"; };
@@ -1359,7 +1351,6 @@
 				CE090612113F1655004B85C6 /* PrintAccessoryView.xib */,
 				CE19446010627483007E8770 /* ProgressSheet.xib */,
 				CE090543113EDA72004B85C6 /* ScaleSheet.xib */,
-				CE19446210627483007E8770 /* SnapshotWindow.xib */,
 				CE1CC6B81143F05D00F6B208 /* TransitionSheet.xib */,
 				CEF60F8A114C5FC00074ACC4 /* GeneralPreferences.xib */,
 				CEF60F90114C61300074ACC4 /* DisplayPreferences.xib */,
@@ -1526,8 +1517,6 @@
 				CE9B951C0D04657A00EB1A6C /* SKRemoteStateWindow.m */,
 				CE4EBDD80B7BF3B30091F228 /* SKSideWindow.h */,
 				CE4EBDD90B7BF3B30091F228 /* SKSideWindow.m */,
-				CE19641316E811D40027E2CF /* SKSnapshotWindow.h */,
-				CE19641416E811D40027E2CF /* SKSnapshotWindow.m */,
 			);
 			name = Windows;
 			sourceTree = "<group>";
@@ -1575,8 +1564,6 @@
 				CEE73ECD106CEC1900419544 /* SKSeparatorCell.m */,
 				CE0859D00DAE912500760AFC /* SKSnapshotPageCell.h */,
 				CE0859D10DAE912500760AFC /* SKSnapshotPageCell.m */,
-				F92DB5AA0B36FE1F002A26E9 /* SKSnapshotPDFView.h */,
-				F92DB5AB0B36FE1F002A26E9 /* SKSnapshotPDFView.m */,
 				CE4EC88A0B7E6EDB0091F228 /* SKSplitView.h */,
 				CE4EC88B0B7E6EDB0091F228 /* SKSplitView.m */,
 				CEAF079A0C4139EB00C3ECBB /* SKStatusBar.h */,
@@ -2098,7 +2085,6 @@
 				CE19446510627483007E8770 /* MainWindow.xib in Resources */,
 				CE19446610627483007E8770 /* NotesDocument.xib in Resources */,
 				CE19446710627483007E8770 /* ProgressSheet.xib in Resources */,
-				CE19446910627483007E8770 /* SnapshotWindow.xib in Resources */,
 				CEFE71951129AAA30018CD74 /* ServicesMenu.strings in Resources */,
 				CEFC7EDA1137FDE20055D1E2 /* NotesPanel.xib in Resources */,
 				CE090546113EDA72004B85C6 /* PasswordSheet.xib in Resources */,
@@ -2277,7 +2263,6 @@
 				4530D8C90B27B04D007C59F4 /* SKApplicationController.m in Sources */,
 				4530DCF70B27CACE007C59F4 /* SKPDFView.m in Sources */,
 				CE546FC40B32D5DB00F8AFB6 /* SKNoteWindowController.m in Sources */,
-				F92DB5AD0B36FE1F002A26E9 /* SKSnapshotPDFView.m in Sources */,
 				F97751630B37461000DF673B /* SKConversionProgressController.m in Sources */,
 				CEFDF8BE0B3848C40091C61A /* SKNavigationWindow.m in Sources */,
 				45A3BD080B4F0770002B297F /* SKStringConstants.m in Sources */,
@@ -2434,7 +2419,6 @@
 				CE40D6161677A9DC00573882 /* SKTextNoteEditor.m in Sources */,
 				CE2083E416ADFFD600BC5AFB /* SKAlias.m in Sources */,
 				CE26175F16CCFC4900BDCE7C /* SKSyncDot.m in Sources */,
-				CE19641516E811D40027E2CF /* SKSnapshotWindow.m in Sources */,
 				CE7A30481822B950007E3D25 /* SKTextNoteField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

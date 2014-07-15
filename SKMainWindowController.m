@@ -592,8 +592,8 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     [setup setObject:[NSNumber numberWithDouble:[self leftSidePaneIsOpen] ? NSWidth([leftSideContentView frame]) : 0.0] forKey:LEFTSIDEPANEWIDTH_KEY];
     [setup setObject:[NSNumber numberWithDouble:[self rightSidePaneIsOpen] ? NSWidth([rightSideContentView frame]) : 0.0] forKey:RIGHTSIDEPANEWIDTH_KEY];
     [setup setObject:[NSNumber numberWithUnsignedInteger:[[pdfView currentPage] pageIndex]] forKey:PAGEINDEX_KEY];
-    if ([snapshots count])
-        [setup setObject:[snapshots valueForKey:SKSnapshotCurrentSetupKey] forKey:SNAPSHOTS_KEY];
+//    if ([snapshots count])
+//        [setup setObject:[snapshots valueForKey:SKSnapshotCurrentSetupKey] forKey:SNAPSHOTS_KEY];
     if ([self interactionMode] == SKNormalMode) {
         [setup addEntriesFromDictionary:[self currentPDFSettings]];
     } else {
@@ -805,9 +805,9 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
             [self removeAllObjectsFromNotes];
             [self removeAllObjectsFromThumbnails];
             
-            snapshotDicts = [snapshots valueForKey:SKSnapshotCurrentSetupKey];
-            [snapshots makeObjectsPerformSelector:@selector(close)];
-            [self removeAllObjectsFromSnapshots];
+//            snapshotDicts = [snapshots valueForKey:SKSnapshotCurrentSetupKey];
+//            [snapshots makeObjectsPerformSelector:@selector(close)];
+//            [self removeAllObjectsFromSnapshots];
             
             [lastViewedPages setCount:0];
             
@@ -2015,34 +2015,34 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 #pragma mark Subwindows
 
 - (void)showSnapshotAtPageNumber:(NSInteger)pageNum forRect:(NSRect)rect scaleFactor:(CGFloat)scaleFactor autoFits:(BOOL)autoFits {
-    SKSnapshotWindowController *swc = [[SKSnapshotWindowController alloc] init];
-    
-    [swc setDelegate:self];
-    
-    [swc setPdfDocument:[pdfView document]
-         goToPageNumber:pageNum
-                   rect:rect
-            scaleFactor:scaleFactor
-               autoFits:autoFits];
-    
-    [swc setForceOnTop:[self interactionMode] != SKNormalMode];
-    
-    [[self document] addWindowController:swc];
-    [swc release];
+//    SKSnapshotWindowController *swc = [[SKSnapshotWindowController alloc] init];
+//    
+//    [swc setDelegate:self];
+//    
+//    [swc setPdfDocument:[pdfView document]
+//         goToPageNumber:pageNum
+//                   rect:rect
+//            scaleFactor:scaleFactor
+//               autoFits:autoFits];
+//    
+//    [swc setForceOnTop:[self interactionMode] != SKNormalMode];
+//    
+//    [[self document] addWindowController:swc];
+//    [swc release];
 }
 
 - (void)showSnapshotsWithSetups:(NSArray *)setups {
     for (NSDictionary *setup in setups) {
-        SKSnapshotWindowController *swc = [[SKSnapshotWindowController alloc] init];
-        
-        [swc setDelegate:self];
-        
-        [swc setPdfDocument:[pdfView document] setup:setup];
-        
-        [swc setForceOnTop:[self interactionMode] != SKNormalMode];
-        
-        [[self document] addWindowController:swc];
-        [swc release];
+//        SKSnapshotWindowController *swc = [[SKSnapshotWindowController alloc] init];
+//        
+//        [swc setDelegate:self];
+//        
+//        [swc setPdfDocument:[pdfView document] setup:setup];
+//        
+//        [swc setForceOnTop:[self interactionMode] != SKNormalMode];
+//        
+//        [[self document] addWindowController:swc];
+//        [swc release];
     }
 }
 
@@ -2056,22 +2056,22 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [controller deminiaturize];
 }
 
-- (void)snapshotControllerDidFinishSetup:(SKSnapshotWindowController *)controller {
-    NSImage *image = [controller thumbnailWithSize:snapshotCacheSize];
-    
-    [controller setThumbnail:image];
-    [[self mutableArrayValueForKey:SNAPSHOTS_KEY] addObject:controller];
-}
-
-- (void)snapshotControllerWillClose:(SKSnapshotWindowController *)controller {
-    [[self mutableArrayValueForKey:SNAPSHOTS_KEY] removeObject:controller];
-}
-
-- (void)snapshotControllerDidChange:(SKSnapshotWindowController *)controller {
-    [self snapshotNeedsUpdate:controller];
-    if (mwcFlags.rightSidePaneState == SKSnapshotSidePaneState && [[rightSideController.searchField stringValue] length] > 0)
-        [rightSideController.snapshotArrayController rearrangeObjects];
-}
+//- (void)snapshotControllerDidFinishSetup:(SKSnapshotWindowController *)controller {
+//    NSImage *image = [controller thumbnailWithSize:snapshotCacheSize];
+//    
+//    [controller setThumbnail:image];
+//    [[self mutableArrayValueForKey:SNAPSHOTS_KEY] addObject:controller];
+//}
+//
+//- (void)snapshotControllerWillClose:(SKSnapshotWindowController *)controller {
+//    [[self mutableArrayValueForKey:SNAPSHOTS_KEY] removeObject:controller];
+//}
+//
+//- (void)snapshotControllerDidChange:(SKSnapshotWindowController *)controller {
+//    [self snapshotNeedsUpdate:controller];
+//    if (mwcFlags.rightSidePaneState == SKSnapshotSidePaneState && [[rightSideController.searchField stringValue] length] > 0)
+//        [rightSideController.snapshotArrayController rearrangeObjects];
+//}
 
 - (void)hideRightSideWindow:(NSTimer *)timer {
     [rightSideWindow collapse];
@@ -2661,13 +2661,13 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
             else if ([self interactionMode] == SKPresentationMode)
                 [self doAutoScale:nil];
             else
-                [self doZoomIn:nil];
+                
             break;
         case kHIDRemoteButtonCodeDown:
             if (remoteScrolling)
                 [[[self pdfView] documentView] scrollLineDown];
             else
-                [self doZoomOut:nil];
+                
             break;
         case kHIDRemoteButtonCodeRightHold:
         case kHIDRemoteButtonCodeRight:

@@ -56,11 +56,6 @@
 - (IBAction)allGoToPreviousPage:(id)sender;
 - (IBAction)allGoToFirstPage:(id)sender;
 - (IBAction)allGoToLastPage:(id)sender;
-- (IBAction)doZoomIn:(id)sender;
-- (IBAction)doZoomOut:(id)sender;
-- (IBAction)doZoomToFit:(id)sender;
-- (IBAction)alternateZoomToFit:(id)sender;
-- (IBAction)doZoomToSelection:(id)sender;
 - (IBAction)doAutoScale:(id)sender;
 - (IBAction)delete:(id)sender;
 - (IBAction)paste:(id)sender;
@@ -81,7 +76,6 @@
 - (IBAction)toggleFullscreen:(id)sender;
 - (IBAction)togglePresentation:(id)sender;
 - (IBAction)password:(id)sender;
-- (IBAction)savePDFSettingToDefaults:(id)sender;
 - (IBAction)chooseTransition:(id)sender;
 - (IBAction)toggleCaseInsensitiveSearch:(id)sender;
 - (IBAction)toggleWholeWordSearch:(id)sender;

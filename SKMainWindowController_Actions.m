@@ -259,77 +259,6 @@ static NSArray *allMainDocumentPDFViews() {
         [self setPageLabel:[controller stringValue]];
 }
 
-- (IBAction)doZoomIn:(id)sender {
-    [pdfView zoomIn:sender];
-}
-
-- (IBAction)doZoomOut:(id)sender {
-    [pdfView zoomOut:sender];
-}
-
-- (IBAction)doZoomToSelection:(id)sender {
-    NSRect selRect = [pdfView currentSelectionRect];
-    if (NSIsEmptyRect(selRect) == NO) {
-        NSRect bounds = [pdfView bounds];
-        CGFloat scale = 1.0;
-        bounds.size.width -= [NSScroller scrollerWidth];
-        bounds.size.height -= [NSScroller scrollerWidth];
-        if (NSWidth(bounds) * NSHeight(selRect) > NSWidth(selRect) * NSHeight(bounds))
-            scale = NSHeight(bounds) / NSHeight(selRect);
-        else
-            scale = NSWidth(bounds) / NSWidth(selRect);
-        [pdfView setScaleFactor:scale];
-        NSScrollView *scrollView = [[pdfView documentView] enclosingScrollView];
-        if ([scrollView hasHorizontalScroller] == NO || [scrollView hasVerticalScroller] == NO) {
-            bounds = [pdfView bounds];
-            if ([scrollView hasVerticalScroller])
-                bounds.size.width -= [NSScroller scrollerWidth];
-            if ([scrollView hasHorizontalScroller])
-                bounds.size.height -= [NSScroller scrollerWidth];
-            if (NSWidth(bounds) * NSHeight(selRect) > NSWidth(selRect) * NSHeight(bounds))
-                scale = NSHeight(bounds) / NSHeight(selRect);
-            else
-                scale = NSWidth(bounds) / NSWidth(selRect);
-            [pdfView setScaleFactor:scale];
-        }
-        [pdfView goToRect:selRect onPage:[pdfView currentSelectionPage]]; 
-    } else NSBeep();
-}
-
-- (IBAction)doZoomToFit:(id)sender {
-    [pdfView setAutoScales:YES];
-    [pdfView setAutoScales:NO];
-}
-
-- (IBAction)alternateZoomToFit:(id)sender {
-    PDFDisplayMode displayMode = [pdfView displayMode];
-    NSRect frame = [pdfView frame];
-    PDFPage *page = [pdfView currentPage];
-    NSRect pageRect = [page boundsForBox:[pdfView displayBox]];
-    CGFloat scrollerWidth = 0.0;
-    CGFloat margin = [pdfView displaysPageBreaks] ? PAGE_BREAK_MARGIN : 0.0;
-    CGFloat scaleFactor;
-    NSUInteger pageCount = [[pdfView document] pageCount];
-    if (displayMode == kPDFDisplaySinglePage || displayMode == kPDFDisplayTwoUp) {
-        // zoom to width
-        NSUInteger numCols = (displayMode == kPDFDisplayTwoUp && pageCount > 1 && ([pdfView displaysAsBook] == NO || pageCount > 2)) ? 2 : 1;
-        if (NSWidth(frame) * ( margin + NSHeight(pageRect) ) > NSHeight(frame) * numCols * ( margin + NSWidth(pageRect) ) )
-            scrollerWidth = [NSScroller scrollerWidth];
-        scaleFactor = ( NSWidth(frame) - scrollerWidth ) / ( margin + NSWidth(pageRect) );
-    } else {
-        // zoom to height
-        NSUInteger numRows = pageCount;
-        if (displayMode == kPDFDisplayTwoUpContinuous)
-            numRows = [pdfView displaysAsBook] ? (1 + pageCount) / 2 : 1 + pageCount / 2;
-        if (NSHeight(frame) * ( margin + NSWidth(pageRect) ) > NSWidth(frame) * numRows * ( margin + NSHeight(pageRect) ) )
-            scrollerWidth = [NSScroller scrollerWidth];
-        scaleFactor = ( NSHeight(frame) - scrollerWidth ) / ( margin + NSHeight(pageRect) );
-    }
-    [pdfView setScaleFactor:scaleFactor];
-    [pdfView layoutDocumentView];
-    [pdfView scrollPageToVisible:page];
-}
-
 - (IBAction)doAutoScale:(id)sender {
     [pdfView setAutoScales:YES];
 }
@@ -408,13 +337,6 @@ static NSArray *allMainDocumentPDFViews() {
 
 - (IBAction)toggleReadingBar:(id)sender {
     [pdfView toggleReadingBar];
-}
-
-- (IBAction)savePDFSettingToDefaults:(id)sender {
-    if ([self interactionMode] == SKFullScreenMode)
-        [[NSUserDefaults standardUserDefaults] setObject:[self currentPDFSettings] forKey:SKDefaultFullScreenPDFDisplaySettingsKey];
-    else if ([self interactionMode] == SKNormalMode)
-        [[NSUserDefaults standardUserDefaults] setObject:[self currentPDFSettings] forKey:SKDefaultPDFDisplaySettingsKey];
 }
 
 - (IBAction)chooseTransition:(id)sender {

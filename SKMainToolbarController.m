@@ -64,8 +64,6 @@
 #define SKDocumentToolbarPreviousNextItemIdentifier @"SKDocumentToolbarPreviousNextItemIdentifier"
 #define SKDocumentToolbarPageNumberItemIdentifier @"SKDocumentToolbarPageNumberItemIdentifier"
 #define SKDocumentToolbarScaleItemIdentifier @"SKDocumentToolbarScaleItemIdentifier"
-#define SKDocumentToolbarZoomToSelectionItemIdentifier @"SKDocumentToolbarZoomToSelectionItemIdentifier"
-#define SKDocumentToolbarZoomToFitItemIdentifier @"SKDocumentToolbarZoomToFitItemIdentifier"
 #define SKDocumentToolbarCropItemIdentifier @"SKDocumentToolbarCropItemIdentifier"
 #define SKDocumentToolbarFullScreenItemIdentifier @"SKDocumentToolbarFullScreenItemIdentifier"
 #define SKDocumentToolbarPresentationItemIdentifier @"SKDocumentToolbarPresentationItemIdentifier"
@@ -107,7 +105,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
 
 @implementation SKMainToolbarController
 
-@synthesize mainController, zoomFitButton, zoomSelectionButton, fullScreenButton, presentationButton, leftPaneButton, rightPaneButton, toolModeButton, textNoteButton, circleNoteButton, markupNoteButton, lineNoteButton, infoButton, fontsButton, linesButton, printButton, customizeButton, scaleField, noteButton, colorSwatch;
+@synthesize mainController, fullScreenButton, presentationButton, leftPaneButton, rightPaneButton, toolModeButton, textNoteButton, circleNoteButton, markupNoteButton, lineNoteButton, infoButton, fontsButton, linesButton, printButton, customizeButton, scaleField, noteButton, colorSwatch;
 
 + (void)initialize {
     SKINITIALIZE;
@@ -122,8 +120,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
     mainController = nil;
     SKDESTROY(toolbarItems);
-    SKDESTROY(zoomFitButton);
-    SKDESTROY(zoomSelectionButton);
     SKDESTROY(fullScreenButton);
     SKDESTROY(presentationButton);
     SKDESTROY(leftPaneButton);
@@ -195,24 +191,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
                 [(NSNumberFormatter *)[scaleField formatter] setMinimum:[NSNumber numberWithDouble:100.0 * [mainController.pdfView minScaleFactor]]];
             if ([mainController.pdfView respondsToSelector:@selector(maxScaleFactor)])
                 [(NSNumberFormatter *)[scaleField formatter] setMaximum:[NSNumber numberWithDouble:100.0 * [mainController.pdfView maxScaleFactor]]];
-            
-        } else if ([identifier isEqualToString:SKDocumentToolbarZoomToFitItemIdentifier]) {
-            
-            menuItem = [NSMenuItem menuItemWithTitle:NSLocalizedString(@"Zoom To Fit", @"Menu item title") action:@selector(doZoomToFit:) target:mainController];
-            
-            [item setLabels:NSLocalizedString(@"Zoom To Fit", @"Toolbar item label")];
-            [item setToolTip:NSLocalizedString(@"Zoom To Fit", @"Tool tip message")];
-            [item setViewWithSizes:zoomFitButton];
-            [item setMenuFormRepresentation:menuItem];
-            
-        } else if ([identifier isEqualToString:SKDocumentToolbarZoomToSelectionItemIdentifier]) {
-            
-            menuItem = [NSMenuItem menuItemWithTitle:NSLocalizedString(@"Zoom To Selection", @"Menu item title") action:@selector(doZoomToSelection:) target:mainController];
-            
-            [item setLabels:NSLocalizedString(@"Zoom To Selection", @"Toolbar item label")];
-            [item setToolTip:NSLocalizedString(@"Zoom To Selection", @"Tool tip message")];
-            [item setViewWithSizes:zoomSelectionButton];
-            [item setMenuFormRepresentation:menuItem];
             
         } else if ([identifier isEqualToString:SKDocumentToolbarFullScreenItemIdentifier]) {
             
@@ -469,9 +447,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
         SKDocumentToolbarPreviousItemIdentifier,
         SKDocumentToolbarPageNumberItemIdentifier, 
         SKDocumentToolbarNextItemIdentifier, 
-        SKDocumentToolbarZoomToFitItemIdentifier,
-        SKDocumentToolbarZoomToSelectionItemIdentifier, 
-        SKDocumentToolbarScaleItemIdentifier, 
+        SKDocumentToolbarScaleItemIdentifier,
         SKDocumentToolbarFullScreenItemIdentifier,
         SKDocumentToolbarPresentationItemIdentifier, 
         SKDocumentToolbarContentsPaneItemIdentifier, 
@@ -500,10 +476,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
     
     if ([[toolbarItem toolbar] customizationPaletteIsRunning]) {
         return NO;
-    } else if ([identifier isEqualToString:SKDocumentToolbarZoomToFitItemIdentifier]) {
-        return [mainController.pdfView.document isLocked] == NO && [mainController.pdfView autoScales] == NO;
-    } else if ([identifier isEqualToString:SKDocumentToolbarZoomToSelectionItemIdentifier]) {
-        return [mainController.pdfView.document isLocked] == NO && NSIsEmptyRect([mainController.pdfView currentSelectionRect]) == NO;
     } else if ([identifier isEqualToString:SKDocumentToolbarScaleItemIdentifier]) {
         return [mainController.pdfView.document isLocked] == NO;
     } else if ([identifier isEqualToString:SKDocumentToolbarPageNumberItemIdentifier]) {
@@ -586,15 +558,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
             if (result == NSOKButton)
                 [mainController.pdfView setScaleFactor:[[scaleSheetController textField] integerValue]];
         }];
-}
-
-- (IBAction)zoomToFit:(id)sender {
-    [mainController.pdfView setAutoScales:YES];
-    [mainController.pdfView setAutoScales:NO];
-}
-
-- (IBAction)zoomToSelection:(id)sender {
-    [mainController doZoomToSelection:sender];
 }
 
 - (IBAction)enterFullscreen:(id)sender {

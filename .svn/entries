@@ -26,14 +26,14 @@ hofman
 
 0fceea05-a30d-0410-8a8b-80ef821fb0a1
 
-NSUserDefaults_SKExtensions.m
+SKSnapshotWindowController.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-da0c48ff3e9a6aa31868bc29f517e897
+318db6267e84be5d84cc0e912ed7db61
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -58,7 +58,7 @@ hofman
 
 
 
-2830
+4397
 
 NSWindowController_SKExtensions.h
 file
@@ -94,14 +94,14 @@ hofman
 
 1970
 
-SKSnapshotWindowController.h
+NSUserDefaults_SKExtensions.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-318db6267e84be5d84cc0e912ed7db61
+da0c48ff3e9a6aa31868bc29f517e897
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -126,7 +126,7 @@ hofman
 
 
 
-4397
+2830
 
 SKPDFSynchronizer.m
 file
@@ -196,14 +196,14 @@ hofman
 
 2076
 
-PDFSelection_SKExtensions.h
+SKIBArray.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-449475eaa9ce7c2c678cf02773625940
+b49a3935fc2e1bbf1e57bda524ae9728
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -228,75 +228,7 @@ hofman
 
 
 
-2278
-
-SKPagesCommand.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-f9f3e8dbd4084f27ddfec6f1277674a7
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1708
-
-SKTransitionController.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-13078b2d34e1912d78708bc545ccf71f
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3365
+3014
 
 NSArray_SKExtensions.h
 file
@@ -332,14 +264,14 @@ hofman
 
 2121
 
-SKIBArray.m
+SKTransitionController.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-b49a3935fc2e1bbf1e57bda524ae9728
+13078b2d34e1912d78708bc545ccf71f
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -364,16 +296,16 @@ hofman
 
 
 
-3014
+3365
 
-SKSnapshotWindowController.m
+SKPagesCommand.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-1732216931e66767eaf744522351a50f
+f9f3e8dbd4084f27ddfec6f1277674a7
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -398,7 +330,41 @@ hofman
 
 
 
-27670
+1708
+
+PDFSelection_SKExtensions.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+449475eaa9ce7c2c678cf02773625940
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2278
 
 NSWindowController_SKExtensions.m
 file
@@ -434,6 +400,40 @@ hofman
 
 3652
 
+SKSnapshotWindowController.m
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+1732216931e66767eaf744522351a50f
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+27670
+
 NSImage_SKExtensions.h
 file
 
@@ -468,40 +468,6 @@ hofman
 
 6043
 
-SKPagesCommand.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-1d6cd5929e0459d63049b572e77726fc
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2511
-
 SKTransitionController.m
 file
 
@@ -535,6 +501,40 @@ hofman
 
 
 24910
+
+SKPagesCommand.m
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+1d6cd5929e0459d63049b572e77726fc
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2511
 
 SKApplication.h
 file
@@ -1114,40 +1114,6 @@ hofman
 
 1776
 
-NSUserDefaultsController_SKExtensions.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-29eb3a189dcbea72cbe192dec19f2a45
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2171
-
 SKImageToolTipWindow.m
 file
 
@@ -1182,14 +1148,14 @@ hofman
 
 4893
 
-NSColor_SKExtensions.h
+NSUserDefaultsController_SKExtensions.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-ea9d879a4e3fe52eaf359deacc83f3de
+29eb3a189dcbea72cbe192dec19f2a45
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -1214,7 +1180,7 @@ hofman
 
 
 
-3400
+2171
 
 NSInvocation_SKExtensions.m
 file
@@ -1249,6 +1215,40 @@ hofman
 
 
 2043
+
+NSColor_SKExtensions.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+ea9d879a4e3fe52eaf359deacc83f3de
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3400
 
 NSUserDefaultsController_SKExtensions.m
 file
@@ -1352,40 +1352,6 @@ hofman
 
 3157
 
-SKApplicationController.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-5d30c65c5015631a6d761286430f4925
-2014-06-26T18:18:41.702950Z
-8379
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-36080
-
 SKSideWindow.h
 file
 
@@ -1420,16 +1386,16 @@ hofman
 
 2639
 
-SKMainWindowController_UI.h
+SKApplicationController.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-3aa5f43498a3b870075bbc48add6c844
-2014-02-24T10:31:30.195392Z
-8336
+5d30c65c5015631a6d761286430f4925
+2014-06-26T18:18:41.702950Z
+8379
 hofman
 
 
@@ -1452,7 +1418,7 @@ hofman
 
 
 
-2258
+36080
 
 BookmarksWindow.xib
 file
@@ -1488,14 +1454,14 @@ hofman
 
 80057
 
-SKTextNoteField.h
+SKMainWindowController_UI.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-f72cdc2d241e2d5ac1d0c9e252717fe2
+3aa5f43498a3b870075bbc48add6c844
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -1520,7 +1486,7 @@ hofman
 
 
 
-1975
+2258
 
 SKViewController.h
 file
@@ -1555,6 +1521,40 @@ hofman
 
 
 1714
+
+SKTextNoteField.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+f72cdc2d241e2d5ac1d0c9e252717fe2
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1975
 
 DownloadsWindow.xib
 file
@@ -1658,40 +1658,6 @@ hofman
 
 89562
 
-SKTextNoteField.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-256676a8e0dfa7428e1d9c07f6738288
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4685
-
 SKViewController.m
 file
 
@@ -1725,6 +1691,40 @@ hofman
 
 
 1836
+
+SKTextNoteField.m
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+256676a8e0dfa7428e1d9c07f6738288
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4685
 
 SKFindController.h
 file
@@ -1967,6 +1967,9 @@ hofman
 
 2301
 
+Italian.lproj
+dir
+
 SKTableView.h
 file
 
@@ -2000,9 +2003,6 @@ hofman
 
 
 3554
-
-Italian.lproj
-dir
 
 SKTocOutlineView.m
 file
@@ -2038,40 +2038,6 @@ hofman
 
 8092
 
-NSFont_SKExtensions.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-5ef668cde556a9ac58ab79dd37306083
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1738
-
 NSString_SKExtensions.h
 file
 
@@ -2105,6 +2071,40 @@ hofman
 
 
 3439
+
+NSFont_SKExtensions.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+5ef668cde556a9ac58ab79dd37306083
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1738
 
 SKTableView.m
 file
@@ -4192,40 +4192,6 @@ hofman
 
 1727
 
-SKPDFSyncRecord.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-0f7afec204fa8568d5afb0be87cf0d42
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2288
-
 NotesPanel.xib
 file
 
@@ -4260,14 +4226,14 @@ hofman
 
 65685
 
-SKTemplateTag.h
+SKPDFSyncRecord.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-a2d26b8eced80b559ecd5d8d09d7cfa4
+0f7afec204fa8568d5afb0be87cf0d42
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -4292,7 +4258,7 @@ hofman
 
 
 
-4782
+2288
 
 SKImageToolTipContext.m
 file
@@ -4328,17 +4294,14 @@ hofman
 
 9602
 
-Dutch.lproj
-dir
-
-PDFAnnotationMarkup_SKExtensions.m
+SKTemplateTag.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-b90b047b683d2cb59f8c07fa1a42671f
+a2d26b8eced80b559ecd5d8d09d7cfa4
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -4363,7 +4326,7 @@ hofman
 
 
 
-13422
+4782
 
 NSNumber_SKExtensions.h
 file
@@ -4399,14 +4362,14 @@ hofman
 
 1881
 
-PDFDisplayView_SKExtensions.h
+PDFAnnotationMarkup_SKExtensions.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-a8f9b741e2ce97721030a5070f6b4d0b
+b90b047b683d2cb59f8c07fa1a42671f
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -4431,7 +4394,10 @@ hofman
 
 
 
-1743
+13422
+
+Dutch.lproj
+dir
 
 SKLevelIndicatorCell.m
 file
@@ -4467,6 +4433,40 @@ hofman
 
 2376
 
+PDFDisplayView_SKExtensions.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+a8f9b741e2ce97721030a5070f6b4d0b
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1743
+
 SKPDFSyncRecord.m
 file
 
@@ -4500,74 +4500,6 @@ hofman
 
 
 2864
-
-SKTemporaryData.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-c0e8c90ada8b8868f24ad184fa8fa54b
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2119
-
-SKTemplateTag.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-dc12164159fa0a7e7c48bb691347aba8
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8020
 
 SKPrintAccessoryController.h
 file
@@ -4603,6 +4535,74 @@ hofman
 
 2132
 
+SKTemplateTag.m
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+dc12164159fa0a7e7c48bb691347aba8
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8020
+
+SKTemporaryData.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+c0e8c90ada8b8868f24ad184fa8fa54b
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2119
+
 NSNumber_SKExtensions.m
 file
 
@@ -4636,40 +4636,6 @@ hofman
 
 
 4200
-
-PDFDisplayView_SKExtensions.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-86537ea50b64df2b49c647039f4886be
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-15032
 
 SKConversionProgressController.h
 file
@@ -4705,14 +4671,14 @@ hofman
 
 2466
 
-SKTemporaryData.m
+PDFDisplayView_SKExtensions.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-c414d33e98317ff4294752eafbc39251
+86537ea50b64df2b49c647039f4886be
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -4737,7 +4703,7 @@ hofman
 
 
 
-2176
+15032
 
 SKPrintAccessoryController.m
 file
@@ -4773,14 +4739,14 @@ hofman
 
 5103
 
-SKPreferenceController.h
+SKTemporaryData.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-257f25506f00d55149a6ac5f54a39aed
+c414d33e98317ff4294752eafbc39251
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -4805,7 +4771,7 @@ hofman
 
 
 
-2326
+2176
 
 SKDocumentController.h
 file
@@ -4840,6 +4806,40 @@ hofman
 
 
 2996
+
+SKPreferenceController.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+257f25506f00d55149a6ac5f54a39aed
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2326
 
 SKConversionProgressController.m
 file
@@ -4977,8 +4977,39 @@ hofman
 
 1846
 
-Japanese.lproj
-dir
+SKDocumentController.m
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+6953c3f1e60b41a74db7d22addd8fa48
+2014-06-12T20:59:58.567817Z
+8371
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20112
 
 SKPreferenceController.m
 file
@@ -5014,39 +5045,8 @@ hofman
 
 13497
 
-SKDocumentController.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-6953c3f1e60b41a74db7d22addd8fa48
-2014-06-12T20:59:58.567817Z
-8371
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-20112
+Japanese.lproj
+dir
 
 NSMenu_SKExtensions.m
 file
@@ -5320,40 +5320,6 @@ hofman
 
 2523
 
-NSDocument_SKExtensions.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-9684e503669d31e192f810f1a183539c
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-14870
-
 PreferenceWindow.xib
 file
 
@@ -5388,14 +5354,14 @@ hofman
 
 61203
 
-SKBookmark.h
+NSDocument_SKExtensions.m
 file
 
 
 
-delete
+
 2014-07-06T05:30:39.000000Z
-1d9de7f91c9d44fe8530e154d101a667
+9684e503669d31e192f810f1a183539c
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -5420,7 +5386,7 @@ hofman
 
 
 
-3877
+14870
 
 SKMainWindowController_Actions.m
 file
@@ -5455,6 +5421,40 @@ hofman
 
 
 43414
+
+SKBookmark.h
+file
+
+
+
+delete
+2014-07-06T05:30:39.000000Z
+1d9de7f91c9d44fe8530e154d101a667
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3877
 
 French.lproj
 dir
@@ -5668,7 +5668,7 @@ file
 
 
 
-
+delete
 2014-07-06T05:30:39.000000Z
 3a8eac969a70053a97cc7442604fad1e
 2014-02-24T10:31:30.195392Z
@@ -5705,7 +5705,7 @@ file
 
 
 
-
+delete
 2014-07-06T05:30:39.000000Z
 7e07d77b7a30aa50b00d401dbff34982
 2014-02-24T10:31:30.195392Z
@@ -6043,40 +6043,6 @@ hofman
 
 1785
 
-LeftSideView.xib
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-14dd4645b4764cbbc4ec63429cac2d4a
-2012-09-01T09:38:25.878549Z
-7715
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-179072
-
 SKFormatCommand.h
 file
 
@@ -6110,6 +6076,40 @@ hofman
 
 
 1711
+
+LeftSideView.xib
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+14dd4645b4764cbbc4ec63429cac2d4a
+2012-09-01T09:38:25.878549Z
+7715
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+179072
 
 PDFAnnotationText_SKExtensions.h
 file
@@ -6213,40 +6213,6 @@ hofman
 
 79758
 
-DownloadPreferenceSheet.xib
-file
-
-
-
-delete
-2014-07-06T05:30:39.000000Z
-49ba1e20ba6b12c0aed361ec8c8f9fea
-2012-09-01T09:38:25.878549Z
-7715
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-74968
-
 SKFormatCommand.m
 file
 
@@ -6280,6 +6246,40 @@ hofman
 
 
 4982
+
+DownloadPreferenceSheet.xib
+file
+
+
+
+delete
+2014-07-06T05:30:39.000000Z
+49ba1e20ba6b12c0aed361ec8c8f9fea
+2012-09-01T09:38:25.878549Z
+7715
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+74968
 
 PDFAnnotationText_SKExtensions.m
 file
@@ -6315,40 +6315,6 @@ hofman
 
 3940
 
-NSPointerArray_SKExtensions.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-00417d4613cf3da5f893557232b2baa2
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1982
-
 SKAnimatedBorderlessWindow.h
 file
 
@@ -6383,14 +6349,14 @@ hofman
 
 2122
 
-SKProgressCell.h
+NSPointerArray_SKExtensions.h
 file
 
 
 
-delete
+
 2014-07-06T05:30:39.000000Z
-5fb912d398caff8b5aa6ff88a3e5321c
+00417d4613cf3da5f893557232b2baa2
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -6415,18 +6381,18 @@ hofman
 
 
 
-1746
+1982
 
-SKNoteTypeSheetController.h
+SKAnimatedBorderlessWindow.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-6eaefddd55b961c932245f93690fbccd
-2014-02-24T10:31:30.195392Z
-8336
+56b706771aab35e21610a70a90ed1b80
+2014-03-22T18:23:24.058949Z
+8353
 hofman
 
 
@@ -6449,7 +6415,7 @@ hofman
 
 
 
-2689
+5198
 
 NSPointerArray_SKExtensions.m
 file
@@ -6485,16 +6451,16 @@ hofman
 
 3229
 
-SKAnimatedBorderlessWindow.m
+SKNoteTypeSheetController.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-56b706771aab35e21610a70a90ed1b80
-2014-03-22T18:23:24.058949Z
-8353
+6eaefddd55b961c932245f93690fbccd
+2014-02-24T10:31:30.195392Z
+8336
 hofman
 
 
@@ -6517,7 +6483,41 @@ hofman
 
 
 
-5198
+2689
+
+SKProgressCell.h
+file
+
+
+
+delete
+2014-07-06T05:30:39.000000Z
+5fb912d398caff8b5aa6ff88a3e5321c
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1746
 
 SKNoteTextView.h
 file
@@ -6587,16 +6587,16 @@ hofman
 
 163703
 
-SKProgressCell.m
+SKCompatibility.h
 file
 
 
 
-delete
+
 2014-07-06T05:30:39.000000Z
-7ce865f11c9602673fb0b69306f0763c
-2014-02-24T10:31:30.195392Z
-8336
+2c54b6710e74da1c500e81e0c439e6ed
+2014-06-07T09:02:56.167165Z
+8362
 hofman
 
 
@@ -6619,7 +6619,7 @@ hofman
 
 
 
-6414
+2808
 
 SKNoteTypeSheetController.m
 file
@@ -6655,48 +6655,14 @@ hofman
 
 7418
 
-SKCompatibility.h
+SKProgressCell.m
 file
 
 
 
-
+delete
 2014-07-06T05:30:39.000000Z
-2c54b6710e74da1c500e81e0c439e6ed
-2014-06-07T09:02:56.167165Z
-8362
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2808
-
-SKNoteTextView.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-5e4e259c6cbc4f3b8c21faeedf72ec1d
+7ce865f11c9602673fb0b69306f0763c
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -6721,7 +6687,7 @@ hofman
 
 
 
-3625
+6414
 
 SKNoteText.h
 file
@@ -6757,14 +6723,14 @@ hofman
 
 2156
 
-SKPrintableView.h
+SKNoteTextView.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-01318b92604f36c75f7a6395ed4d5eff
+5e4e259c6cbc4f3b8c21faeedf72ec1d
 2014-02-24T10:31:30.195392Z
 8336
 hofman
@@ -6789,41 +6755,7 @@ hofman
 
 
 
-1707
-
-SKNumberArrayFormatter.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-5895a980f1639f7066781fd1a46c43ff
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1764
+3625
 
 NSGeometry_SKExtensions.h
 file
@@ -6859,6 +6791,74 @@ hofman
 
 6926
 
+SKNumberArrayFormatter.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+5895a980f1639f7066781fd1a46c43ff
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1764
+
+SKPrintableView.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+01318b92604f36c75f7a6395ed4d5eff
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1707
+
 SKNoteText.m
 file
 
@@ -6892,108 +6892,6 @@ hofman
 
 
 2248
-
-TransitionSheet.xib
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-0eafe1ece84485e0daea64993df9e620
-2012-09-01T09:38:25.878549Z
-7715
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-143136
-
-SKPrintableView.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-4a4e577678ff2fce5d8053e35073bcbf
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1978
-
-SKNumberArrayFormatter.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-8a5ecdc5de4c43b02ee9c44d9909bab3
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3651
 
 NSGeometry_SKExtensions.m
 file
@@ -7029,6 +6927,108 @@ hofman
 
 6905
 
+SKNumberArrayFormatter.m
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+8a5ecdc5de4c43b02ee9c44d9909bab3
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3651
+
+SKPrintableView.m
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+4a4e577678ff2fce5d8053e35073bcbf
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1978
+
+TransitionSheet.xib
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+0eafe1ece84485e0daea64993df9e620
+2012-09-01T09:38:25.878549Z
+7715
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+143136
+
 SKAccessibilityFauxUIElement.h
 file
 
@@ -7062,40 +7062,6 @@ hofman
 
 
 2829
-
-SKNotesDocument.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-46bcef1620449f635db20e93233920ae
-2014-06-12T20:59:58.567817Z
-8371
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3012
 
 SKInfoWindowController.h
 file
@@ -7131,16 +7097,16 @@ hofman
 
 2291
 
-SKAccessibilityFauxUIElement.m
+SKNotesDocument.h
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-e8c35b8a55dcc8a3f2def06cf41496db
-2014-03-17T10:26:49.927319Z
-8352
+46bcef1620449f635db20e93233920ae
+2014-06-12T20:59:58.567817Z
+8371
 hofman
 
 
@@ -7163,7 +7129,7 @@ hofman
 
 
 
-7604
+3012
 
 SKColorSwatch.h
 file
@@ -7199,6 +7165,40 @@ hofman
 
 2317
 
+SKAccessibilityFauxUIElement.m
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+e8c35b8a55dcc8a3f2def06cf41496db
+2014-03-17T10:26:49.927319Z
+8352
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7604
+
 PDFAnnotationFreeText_SKExtensions.h
 file
 
@@ -7232,40 +7232,6 @@ hofman
 
 
 2076
-
-SKNotesDocument.m
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-d912478dbddfd9166a8b038c87679a89
-2014-06-25T18:29:38.783562Z
-8377
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-40053
 
 SKInfoWindowController.m
 file
@@ -7301,16 +7267,16 @@ hofman
 
 18614
 
-NoteTypeSheet.xib
+SKNotesDocument.m
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-8d2da743e7511c56ed7ac3c12e0c171c
-2012-09-01T09:38:25.878549Z
-7715
+d912478dbddfd9166a8b038c87679a89
+2014-06-25T18:29:38.783562Z
+8377
 hofman
 
 
@@ -7333,7 +7299,7 @@ hofman
 
 
 
-91268
+40053
 
 SKColorSwatch.m
 file
@@ -7368,6 +7334,40 @@ hofman
 
 
 21083
+
+NoteTypeSheet.xib
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+8d2da743e7511c56ed7ac3c12e0c171c
+2012-09-01T09:38:25.878549Z
+7715
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+91268
 
 SKLeftSideViewController.h
 file
@@ -7505,40 +7505,6 @@ hofman
 
 4755
 
-Skim_Prefix.pch
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-07feee38260719af48ff2908cc589347
-2012-11-12T15:09:10.646038Z
-7798
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1836
-
 SKNoteOutlineView.m
 file
 
@@ -7572,6 +7538,40 @@ hofman
 
 
 9634
+
+Skim_Prefix.pch
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+07feee38260719af48ff2908cc589347
+2012-11-12T15:09:10.646038Z
+7798
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1836
 
 cs.lproj
 dir
@@ -7749,40 +7749,6 @@ hofman
 
 2731
 
-DisplayPreferences.xib
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-ec1829ed2eeb58b69d12e7045833ec63
-2013-05-16T14:35:07.605217Z
-8064
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-121797
-
 SKAnnotationTypeImageCell.m
 file
 
@@ -7817,16 +7783,16 @@ hofman
 
 5545
 
-PDFPage_SKExtensions.h
+DisplayPreferences.xib
 file
 
 
 
 
 2014-07-06T05:30:39.000000Z
-e10bc3d3fc04c8f72ed07059f75cb0df
-2014-02-24T10:31:30.195392Z
-8336
+ec1829ed2eeb58b69d12e7045833ec63
+2013-05-16T14:35:07.605217Z
+8064
 hofman
 
 
@@ -7849,7 +7815,7 @@ hofman
 
 
 
-3846
+121797
 
 ExportAccessoryView.xib
 file
@@ -7885,6 +7851,40 @@ hofman
 
 55410
 
+PDFPage_SKExtensions.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+e10bc3d3fc04c8f72ed07059f75cb0df
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3846
+
 Skim.dmg.zip
 file
 
@@ -7918,40 +7918,6 @@ has-props
 
 
 814182
-
-NSView_SKExtensions.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-2f4c45969147266a704a4a462277ef72
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1873
 
 PDFPage_SKExtensions.m
 file
@@ -7987,6 +7953,40 @@ hofman
 
 29905
 
+NSView_SKExtensions.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+2f4c45969147266a704a4a462277ef72
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1873
+
 PDFAnnotationLine_SKExtensions.h
 file
 
@@ -8021,40 +8021,6 @@ hofman
 
 2261
 
-SKGeneralPreferences.h
-file
-
-
-
-
-2014-07-06T05:30:39.000000Z
-a59f0a9a7fbf754ebbdb45c1cc860af9
-2014-02-24T10:31:30.195392Z
-8336
-hofman
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2612
-
 NSView_SKExtensions.m
 file
 
@@ -8088,6 +8054,40 @@ hofman
 
 
 3864
+
+SKGeneralPreferences.h
+file
+
+
+
+
+2014-07-06T05:30:39.000000Z
+a59f0a9a7fbf754ebbdb45c1cc860af9
+2014-02-24T10:31:30.195392Z
+8336
+hofman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2612
 
 PDFAnnotationLine_SKExtensions.m
 file
@@ -8539,7 +8539,7 @@ file
 
 
 
-
+delete
 2014-07-06T05:30:39.000000Z
 9010d6bb0975f2f837fa8ec625c68df2
 2013-05-15T14:54:24.760794Z
@@ -9432,7 +9432,7 @@ file
 
 
 
-
+delete
 2014-07-06T05:30:39.000000Z
 606f90cb9fd5dc391827ccc48a378b54
 2014-02-24T10:31:30.195392Z
@@ -9639,7 +9639,7 @@ file
 
 
 
-
+delete
 2014-07-06T05:30:39.000000Z
 4ebc86182b30ed36f15119921c8a4881
 2014-02-24T10:31:30.195392Z

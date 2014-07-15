@@ -38,69 +38,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString *SKSnapshotCurrentSetupKey;
-
-@class SKSnapshotPDFView, PDFDocument, PDFPage;
-@protocol SKSnapshotWindowControllerDelegate;
-
 @interface SKSnapshotWindowController : NSWindowController <NSWindowDelegate> {
-    SKSnapshotPDFView* pdfView;
-    NSImage *thumbnail;
-    id <SKSnapshotWindowControllerDelegate> delegate;
-    NSString *pageLabel;
-    NSImage *windowImage;
-    NSString *string;
-    BOOL hasWindow;
-    BOOL forceOnTop;
-    BOOL animating;
 }
-
-@property (nonatomic, retain) IBOutlet SKSnapshotPDFView *pdfView;
-@property (nonatomic, assign) id <SKSnapshotWindowControllerDelegate> delegate;
-@property (nonatomic, retain) NSImage *thumbnail;
-@property (nonatomic, readonly) NSUInteger pageIndex;
-@property (nonatomic, readonly, copy) NSString *pageLabel;
-@property (nonatomic, copy) NSString *string;
-@property (nonatomic, readonly) BOOL hasWindow;
-@property (nonatomic, readonly) NSDictionary *pageAndWindow;
-@property (nonatomic, readonly) NSDictionary *currentSetup;
-@property (nonatomic) BOOL forceOnTop;
-
-@property (nonatomic, readonly) NSAttributedString *thumbnailAttachment, *thumbnail512Attachment, *thumbnail256Attachment, *thumbnail128Attachment, *thumbnail64Attachment, *thumbnail32Attachment;
-
-- (void)setPdfDocument:(PDFDocument *)pdfDocument goToPageNumber:(NSInteger)pageNum rect:(NSRect)rect scaleFactor:(CGFloat)factor autoFits:(BOOL)autoFits;
-- (void)setPdfDocument:(PDFDocument *)pdfDocument setup:(NSDictionary *)setup;
-
-- (BOOL)isPageVisible:(PDFPage *)page;
-
-- (void)redisplay;
-
-- (NSImage *)thumbnailWithSize:(CGFloat)size;
-
-- (NSAttributedString *)thumbnailAttachmentWithSize:(CGFloat)size;
-
-- (void)miniaturize;
-- (void)deminiaturize;
-
-- (void)handlePageChangedNotification:(NSNotification *)notification;
-- (void)handleDocumentDidUnlockNotification:(NSNotification *)notification;
-- (void)handlePDFViewFrameChangedNotification:(NSNotification *)notification;
-- (void)handleViewChangedNotification:(NSNotification *)notification;
-- (void)handleDidAddRemoveAnnotationNotification:(NSNotification *)notification;
-- (void)handleDidMoveAnnotationNotification:(NSNotification *)notification;
-
-- (void)setNeedsDisplayInRect:(NSRect)rect ofPage:(PDFPage *)page;
-- (void)setNeedsDisplayForAnnotation:(PDFAnnotation *)annotation onPage:(PDFPage *)page;
-
-@end
-
-
-@protocol SKSnapshotWindowControllerDelegate <NSObject>
-@optional
-
-- (void)snapshotControllerDidFinishSetup:(SKSnapshotWindowController *)controller;
-- (void)snapshotControllerWillClose:(SKSnapshotWindowController *)controller;
-- (void)snapshotControllerDidChange:(SKSnapshotWindowController *)controller;
-- (NSRect)snapshotController:(SKSnapshotWindowController *)controller miniaturizedRect:(BOOL)isMiniaturize;
 
 @end

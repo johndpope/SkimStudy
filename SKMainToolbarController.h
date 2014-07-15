@@ -44,8 +44,6 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 
 @interface SKMainToolbarController : NSViewController <NSToolbarDelegate> {
     SKMainWindowController *mainController;
-    NSSegmentedControl *zoomFitButton;
-    NSSegmentedControl *zoomSelectionButton;
     NSSegmentedControl *fullScreenButton;
     NSSegmentedControl *presentationButton;
     NSSegmentedControl *leftPaneButton;
@@ -67,7 +65,7 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 }
 
 @property (nonatomic, assign) IBOutlet SKMainWindowController *mainController;
-@property (nonatomic, retain) IBOutlet NSSegmentedControl *zoomFitButton, *zoomSelectionButton, *fullScreenButton, *presentationButton, *leftPaneButton, *rightPaneButton, *toolModeButton, *textNoteButton, *circleNoteButton, *markupNoteButton, *lineNoteButton, *infoButton, *fontsButton, *linesButton, *printButton, *customizeButton, *noteButton;
+@property (nonatomic, retain) IBOutlet NSSegmentedControl *fullScreenButton, *presentationButton, *leftPaneButton, *rightPaneButton, *toolModeButton, *textNoteButton, *circleNoteButton, *markupNoteButton, *lineNoteButton, *infoButton, *fontsButton, *linesButton, *printButton, *customizeButton, *noteButton;
 @property (nonatomic, retain) IBOutlet NSTextField *scaleField;
 @property (nonatomic, retain) IBOutlet SKColorSwatch *colorSwatch;
 
@@ -80,8 +78,6 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 
 - (IBAction)changeScaleFactor:(id)sender;
 - (void)chooseScale:(id)sender;
-- (IBAction)zoomToFit:(id)sender;
-- (IBAction)zoomToSelection:(id)sender;
 - (IBAction)enterFullscreen:(id)sender;
 - (IBAction)enterPresentation:(id)sender;
 - (IBAction)toggleLeftSidePane:(id)sender;
