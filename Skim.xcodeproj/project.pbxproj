@@ -23,7 +23,6 @@
 
 /* Begin PBXBuildFile section */
 		0BD8DFCB1969992F008066C6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD8DFCA1969992E008066C6 /* MainMenu.xib */; };
-		4530D7E80B27AAB9007C59F4 /* SKSnapshotWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4530D7E70B27AAB9007C59F4 /* SKSnapshotWindowController.m */; };
 		4530D7EF0B27AAD6007C59F4 /* SKMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4530D7EE0B27AAD6007C59F4 /* SKMainWindowController.m */; };
 		4530D8C90B27B04D007C59F4 /* SKApplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4530D8C80B27B04D007C59F4 /* SKApplicationController.m */; };
 		4530DCF70B27CACE007C59F4 /* SKPDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4530DCF60B27CACE007C59F4 /* SKPDFView.m */; };
@@ -475,8 +474,6 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32DBCF750370BD2300C91783 /* Skim_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Skim_Prefix.pch; sourceTree = "<group>"; };
-		4530D7E60B27AAB9007C59F4 /* SKSnapshotWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSnapshotWindowController.h; sourceTree = "<group>"; };
-		4530D7E70B27AAB9007C59F4 /* SKSnapshotWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSnapshotWindowController.m; sourceTree = "<group>"; };
 		4530D7ED0B27AAD6007C59F4 /* SKMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKMainWindowController.h; sourceTree = "<group>"; };
 		4530D7EE0B27AAD6007C59F4 /* SKMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKMainWindowController.m; sourceTree = "<group>"; };
 		4530D8C70B27B04D007C59F4 /* SKApplicationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKApplicationController.h; sourceTree = "<group>"; };
@@ -1468,8 +1465,6 @@
 				CE209FA80C9D38C6007C72F9 /* SKProgressController.m */,
 				F97751610B37461000DF673B /* SKConversionProgressController.h */,
 				F97751620B37461000DF673B /* SKConversionProgressController.m */,
-				4530D7E60B27AAB9007C59F4 /* SKSnapshotWindowController.h */,
-				4530D7E70B27AAB9007C59F4 /* SKSnapshotWindowController.m */,
 				CE05A86C0E90ED950060BB07 /* SKTextFieldSheetController.h */,
 				CE05A86D0E90ED950060BB07 /* SKTextFieldSheetController.m */,
 				CEB72B890C4A189D000350F9 /* SKTransitionController.h */,
@@ -2258,7 +2253,6 @@
 			files = (
 				8D15AC310486D014006FF6A4 /* SKMainDocument.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
-				4530D7E80B27AAB9007C59F4 /* SKSnapshotWindowController.m in Sources */,
 				4530D7EF0B27AAD6007C59F4 /* SKMainWindowController.m in Sources */,
 				4530D8C90B27B04D007C59F4 /* SKApplicationController.m in Sources */,
 				4530DCF70B27CACE007C59F4 /* SKPDFView.m in Sources */,

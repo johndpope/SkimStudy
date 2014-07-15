@@ -43,7 +43,6 @@
 #import "SKMainToolbarController.h"
 #import "SKPDFView.h"
 #import "SKStatusBar.h"
-#import "SKSnapshotWindowController.h"
 #import "SKNoteWindowController.h"
 #import "SKNoteTextView.h"
 #import "NSWindowController_SKExtensions.h"
@@ -81,7 +80,6 @@
 #import "NSArray_SKExtensions.h"
 
 #define NOTES_KEY       @"notes"
-#define SNAPSHOTS_KEY   @"snapshots"
 
 #define PAGE_COLUMNID   @"page"
 #define LABEL_COLUMNID  @"label"
@@ -98,8 +96,6 @@
 #define MIN_SIDE_PANE_WIDTH 100.0
 #define DEFAULT_SPLIT_PANE_HEIGHT 200.0
 #define MIN_SPLIT_PANE_HEIGHT 50.0
-
-#define SNAPSHOT_HEIGHT 200.0
 
 #define COLUMN_INDENTATION 16.0
 #define EXTRA_ROW_HEIGHT 2.0
@@ -236,10 +232,6 @@
 - (void)windowWillClose:(NSNotification *)notification {
     if ([[notification object] isEqual:[self window]]) {
         // timers retain their target, so invalidate them now or they may keep firing after the PDF is gone
-        if (snapshotTimer) {
-            [snapshotTimer invalidate];
-            SKDESTROY(snapshotTimer);
-        }
         if ([[pdfView document] isFinding])
             [[pdfView document] cancelFindString];
         if ((mwcFlags.isEditingPDF || mwcFlags.isEditingTable) && [self commitEditing] == NO)
@@ -335,15 +327,6 @@
             [pboard setPropertyList:[NSArray arrayWithObject:fileExt] forType:NSFilesPromisePboardType];
             return YES;
         }
-    } else if ([tv isEqual:rightSideController.snapshotTableView]) {
-        NSUInteger idx = [rowIndexes firstIndex];
-        if (idx != NSNotFound) {
-            SKSnapshotWindowController *snapshot = [self objectInSnapshotsAtIndex:idx];
-            [pboard declareTypes:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, NSFilesPromisePboardType, nil] owner:self];
-            [pboard setData:[[snapshot thumbnailWithSize:0.0] TIFFRepresentation] forType:NSPasteboardTypeTIFF];
-            [pboard setPropertyList:[NSArray arrayWithObject:@"tiff"] forType:NSFilesPromisePboardType];
-            return YES;
-        }
     }
     return NO;
 }
@@ -367,16 +350,6 @@
             
             fileURL = [[fileURL URLByAppendingPathExtension:pathExt] uniqueFileURL];
             if ([data writeToURL:fileURL atomically:YES])
-                return [NSArray arrayWithObjects:[fileURL lastPathComponent], nil];
-        }
-    } else if ([tv isEqual:rightSideController.snapshotTableView]) {
-        NSUInteger idx = [rowIndexes firstIndex];
-        if (idx != NSNotFound) {
-            SKSnapshotWindowController *snapshot = [self objectInSnapshotsAtIndex:idx];
-            PDFPage *page = [[pdfView document] pageAtIndex:[snapshot pageIndex]];
-            NSURL *fileURL = [[dropDestination URLByAppendingPathComponent:[self draggedFileNameForPage:page]] URLByAppendingPathExtension:@"tiff"];
-            fileURL = [fileURL uniqueFileURL];
-            if ([[[snapshot thumbnailWithSize:0.0] TIFFRepresentation] writeToURL:fileURL atomically:YES])
                 return [NSArray arrayWithObjects:[fileURL lastPathComponent], nil];
         }
     }
@@ -406,23 +379,11 @@
             if ([self interactionMode] == SKPresentationMode && [[NSUserDefaults standardUserDefaults] boolForKey:SKAutoHidePresentationContentsKey])
                 [self hideLeftSideWindow];
         }
-    } else if ([[aNotification object] isEqual:rightSideController.snapshotTableView]) {
-        NSInteger row = [rightSideController.snapshotTableView selectedRow];
-        if (row != -1) {
-            SKSnapshotWindowController *controller = [[rightSideController.snapshotArrayController arrangedObjects] objectAtIndex:row];
-            if ([[controller window] isVisible])
-                [[controller window] orderFront:self];
-        }
     }
 }
 
 - (BOOL)tableView:(NSTableView *)tv commandSelectRow:(NSInteger)row {
     if ([tv isEqual:leftSideController.thumbnailTableView]) {
-        NSRect rect = [[[pdfView document] pageAtIndex:row] boundsForBox:kPDFDisplayBoxCropBox];
-        
-        rect.origin.y = NSMidY(rect) - 0.5 * SNAPSHOT_HEIGHT;
-        rect.size.height = SNAPSHOT_HEIGHT;
-        [self showSnapshotAtPageNumber:row forRect:rect scaleFactor:[pdfView scaleFactor] autoFits:NO];
         return YES;
     }
     return NO;
@@ -439,31 +400,15 @@
             return cellSize.height;
         else
             return fmax([tv rowHeight], fmin(cellSize.width, thumbSize.width) * thumbSize.height / thumbSize.width);
-    } else if ([tv isEqual:rightSideController.snapshotTableView]) {
-        NSSize thumbSize = [[[[rightSideController.snapshotArrayController arrangedObjects] objectAtIndex:row] thumbnail] size];
-        NSSize cellSize = NSMakeSize([[tv tableColumnWithIdentifier:IMAGE_COLUMNID] width], 
-                                     fmin(thumbSize.height, roundedSnapshotThumbnailSize));
-        if (thumbSize.height < [tv rowHeight])
-            return [tv rowHeight];
-        else if (thumbSize.width / thumbSize.height < cellSize.width / cellSize.height)
-            return cellSize.height;
-        else
-            return fmax([tv rowHeight], fmin(cellSize.width, thumbSize.width) * thumbSize.height / thumbSize.width);
     }
     return [tv rowHeight];
 }
 
 - (void)tableView:(NSTableView *)tv deleteRowsWithIndexes:(NSIndexSet *)rowIndexes {
-    if ([tv isEqual:rightSideController.snapshotTableView]) {
-        NSArray *controllers = [[rightSideController.snapshotArrayController arrangedObjects] objectsAtIndexes:rowIndexes];
-        [controllers makeObjectsPerformSelector:@selector(close)];
-    }
+    
 }
 
 - (BOOL)tableView:(NSTableView *)tv canDeleteRowsWithIndexes:(NSIndexSet *)rowIndexes {
-    if ([tv isEqual:rightSideController.snapshotTableView]) {
-        return [rowIndexes count] > 0;
-    }
     return NO;
 }
 
@@ -951,24 +896,6 @@
     [self tableView:leftSideController.thumbnailTableView copyRowsWithIndexes:[sender representedObject]];
 }
 
-- (void)deleteSnapshot:(id)sender {
-    [[sender representedObject] close];
-}
-
-- (void)showSnapshot:(id)sender {
-    SKSnapshotWindowController *controller = [sender representedObject];
-    if ([[controller window] isVisible])
-        [[controller window] orderFront:self];
-    else
-        [controller deminiaturize];
-}
-
-- (void)hideSnapshot:(id)sender {
-    SKSnapshotWindowController *controller = [sender representedObject];
-    if ([[controller window] isVisible])
-        [controller miniaturize];
-}
-
 - (void)deleteNotes:(id)sender {
     [self outlineView:rightSideController.noteOutlineView deleteItems:[sender representedObject]];
 }
@@ -1059,19 +986,6 @@
         if (row != -1) {
             item = [menu addItemWithTitle:NSLocalizedString(@"Copy", @"Menu item title") action:@selector(copyPage:) target:self];
             [item setRepresentedObject:[NSIndexSet indexSetWithIndex:row]];
-        }
-    } else if ([menu isEqual:[rightSideController.snapshotTableView menu]]) {
-        NSInteger row = [rightSideController.snapshotTableView clickedRow];
-        if (row != -1) {
-            SKSnapshotWindowController *controller = [[rightSideController.snapshotArrayController arrangedObjects] objectAtIndex:row];
-            item = [menu addItemWithTitle:NSLocalizedString(@"Delete", @"Menu item title") action:@selector(deleteSnapshot:) target:self];
-            [item setRepresentedObject:controller];
-            item = [menu addItemWithTitle:NSLocalizedString(@"Show", @"Menu item title") action:@selector(showSnapshot:) target:self];
-            [item setRepresentedObject:controller];
-            if ([[controller window] isVisible]) {
-                item = [menu addItemWithTitle:NSLocalizedString(@"Hide", @"Menu item title") action:@selector(hideSnapshot:) target:self];
-                [item setRepresentedObject:controller];
-            }
         }
     } else if ([menu isEqual:[rightSideController.noteOutlineView menu]]) {
         NSMutableArray *items = [NSMutableArray array];
@@ -1264,10 +1178,6 @@
     [self showNote:annotation];
 }
 
-- (void)PDFView:(PDFView *)sender showSnapshotAtPageNumber:(NSInteger)pageNum forRect:(NSRect)rect scaleFactor:(CGFloat)scaleFactor autoFits:(BOOL)autoFits {
-    [self showSnapshotAtPageNumber:pageNum forRect:rect scaleFactor:scaleFactor autoFits:autoFits];
-}
-
 - (void)PDFViewExitFullscreen:(PDFView *)sender {
     [self exitFullscreen:sender];
 }
@@ -1454,8 +1364,6 @@ static NSArray *allMainDocumentPDFViews() {
         return [[allMainDocumentPDFViews() valueForKeyPath:@"@min.canGoToLastPage"] boolValue];
     } else if (action == @selector(doAutoScale:)) {
         return [[self pdfDocument] isLocked] == NO && [pdfView autoScales] == NO;
-    } else if (action == @selector(takeSnapshot:)) {
-        return [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(toggleLeftSidePane:)) {
         if ([self leftSidePaneIsOpen])
             [menuItem setTitle:NSLocalizedString(@"Hide Contents Pane", @"Menu item title")];
@@ -1632,10 +1540,6 @@ static NSArray *allMainDocumentPDFViews() {
     }
     if (page) {
         [self updateThumbnailAtPageIndex:[page pageIndex]];
-        for (SKSnapshotWindowController *wc in snapshots) {
-            if ([wc isPageVisible:page])
-                [self snapshotNeedsUpdate:wc];
-        }
         [secondaryPdfView setNeedsDisplayForAnnotation:annotation onPage:page];
     }
 }
@@ -1658,10 +1562,6 @@ static NSArray *allMainDocumentPDFViews() {
     }
     if (page) {
         [self updateThumbnailAtPageIndex:[page pageIndex]];
-        for (SKSnapshotWindowController *wc in snapshots) {
-            if ([wc isPageVisible:page])
-                [self snapshotNeedsUpdate:wc];
-        }
         [secondaryPdfView setNeedsDisplayForAnnotation:annotation onPage:page];
     }
 }
@@ -1675,10 +1575,6 @@ static NSArray *allMainDocumentPDFViews() {
             [self updateThumbnailAtPageIndex:[oldPage pageIndex]];
         if (newPage)
             [self updateThumbnailAtPageIndex:[newPage pageIndex]];
-        for (SKSnapshotWindowController *wc in snapshots) {
-            if ([wc isPageVisible:oldPage] || [wc isPageVisible:newPage])
-                [self snapshotNeedsUpdate:wc];
-        }
         [secondaryPdfView setNeedsDisplay:YES];
         if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_8)
             [pdfView setNeedsDisplay:YES];

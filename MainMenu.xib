@@ -407,27 +407,6 @@
 									<reference key="NSOnImage" ref="1022008517"/>
 									<reference key="NSMixedImage" ref="290280874"/>
 								</object>
-								<object class="NSMenuItem" id="811535399">
-									<reference key="NSMenu" ref="812152972"/>
-									<string key="NSTitle">Take Snapshot</string>
-									<string key="NSKeyEquiv">s</string>
-									<int key="NSKeyEquivModMask">1572864</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-									<int key="NSTag">2</int>
-								</object>
-								<object class="NSMenuItem" id="608144892">
-									<reference key="NSMenu" ref="812152972"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
 								<object class="NSMenuItem" id="157610243">
 									<reference key="NSMenu" ref="812152972"/>
 									<string key="NSTitle">Print…</string>
@@ -1855,14 +1834,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">takeSnapshot:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="811535399"/>
-					</object>
-					<int key="connectionID">663</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">password:</string>
 						<reference key="source" ref="660174102"/>
 						<reference key="destination" ref="830066079"/>
@@ -2493,8 +2464,6 @@
 							<reference ref="525771517"/>
 							<reference ref="338961907"/>
 							<reference ref="649140297"/>
-							<reference ref="811535399"/>
-							<reference ref="608144892"/>
 							<reference ref="830066079"/>
 							<reference ref="442190453"/>
 							<reference ref="23398581"/>
@@ -2581,16 +2550,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">516</int>
 						<reference key="object" ref="649140297"/>
-						<reference key="parent" ref="812152972"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">660</int>
-						<reference key="object" ref="811535399"/>
-						<reference key="parent" ref="812152972"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">662</int>
-						<reference key="object" ref="608144892"/>
 						<reference key="parent" ref="812152972"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -3450,8 +3409,6 @@
 				<string key="647.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="649.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="651.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="660.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="662.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="667.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="669.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="675.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4252,7 +4209,6 @@
 						<string key="search:">id</string>
 						<string key="searchNotes:">id</string>
 						<string key="searchPDF:">id</string>
-						<string key="takeSnapshot:">id</string>
 						<string key="toggleCaseInsensitiveNoteSearch:">id</string>
 						<string key="toggleCaseInsensitiveSearch:">id</string>
 						<string key="toggleFullscreen:">id</string>
@@ -4392,10 +4348,6 @@
 						</object>
 						<object class="IBActionInfo" key="searchPDF:">
 							<string key="name">searchPDF:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takeSnapshot:">
-							<string key="name">takeSnapshot:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleCaseInsensitiveNoteSearch:">
@@ -4580,8 +4532,12 @@
 						<string key="cut:">id</string>
 						<string key="delete:">id</string>
 						<string key="deselectAll:">id</string>
+						<string key="goToNextPage:">id</string>
+						<string key="goToPreviousPage:">id</string>
 						<string key="paste:">id</string>
 						<string key="pasteAsPlainText:">id</string>
+						<string key="selectAll:">id</string>
+						<string key="zoomIn:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="alternatePaste:">
@@ -4612,12 +4568,28 @@
 							<string key="name">deselectAll:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="goToNextPage:">
+							<string key="name">goToNextPage:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToPreviousPage:">
+							<string key="name">goToPreviousPage:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="paste:">
 							<string key="name">paste:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="pasteAsPlainText:">
 							<string key="name">pasteAsPlainText:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectAll:">
+							<string key="name">selectAll:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="zoomIn:">
+							<string key="name">zoomIn:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

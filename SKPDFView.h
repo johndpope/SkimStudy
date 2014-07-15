@@ -174,8 +174,6 @@ enum {
 - (void)scrollPageToVisible:(PDFPage *)page;
 - (void)displayLineAtPoint:(NSPoint)point inPageAtIndex:(NSUInteger)pageIndex showReadingBar:(BOOL)showBar;
 
-- (void)takeSnapshot:(id)sender;
-
 - (void)resetPDFToolTipRects;
 - (void)removePDFToolTipRects;
 
@@ -195,7 +193,6 @@ enum {
 - (void)PDFViewDidBeginEditing:(PDFView *)sender;
 - (void)PDFViewDidEndEditing:(PDFView *)sender;
 - (void)PDFView:(PDFView *)sender editAnnotation:(PDFAnnotation *)annotation;
-- (void)PDFView:(PDFView *)sender showSnapshotAtPageNumber:(NSInteger)pageNum forRect:(NSRect)rect scaleFactor:(CGFloat)scaleFactor autoFits:(BOOL)autoFits;
 - (void)PDFViewExitFullscreen:(PDFView *)sender;
 - (void)PDFViewToggleContents:(PDFView *)sender;
 @end

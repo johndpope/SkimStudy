@@ -37,7 +37,6 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import "SKSnapshotWindowController.h"
 #import "SKThumbnail.h"
 #import "SKFindController.h"
 #import "NSDocument_SKExtensions.h"
@@ -51,7 +50,6 @@ typedef NSInteger SKLeftSidePaneState;
 
 enum {
     SKNoteSidePaneState,
-    SKSnapshotSidePaneState
 };
 typedef NSInteger SKRightSidePaneState;
 
@@ -108,11 +106,6 @@ enum {
     NSMutableArray                      *notes;
     SKFloatMapTable                     *rowHeights;
     
-    NSMutableArray                      *snapshots;
-    NSMutableArray                      *dirtySnapshots;
-    NSTimer                             *snapshotTimer;
-    CGFloat                             roundedSnapshotThumbnailSize;
-    
     NSArray                             *tags;
     double                              rating;
     
@@ -148,7 +141,6 @@ enum {
     CGFloat                             lastSplitPDFHeight;
     
     CGFloat                             thumbnailCacheSize;
-    CGFloat                             snapshotCacheSize;
     
     NSDrawer                            *leftSideDrawer;
     NSDrawer                            *rightSideDrawer;
@@ -202,8 +194,6 @@ enum {
 - (IBAction)search:(id)sender;
 - (IBAction)searchNotes:(id)sender;
 
-- (void)showSnapshotAtPageNumber:(NSInteger)pageNum forRect:(NSRect)rect scaleFactor:(CGFloat)scaleFactor autoFits:(BOOL)autoFits;
-- (void)showSnapshotsWithSetups:(NSArray *)setups;
 - (void)showNote:(PDFAnnotation *)annotation;
 
 - (NSWindowController *)windowControllerForNote:(PDFAnnotation *)annotation;
@@ -224,13 +214,6 @@ enum {
 - (void)insertObject:(SKThumbnail *)thumbnail inThumbnailsAtIndex:(NSUInteger)theIndex;
 - (void)removeObjectFromThumbnailsAtIndex:(NSUInteger)theIndex;
 - (void)removeAllObjectsFromThumbnails;
-
-- (NSArray *)snapshots;
-- (NSUInteger)countOfSnapshots;
-- (SKSnapshotWindowController *)objectInSnapshotsAtIndex:(NSUInteger)theIndex;
-- (void)insertObject:(SKSnapshotWindowController *)snapshot inSnapshotsAtIndex:(NSUInteger)theIndex;
-- (void)removeObjectFromSnapshotsAtIndex:(NSUInteger)theIndex;
-- (void)removeAllObjectsFromSnapshots;
 
 - (NSArray *)searchResults;
 - (void)setSearchResults:(NSArray *)newSearchResults;
@@ -278,7 +261,6 @@ enum {
 - (void)displayFindViewAnimating:(BOOL)animate;
 - (void)displayGroupedFindViewAnimating:(BOOL)animate;
 - (void)displayNoteViewAnimating:(BOOL)animate;
-- (void)displaySnapshotViewAnimating:(BOOL)animate;
 
 - (void)showFindBar;
 
@@ -292,12 +274,6 @@ enum {
 - (void)resetThumbnailSizeIfNeeded;
 - (void)updateThumbnailAtPageIndex:(NSUInteger)index;
 - (void)allThumbnailsNeedUpdate;
-
-- (void)resetSnapshotSizeIfNeeded;
-- (void)snapshotNeedsUpdate:(SKSnapshotWindowController *)dirstySnapshot;
-- (void)allSnapshotsNeedUpdate;
-- (void)updateSnapshotsIfNeeded;
-- (void)updateSnapshot:(NSTimer *)timer;
 
 - (void)addAnnotationsFromDictionaries:(NSArray *)noteDicts replace:(BOOL)replace;
 

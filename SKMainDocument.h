@@ -83,8 +83,6 @@ extern NSString *SKSkimFileDidSaveNotification;
 
 @property (nonatomic, readonly) SKPDFSynchronizer *synchronizer;
 
-@property (nonatomic, readonly) NSArray *snapshots;
-
 @property (nonatomic, readonly) NSArray *tags;
 @property (nonatomic, readonly) double rating;
 

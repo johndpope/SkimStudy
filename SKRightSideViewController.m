@@ -49,17 +49,13 @@
 
 @implementation SKRightSideViewController
 
-@synthesize noteArrayController, noteOutlineView, snapshotArrayController, snapshotTableView;
+@synthesize noteArrayController, noteOutlineView;
 
 - (void)dealloc {
-    [snapshotTableView setDelegate:nil];
-    [snapshotTableView setDataSource:nil];
     [noteOutlineView setDelegate:nil];
     [noteOutlineView setDataSource:nil];
     SKDESTROY(noteArrayController);
-    SKDESTROY(snapshotArrayController);
     SKDESTROY(noteOutlineView);
-    SKDESTROY(snapshotTableView);
     [super dealloc];
 }
 
@@ -70,9 +66,7 @@
 - (void)loadView {
     [super loadView];
     
-    [button setToolTip:NSLocalizedString(@"View Notes", @"Tool tip message") forSegment:SKNoteSidePaneState];
-    [button setToolTip:NSLocalizedString(@"View Snapshots", @"Tool tip message") forSegment:SKSnapshotSidePaneState];
-    
+    [button setToolTip:NSLocalizedString(@"View Notes", @"Tool tip message") forSegment:SKNoteSidePaneState];    
     NSMenu *menu = [NSMenu menu];
     [menu addItemWithTitle:NSLocalizedString(@"Ignore Case", @"Menu item title") action:@selector(toggleCaseInsensitiveNoteSearch:) target:mainController];
     [[searchField cell] setSearchMenuTemplate:menu];
@@ -82,10 +76,7 @@
     
     [noteOutlineView setDelegate:mainController];
     [noteOutlineView setDataSource:mainController];
-    [snapshotTableView setDelegate:mainController];
-    [snapshotTableView setDataSource:mainController];
     [[noteOutlineView menu] setDelegate:mainController];
-    [[snapshotTableView menu] setDelegate:mainController];
     
     [noteOutlineView setTypeSelectHelper:[SKTypeSelectHelper typeSelectHelperWithMatchOption:SKSubstringMatch]];
 }

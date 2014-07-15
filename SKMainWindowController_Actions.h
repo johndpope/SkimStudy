@@ -51,7 +51,6 @@
 - (IBAction)createNewNote:(id)sender;
 - (IBAction)editNote:(id)sender;
 - (IBAction)toggleHideNotes:(id)sender;
-- (IBAction)takeSnapshot:(id)sender;
 - (IBAction)allGoToNextPage:(id)sender;
 - (IBAction)allGoToPreviousPage:(id)sender;
 - (IBAction)allGoToFirstPage:(id)sender;

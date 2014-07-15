@@ -225,10 +225,6 @@
     [notes setValue:wasHidden forKey:@"shouldPrint"];
 }
 
-- (IBAction)takeSnapshot:(id)sender{
-    [pdfView takeSnapshot:sender];
-}
-
 static NSArray *allMainDocumentPDFViews() {
     NSMutableArray *array = [NSMutableArray array];
     for (id document in [[NSDocumentController sharedDocumentController] documents]) {

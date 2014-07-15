@@ -67,7 +67,6 @@
 #import <Security/Security.h>
 #import "PDFPage_SKExtensions.h"
 #import "NSGeometry_SKExtensions.h"
-#import "SKSnapshotWindowController.h"
 #import "NSDocument_SKExtensions.h"
 #import "SKApplication.h"
 #import "NSResponder_SKExtensions.h"
@@ -162,7 +161,7 @@ enum {
 @implementation SKMainDocument
 
 @synthesize mainWindowController;
-@dynamic pdfDocument, pdfView, synchronizer, snapshots, tags, rating, currentPage, activeNote, richText, selectionSpecifier, selectionQDRect,selectionPage, pdfViewSettings;
+@dynamic pdfDocument, pdfView, synchronizer, tags, rating, currentPage, activeNote, richText, selectionSpecifier, selectionQDRect,selectionPage, pdfViewSettings;
 
 + (BOOL)isPDFDocument { return YES; }
 
@@ -1476,10 +1475,6 @@ static BOOL isIgnorablePOSIXError(NSError *error) {
         [printInfo setOrientation:isLandscape ? NSLandscapeOrientation : NSPortraitOrientation];
     }
     return printInfo;
-}
-
-- (NSArray *)snapshots {
-    return [[self mainWindowController] snapshots];
 }
 
 - (NSArray *)tags {

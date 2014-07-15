@@ -120,7 +120,6 @@
 #define GROUPEDSEARCHRESULTS_KEY    @"groupedSearchResults"
 #define NOTES_KEY                   @"notes"
 #define THUMBNAILS_KEY              @"thumbnails"
-#define SNAPSHOTS_KEY               @"snapshots"
 
 #define PAGE_COLUMNID   @"page"
 #define COLOR_COLUMNID  @"color"
@@ -195,10 +194,8 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 - (void)selectSelectedNote:(id)sender;
 - (void)goToSelectedOutlineItem:(id)sender;
-- (void)toggleSelectedSnapshots:(id)sender;
 
 - (void)updateNoteFilterPredicate;
-- (void)updateSnapshotFilterPredicate;
 
 - (void)registerForDocumentNotifications;
 - (void)unregisterForDocumentNotifications;
@@ -246,8 +243,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         notes = [[NSMutableArray alloc] init];
         tags = [[NSArray alloc] init];
         rating = 0.0;
-        snapshots = [[NSMutableArray alloc] init];
-        dirtySnapshots = [[NSMutableArray alloc] init];
         pageLabels = [[NSMutableArray alloc] init];
         lastViewedPages = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsOpaqueMemory | NSPointerFunctionsIntegerPersonality];
         rowHeights = [[SKFloatMapTable alloc] init];
@@ -280,12 +275,10 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     [leftSideDrawer setDelegate:nil];
     [rightSideDrawer setDelegate:nil];
     [noteTypeSheetController setDelegate:nil];
-    SKDESTROY(dirtySnapshots);
 	SKDESTROY(searchResults);
 	SKDESTROY(groupedSearchResults);
 	SKDESTROY(thumbnails);
 	SKDESTROY(notes);
-	SKDESTROY(snapshots);
 	SKDESTROY(tags);
     SKDESTROY(pageLabels);
     SKDESTROY(pageLabel);
@@ -348,8 +341,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     [rightSideController.noteOutlineView setTarget:self];
     [leftSideController.tocOutlineView setDoubleAction:@selector(goToSelectedOutlineItem:)];
     [leftSideController.tocOutlineView setTarget:self];
-    [rightSideController.snapshotTableView setDoubleAction:@selector(toggleSelectedSnapshots:)];
-    [rightSideController.snapshotTableView setTarget:self];
     [leftSideController.findTableView setDoubleAction:@selector(goToSelectedFindResults:)];
     [leftSideController.findTableView setTarget:self];
     [leftSideController.groupedFindTableView setDoubleAction:@selector(goToSelectedFindResults:)];
@@ -415,13 +406,11 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     
     // this needs to be done before loading the PDFDocument
     [self resetThumbnailSizeIfNeeded];
-    [self resetSnapshotSizeIfNeeded];
     
     // this needs to be done before loading the PDFDocument
     NSSortDescriptor *pageIndexSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:SKNPDFAnnotationPageIndexKey ascending:YES] autorelease];
     NSSortDescriptor *boundsSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:SKNPDFAnnotationBoundsKey ascending:YES selector:@selector(boundsCompare:)] autorelease];
     [rightSideController.noteArrayController setSortDescriptors:[NSArray arrayWithObjects:pageIndexSortDescriptor, boundsSortDescriptor, nil]];
-    [rightSideController.snapshotArrayController setSortDescriptors:[NSArray arrayWithObjects:pageIndexSortDescriptor, nil]];
     
     NSSortDescriptor *countDescriptor = [[[NSSortDescriptor alloc] initWithKey:SKGroupedSearchResultCountKey ascending:NO] autorelease];
     [leftSideController.groupedFindArrayController setSortDescriptors:[NSArray arrayWithObjects:countDescriptor, nil]];
@@ -475,18 +464,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         }
     }
     
-    // Open snapshots?
-    NSArray *snapshotSetups = nil;
-    if (hasWindowSetup)
-        snapshotSetups = [savedNormalSetup objectForKey:SNAPSHOTS_KEY];
-    else if ([sud boolForKey:SKRememberSnapshotsKey])
-    if ([snapshotSetups count]) {
-        if ([[pdfView document] isLocked])
-            [savedNormalSetup setObject:snapshotSetups forKey:SNAPSHOTS_KEY];
-        else
-            [self showSnapshotsWithSetups:snapshotSetups];
-    }
-    
     noteTypeSheetController = [[SKNoteTypeSheetController alloc] init];
     [noteTypeSheetController setDelegate:self];
     
@@ -499,7 +476,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     [rightSideController.noteOutlineView registerForDraggedTypes:[NSColor readableTypesForPasteboard:[NSPasteboard pasteboardWithName:NSDragPboard]]];
     
     [leftSideController.thumbnailTableView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
-    [rightSideController.snapshotTableView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
     
     if (NO == [[NSUserDefaults standardUserDefaults] boolForKey:SKDisableTableToolTipsKey]) {
         [leftSideController.tocOutlineView setHasImageToolTips:YES];
@@ -574,9 +550,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         if (pageIndexNumber && pageIndex != NSNotFound && pageIndex != [[pdfView currentPage] pageIndex])
             [pdfView goToPage:[[pdfView document] pageAtIndex:pageIndex]];
         
-        NSArray *snapshotSetups = [setup objectForKey:SNAPSHOTS_KEY];
-        if ([snapshotSetups count])
-            [self showSnapshotsWithSetups:snapshotSetups];
         
         if ([self interactionMode] == SKNormalMode)
             [self applyPDFSettings:setup];
@@ -592,8 +565,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     [setup setObject:[NSNumber numberWithDouble:[self leftSidePaneIsOpen] ? NSWidth([leftSideContentView frame]) : 0.0] forKey:LEFTSIDEPANEWIDTH_KEY];
     [setup setObject:[NSNumber numberWithDouble:[self rightSidePaneIsOpen] ? NSWidth([rightSideContentView frame]) : 0.0] forKey:RIGHTSIDEPANEWIDTH_KEY];
     [setup setObject:[NSNumber numberWithUnsignedInteger:[[pdfView currentPage] pageIndex]] forKey:PAGEINDEX_KEY];
-//    if ([snapshots count])
-//        [setup setObject:[snapshots valueForKey:SKSnapshotCurrentSetupKey] forKey:SNAPSHOTS_KEY];
     if ([self interactionMode] == SKNormalMode) {
         [setup addEntriesFromDictionary:[self currentPDFSettings]];
     } else {
@@ -738,7 +709,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     [self updatePageLabel];
     
     [self updatePageColumnWidthForTableView:leftSideController.thumbnailTableView];
-    [self updatePageColumnWidthForTableView:rightSideController.snapshotTableView];
     [self updatePageColumnWidthForTableView:leftSideController.tocOutlineView];
     [self updatePageColumnWidthForTableView:rightSideController.noteOutlineView];
     [self updatePageColumnWidthForTableView:leftSideController.findTableView];
@@ -749,7 +719,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     
     // these carry a label, moreover when this is called the thumbnails will also be invalid
     [self resetThumbnails];
-    [self allSnapshotsNeedUpdate];
     [rightSideController.noteOutlineView reloadData];
     
     PDFOutline *outlineRoot = [[pdfView document] outlineRoot];
@@ -781,7 +750,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         
         NSUInteger pageIndex = NSNotFound, secondaryPageIndex = NSNotFound;
         NSRect visibleRect = NSZeroRect, secondaryVisibleRect = NSZeroRect;
-        NSArray *snapshotDicts = nil;
         NSDictionary *openState = nil;
         
         if ([pdfView document]) {
@@ -805,10 +773,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
             [self removeAllObjectsFromNotes];
             [self removeAllObjectsFromThumbnails];
             
-//            snapshotDicts = [snapshots valueForKey:SKSnapshotCurrentSetupKey];
-//            [snapshots makeObjectsPerformSelector:@selector(close)];
-//            [self removeAllObjectsFromSnapshots];
-            
             [lastViewedPages setCount:0];
             
             [self unregisterForDocumentNotifications];
@@ -825,13 +789,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         
         [self updatePageLabelsAndOutlineForExpansionState:openState];
         [self updateNoteSelection];
-        
-        if ([snapshotDicts count]) {
-            if ([document isLocked] && [self presentationOptions] == SKNormalMode)
-                [savedNormalSetup setObject:snapshotDicts forKey:SNAPSHOTS_KEY];
-            else
-                [self showSnapshotsWithSetups:snapshotDicts];
-        }
         
         if ([document pageCount] && (pageIndex != NSNotFound || secondaryPageIndex != NSNotFound)) {
             PDFPage *page = nil;
@@ -990,8 +947,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         
         if (mwcFlags.rightSidePaneState == SKNoteSidePaneState)
             [self displayNoteViewAnimating:NO];
-        else if (mwcFlags.rightSidePaneState == SKSnapshotSidePaneState)
-            [self displaySnapshotViewAnimating:NO];
     }
 }
 
@@ -1123,40 +1078,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [self willChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:THUMBNAILS_KEY];
         [thumbnails removeAllObjects];
         [self didChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:THUMBNAILS_KEY];
-    }
-}
-
-- (NSArray *)snapshots {
-    return [[snapshots copy] autorelease];
-}
-
-- (NSUInteger)countOfSnapshots {
-    return [snapshots count];
-}
-
-- (SKSnapshotWindowController *)objectInSnapshotsAtIndex:(NSUInteger)theIndex {
-    return [snapshots objectAtIndex:theIndex];
-}
-
-- (void)insertObject:(SKSnapshotWindowController *)snapshot inSnapshotsAtIndex:(NSUInteger)theIndex {
-    [snapshots insertObject:snapshot atIndex:theIndex];
-}
-
-- (void)removeObjectFromSnapshotsAtIndex:(NSUInteger)theIndex {
-    [dirtySnapshots removeObject:[snapshots objectAtIndex:theIndex]];
-    [snapshots removeObjectAtIndex:theIndex];
-}
-
-- (void)removeAllObjectsFromSnapshots {
-    if ([snapshots count]) {
-        NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [snapshots count])];
-        [self willChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:SNAPSHOTS_KEY];
-        
-        [dirtySnapshots removeAllObjects];
-        
-        [snapshots removeAllObjects];
-        
-        [self didChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:SNAPSHOTS_KEY];
     }
 }
 
@@ -1668,11 +1589,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     [rightSideController replaceSideView:rightSideController.noteOutlineView.enclosingScrollView animate:animate];
 }
 
-- (void)displaySnapshotViewAnimating:(BOOL)animate {
-    [rightSideController replaceSideView:rightSideController.snapshotTableView.enclosingScrollView animate:animate];
-    [self updateSnapshotsIfNeeded];
-}
-
 #pragma mark Searching
 
 - (void)displaySearchResultsForString:(NSString *)string {
@@ -1830,8 +1746,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 - (IBAction)searchNotes:(id)sender {
     if (mwcFlags.rightSidePaneState == SKNoteSidePaneState)
         [self updateNoteFilterPredicate];
-    else
-        [self updateSnapshotFilterPredicate];
     if ([[sender stringValue] length]) {
         NSPasteboard *findPboard = [NSPasteboard pasteboardWithName:NSFindPboard];
         [findPboard clearContents];
@@ -1924,15 +1838,11 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 - (void)documentDidUnlockDelayed {
     NSUInteger pageIndex = [[savedNormalSetup objectForKey:PAGEINDEX_KEY] unsignedIntegerValue];
-    NSArray *snapshotSetups = [savedNormalSetup objectForKey:SNAPSHOTS_KEY];
     [self applyPDFSettings:[savedNormalSetup objectForKey:AUTOSCALES_KEY] ? savedNormalSetup : [[NSUserDefaults standardUserDefaults] dictionaryForKey:SKDefaultPDFDisplaySettingsKey]];
     if (pageIndex != NSNotFound) {
         [lastViewedPages setCount:0];
         [pdfView goToPage:[[pdfView document] pageAtIndex:pageIndex]];
         [pdfView resetHistory];
-    }
-    if ([snapshotSetups count]) {
-        [self showSnapshotsWithSetups:snapshotSetups];
     }
     [savedNormalSetup removeAllObjects];
 }
@@ -1960,17 +1870,9 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [pdfView layoutDocumentView];
     if (page) {
         NSUInteger idx = [page pageIndex];
-        for (SKSnapshotWindowController *wc in snapshots) {
-            if ([wc isPageVisible:page]) {
-                [self snapshotNeedsUpdate:wc];
-                [wc redisplay];
-            }
-        }
         if (displayChanged)
             [self updateThumbnailAtPageIndex:idx];
     } else {
-        [snapshots makeObjectsPerformSelector:@selector(redisplay)];
-        [self allSnapshotsNeedUpdate];
         if (displayChanged)
             [self allThumbnailsNeedUpdate];
     }
@@ -2014,92 +1916,8 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 #pragma mark Subwindows
 
-- (void)showSnapshotAtPageNumber:(NSInteger)pageNum forRect:(NSRect)rect scaleFactor:(CGFloat)scaleFactor autoFits:(BOOL)autoFits {
-//    SKSnapshotWindowController *swc = [[SKSnapshotWindowController alloc] init];
-//    
-//    [swc setDelegate:self];
-//    
-//    [swc setPdfDocument:[pdfView document]
-//         goToPageNumber:pageNum
-//                   rect:rect
-//            scaleFactor:scaleFactor
-//               autoFits:autoFits];
-//    
-//    [swc setForceOnTop:[self interactionMode] != SKNormalMode];
-//    
-//    [[self document] addWindowController:swc];
-//    [swc release];
-}
-
-- (void)showSnapshotsWithSetups:(NSArray *)setups {
-    for (NSDictionary *setup in setups) {
-//        SKSnapshotWindowController *swc = [[SKSnapshotWindowController alloc] init];
-//        
-//        [swc setDelegate:self];
-//        
-//        [swc setPdfDocument:[pdfView document] setup:setup];
-//        
-//        [swc setForceOnTop:[self interactionMode] != SKNormalMode];
-//        
-//        [[self document] addWindowController:swc];
-//        [swc release];
-    }
-}
-
-- (void)toggleSelectedSnapshots:(id)sender {
-    // there should only be a single snapshot
-    SKSnapshotWindowController *controller = [[rightSideController.snapshotArrayController selectedObjects] lastObject];
-    
-    if ([[controller window] isVisible])
-        [controller miniaturize];
-    else
-        [controller deminiaturize];
-}
-
-//- (void)snapshotControllerDidFinishSetup:(SKSnapshotWindowController *)controller {
-//    NSImage *image = [controller thumbnailWithSize:snapshotCacheSize];
-//    
-//    [controller setThumbnail:image];
-//    [[self mutableArrayValueForKey:SNAPSHOTS_KEY] addObject:controller];
-//}
-//
-//- (void)snapshotControllerWillClose:(SKSnapshotWindowController *)controller {
-//    [[self mutableArrayValueForKey:SNAPSHOTS_KEY] removeObject:controller];
-//}
-//
-//- (void)snapshotControllerDidChange:(SKSnapshotWindowController *)controller {
-//    [self snapshotNeedsUpdate:controller];
-//    if (mwcFlags.rightSidePaneState == SKSnapshotSidePaneState && [[rightSideController.searchField stringValue] length] > 0)
-//        [rightSideController.snapshotArrayController rearrangeObjects];
-//}
-
 - (void)hideRightSideWindow:(NSTimer *)timer {
     [rightSideWindow collapse];
-}
-
-- (NSRect)snapshotController:(SKSnapshotWindowController *)controller miniaturizedRect:(BOOL)isMiniaturize {
-    NSUInteger row = [[rightSideController.snapshotArrayController arrangedObjects] indexOfObject:controller];
-    if (isMiniaturize && [self interactionMode] != SKPresentationMode) {
-        if ([self interactionMode] == SKNormalMode && [self rightSidePaneIsOpen] == NO) {
-            [self toggleRightSidePane:self];
-        } else if ([self interactionMode] == SKFullScreenMode && ([rightSideWindow state] == NSDrawerClosedState || [rightSideWindow state] == NSDrawerClosingState)) {
-            [rightSideWindow expand];
-            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(hideRightSideWindow:) userInfo:NULL repeats:NO];
-        }
-        [self setRightSidePaneState:SKSnapshotSidePaneState];
-        if (row != NSNotFound)
-            [rightSideController.snapshotTableView scrollRowToVisible:row];
-    }
-    NSRect rect = NSZeroRect;
-    if (row != NSNotFound) {
-        rect = [rightSideController.snapshotTableView frameOfCellAtColumn:0 row:row];
-    } else {
-        rect.origin = SKBottomLeftPoint([rightSideController.snapshotTableView visibleRect]);
-        rect.size.width = rect.size.height = 1.0;
-    }
-    rect = [rightSideController.snapshotTableView convertRect:rect toView:nil];
-    rect.origin = [[rightSideController.snapshotTableView window] convertBaseToScreen:rect.origin];
-    return rect;
 }
 
 - (void)showNote:(PDFAnnotation *)annotation {
@@ -2126,7 +1944,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 - (void)registerAsObserver {
     [[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeys:
         [NSArray arrayWithObjects:SKBackgroundColorKey, SKFullScreenBackgroundColorKey, SKPageBackgroundColorKey, 
-                                  SKThumbnailSizeKey, SKSnapshotThumbnailSizeKey, 
+                                  SKThumbnailSizeKey,
                                   SKShouldAntiAliasKey, SKGreekingThresholdKey, 
                                   SKTableFontSizeKey, nil]
         context:&SKMainWindowDefaultsObservationContext];
@@ -2136,7 +1954,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     @try {
         [[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self forKeys:
             [NSArray arrayWithObjects:SKBackgroundColorKey, SKFullScreenBackgroundColorKey, SKPageBackgroundColorKey, 
-                                      SKThumbnailSizeKey, SKSnapshotThumbnailSizeKey, 
+                                      SKThumbnailSizeKey, 
                                       SKShouldAntiAliasKey, SKGreekingThresholdKey, 
                                       SKTableFontSizeKey, nil]];
     }
@@ -2210,13 +2028,9 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
             [pdfView setNeedsDisplay:YES];
             [secondaryPdfView setNeedsDisplay:YES];
             [self allThumbnailsNeedUpdate];
-            [self allSnapshotsNeedUpdate];
         } else if ([key isEqualToString:SKThumbnailSizeKey]) {
             [self resetThumbnailSizeIfNeeded];
             [leftSideController.thumbnailTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self countOfThumbnails])]];
-        } else if ([key isEqualToString:SKSnapshotThumbnailSizeKey]) {
-            [self resetSnapshotSizeIfNeeded];
-            [rightSideController.snapshotTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self countOfSnapshots])]];
         } else if ([key isEqualToString:SKShouldAntiAliasKey]) {
             [pdfView setShouldAntiAlias:[[NSUserDefaults standardUserDefaults] boolForKey:SKShouldAntiAliasKey]];
             [secondaryPdfView setShouldAntiAlias:[[NSUserDefaults standardUserDefaults] boolForKey:SKShouldAntiAliasKey]];
@@ -2286,15 +2100,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
                 }
                 
                 [self updateThumbnailAtPageIndex:[note pageIndex]];
-                
-                for (SKSnapshotWindowController *wc in snapshots) {
-                    if ([wc isPageVisible:[note page]]) {
-                        [self snapshotNeedsUpdate:wc];
-                        [wc setNeedsDisplayForAnnotation:note onPage:page];
-                        if (NSIsEmptyRect(oldRect) == NO)
-                            [wc setNeedsDisplayInRect:oldRect ofPage:page];
-                    }
-                }
                 
                 [pdfView setNeedsDisplayForAnnotation:note];
                 [secondaryPdfView setNeedsDisplayForAnnotation:note onPage:page];
@@ -2548,79 +2353,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 - (void)updateNoteFilterPredicate {
     [rightSideController.noteArrayController setFilterPredicate:[noteTypeSheetController filterPredicateForSearchString:[rightSideController.searchField stringValue] caseInsensitive:mwcFlags.caseInsensitiveNoteSearch]];
     [rightSideController.noteOutlineView reloadData];
-}
-
-#pragma mark Snapshots
-
-- (void)resetSnapshotSizeIfNeeded {
-    roundedSnapshotThumbnailSize = round([[NSUserDefaults standardUserDefaults] floatForKey:SKSnapshotThumbnailSizeKey]);
-    CGFloat defaultSize = roundedSnapshotThumbnailSize;
-    CGFloat snapshotSize = (defaultSize < TINY_SIZE + FUDGE_SIZE) ? TINY_SIZE : (defaultSize < SMALL_SIZE + FUDGE_SIZE) ? SMALL_SIZE : (defaultSize < LARGE_SIZE + FUDGE_SIZE) ? LARGE_SIZE : HUGE_SIZE;
-    
-    if (fabs(snapshotSize - snapshotCacheSize) > FUDGE_SIZE) {
-        snapshotCacheSize = snapshotSize;
-        
-        if (snapshotTimer) {
-            [snapshotTimer invalidate];
-            SKDESTROY(snapshotTimer);
-        }
-        
-        if ([self countOfSnapshots])
-            [self allSnapshotsNeedUpdate];
-    }
-}
-
-- (void)snapshotNeedsUpdate:(SKSnapshotWindowController *)dirtySnapshot {
-    if ([dirtySnapshots containsObject:dirtySnapshot] == NO) {
-        [dirtySnapshots addObject:dirtySnapshot];
-        [self updateSnapshotsIfNeeded];
-    }
-}
-
-- (void)allSnapshotsNeedUpdate {
-    [dirtySnapshots setArray:[self snapshots]];
-    [self updateSnapshotsIfNeeded];
-}
-
-- (void)updateSnapshotsIfNeeded {
-    if ([rightSideController.snapshotTableView window] != nil && [dirtySnapshots count] > 0 && snapshotTimer == nil)
-        snapshotTimer = [[NSTimer scheduledTimerWithTimeInterval:0.03 target:self selector:@selector(updateSnapshot:) userInfo:NULL repeats:YES] retain];
-}
-
-- (void)updateSnapshot:(NSTimer *)timer {
-    if ([dirtySnapshots count]) {
-        SKSnapshotWindowController *controller = [dirtySnapshots objectAtIndex:0];
-        NSSize newSize, oldSize = [[controller thumbnail] size];
-        NSImage *image = [controller thumbnailWithSize:snapshotCacheSize];
-        
-        [controller setThumbnail:image];
-        [dirtySnapshots removeObject:controller];
-        
-        newSize = [image size];
-        if (fabs(newSize.width - oldSize.width) > 1.0 || fabs(newSize.height - oldSize.height) > 1.0) {
-            NSUInteger idx = [[rightSideController.snapshotArrayController arrangedObjects] indexOfObject:controller];
-            if (idx != NSNotFound)
-                [rightSideController.snapshotTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:idx]];
-        }
-    }
-    if ([dirtySnapshots count] == 0) {
-        [snapshotTimer invalidate];
-        SKDESTROY(snapshotTimer);
-    }
-}
-
-- (void)updateSnapshotFilterPredicate {
-    NSString *searchString = [rightSideController.searchField stringValue];
-    NSPredicate *filterPredicate = nil;
-    if (mwcFlags.rightSidePaneState == SKSnapshotSidePaneState && [searchString length] > 0) {
-        NSExpression *lhs = [NSExpression expressionForConstantValue:searchString];
-        NSExpression *rhs = [NSExpression expressionForKeyPath:@"string"];
-        NSUInteger options = NSDiacriticInsensitivePredicateOption;
-        if (mwcFlags.caseInsensitiveNoteSearch)
-            options |= NSCaseInsensitivePredicateOption;
-        filterPredicate = [NSComparisonPredicate predicateWithLeftExpression:lhs rightExpression:rhs modifier:NSDirectPredicateModifier type:NSInPredicateOperatorType options:options];
-    }
-    [rightSideController.snapshotArrayController setFilterPredicate:filterPredicate];
 }
 
 #pragma mark Progress sheet

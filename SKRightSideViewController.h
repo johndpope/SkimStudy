@@ -39,18 +39,14 @@
 #import <Cocoa/Cocoa.h>
 #import "SKSideViewController.h"
 
-@class SKNoteOutlineView, SKThumbnailTableView;
+@class SKNoteOutlineView;
 
 @interface SKRightSideViewController : SKSideViewController {
     NSArrayController *noteArrayController;
     SKNoteOutlineView *noteOutlineView;
-
-    NSArrayController *snapshotArrayController;
-    SKThumbnailTableView *snapshotTableView;
 }
 
 @property (nonatomic, retain) IBOutlet NSArrayController *noteArrayController, *snapshotArrayController;
 @property (nonatomic, retain) IBOutlet SKNoteOutlineView *noteOutlineView;
-@property (nonatomic, retain) IBOutlet SKThumbnailTableView *snapshotTableView;
 
 @end

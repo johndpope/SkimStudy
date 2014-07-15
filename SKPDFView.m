@@ -167,7 +167,6 @@ enum {
 - (BOOL)doSelectAnnotationWithEvent:(NSEvent *)theEvent;
 - (void)doDragAnnotationWithEvent:(NSEvent *)theEvent;
 - (void)doEditActiveAnnotationWithEvent:(NSEvent *)theEvent;
-- (void)doSelectSnapshotWithEvent:(NSEvent *)theEvent;
 - (void)doMagnifyWithEvent:(NSEvent *)theEvent;
 - (void)doDragWithEvent:(NSEvent *)theEvent;
 - (void)doDrawFreehandNoteWithEvent:(NSEvent *)theEvent;
@@ -1127,8 +1126,6 @@ enum {
             // Eat up drag events because we don't want to select
             [self doNothingWithEvent:theEvent];
         }
-    } else if (modifiers == NSCommandKeyMask) {
-        [self doSelectSnapshotWithEvent:theEvent];
     } else if (modifiers == (NSCommandKeyMask | NSShiftKeyMask)) {
         [self doPdfsyncWithEvent:theEvent];
     } else if ((area & SKReadingBarArea) && (area & kPDFLinkArea) == 0 && ((area & kPDFPageArea) == 0 || (toolMode != SKSelectToolMode && toolMode != SKMagnifyToolMode))) {
@@ -1274,9 +1271,6 @@ enum {
     item = [submenu addItemWithTitle:NSLocalizedString(@"Freehand", @"Menu item title") action:@selector(changeAnnotationMode:) target:self tag:SKInkNote];
     
     [menu insertItem:[NSMenuItem separatorItem] atIndex:0];
-    
-    item = [menu insertItemWithTitle:NSLocalizedString(@"Take Snapshot", @"Menu item title") action:@selector(takeSnapshot:) target:self atIndex:0];
-    [item setRepresentedObject:theEvent];
     
     if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && [self hideNotes] == NO) {
         
@@ -2179,46 +2173,6 @@ static inline CGFloat secondaryOutset(CGFloat x) {
     return [child accessibilityFocusedUIElement];
 }
 
-#pragma mark Snapshots
-
-- (void)takeSnapshot:(id)sender {
-    NSEvent *event;
-    NSPoint point;
-    PDFPage *page = nil;
-    NSRect rect = NSZeroRect;
-    BOOL autoFits = NO;
-    
-    if (toolMode == SKSelectToolMode && NSIsEmptyRect(selectionRect) == NO && selectionPageIndex != NSNotFound) {
-        page = [self currentSelectionPage];
-        rect = NSIntersectionRect(selectionRect, [page boundsForBox:kPDFDisplayBoxCropBox]);
-        autoFits = YES;
-	}
-    if (NSIsEmptyRect(rect)) {
-        // First try the current mouse position
-        event = [sender representedObject] ?: [NSApp currentEvent];
-        point = ([[event window] isEqual:[self window]] && ([event type] == NSLeftMouseDown || [event type] == NSRightMouseDown)) ? [event locationInWindow] : [[self window] mouseLocationOutsideOfEventStream];
-        point = [self convertPoint:point fromView:nil];
-        page = [self pageForPoint:point nearest:NO];
-        if (page == nil) {
-            // Get the center
-            NSRect viewFrame = [self frame];
-            point = SKCenterPoint(viewFrame);
-            page = [self pageForPoint:point nearest:YES];
-        }
-        
-        point = [self convertPoint:point toPage:page];
-        
-        rect = [self convertRect:[page boundsForBox:kPDFDisplayBoxCropBox] fromPage:page];
-        rect.origin.y = point.y - 0.5 * DEFAULT_SNAPSHOT_HEIGHT;
-        rect.size.height = DEFAULT_SNAPSHOT_HEIGHT;
-        
-        rect = [self convertRect:rect toPage:page];
-    }
-    
-    if ([[self delegate] respondsToSelector:@selector(PDFView:showSnapshotAtPageNumber:forRect:scaleFactor:autoFits:)])
-        [[self delegate] PDFView:self showSnapshotAtPageNumber:[page pageIndex] forRect:rect scaleFactor:[self scaleFactor] autoFits:autoFits];
-}
-
 #pragma mark Notification handling
 
 - (void)handlePageChangedNotification:(NSNotification *)notification {
@@ -2323,8 +2277,6 @@ static inline CGFloat secondaryOutset(CGFloat x) {
         return toolMode == SKTextToolMode;
     } else if (action == @selector(deselectAll:)) {
         return [[self currentSelection] hasCharacters] != 0;
-    } else if (action == @selector(takeSnapshot:)) {
-        return [[self document] isLocked] == NO;
     } else {
         return [super validateMenuItem:menuItem];
     }
@@ -3661,157 +3613,6 @@ static inline CGFloat secondaryOutset(CGFloat x) {
     [NSCursor pop];
     // ??? PDFView's delayed layout seems to reset the cursor to an arrow
     [[self getCursorForEvent:theEvent] performSelector:@selector(set) withObject:nil afterDelay:0];
-}
-
-- (void)doSelectSnapshotWithEvent:(NSEvent *)theEvent {
-    NSPoint mouseLoc = [theEvent locationInWindow];
-	NSPoint startPoint = [[self documentView] convertPoint:mouseLoc fromView:nil];
-	NSPoint	currentPoint;
-    NSRect selRect = {startPoint, NSZeroSize};
-    BOOL dragged = NO;
-    CAShapeLayer *layer = nil;
-    
-    [[NSCursor cameraCursor] set];
-	
-    if ([self wantsLayer]) {
-        CGRect rect = NSRectToCGRect([self visibleContentRect]);
-        layer = [CAShapeLayer layer];
-        [layer setStrokeColor:CGColorGetConstantColor(kCGColorBlack)];
-        [layer setFillColor:NULL];
-        [layer setLineWidth:1.0];
-        [layer setFrame:rect];
-        [layer setBounds:rect];
-        [layer setMasksToBounds:YES];
-        [[self layer] addSublayer:layer];
-    } else {
-        [[self window] discardCachedImage];
-    }
-    
-	while (YES) {
-		theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSFlagsChangedMask];
-        
-        if (layer == nil) {
-            [[self window] disableFlushWindow];
-            [[self window] restoreCachedImage];
-		}
-        
-        if ([theEvent type] == NSLeftMouseUp) {
-            if (layer == nil) {
-                [[self window] enableFlushWindow];
-                [[self window] flushWindow];
-            }
-            break;
-        }
-        
-        if ([theEvent type] == NSLeftMouseDragged) {
-            // change mouseLoc
-            [[[self scrollView] contentView] autoscroll:theEvent];
-            mouseLoc = [theEvent locationInWindow];
-            dragged = YES;
-        }
-        
-        // dragging or flags changed
-        
-        currentPoint = [[self documentView] convertPoint:mouseLoc fromView:nil];
-        
-        // center around startPoint when holding down the Shift key
-        if (([theEvent modifierFlags] & NSShiftKeyMask))
-            selRect = SKRectFromCenterAndPoint(startPoint, currentPoint);
-        else
-            selRect = SKRectFromPoints(startPoint, currentPoint);
-        
-        // intersect with the bounds, project on the bounds if necessary and allow zero width or height
-        selRect = SKIntersectionRect(selRect, [[self documentView] bounds]);
-        
-        if (layer) {
-            
-            CGMutablePathRef path = CGPathCreateMutable();
-            CGPathAddRect(path, NULL, NSRectToCGRect(NSInsetRect(NSIntegralRect([self convertRect:selRect fromView:[self documentView]]), 0.5, 0.5)));
-            [layer setPath:path];
-            CGPathRelease(path);
-            
-        } else {
-            
-            [[self window] cacheImageInRect:NSInsetRect([[self documentView] convertRect:selRect toView:nil], -2.0, -2.0)];
-            
-            if ([[self documentView] lockFocusIfCanDraw]) {;
-                [[NSColor blackColor] set];
-                [NSBezierPath setDefaultLineWidth:1.0];
-                [NSBezierPath strokeRect:NSInsetRect(NSIntegralRect(selRect), 0.5, 0.5)];
-                [[self documentView] unlockFocus];
-            }
-            [[self window] enableFlushWindow];
-            [[self window] flushWindow];
-            
-        }
-    }
-    
-    if (layer)
-        [layer removeFromSuperlayer];
-    else
-        [[self window] discardCachedImage];
-    
-	[[self getCursorForEvent:theEvent] set];
-    
-    NSPoint point = [self convertPoint:SKCenterPoint(selRect) fromView:[self documentView]];
-    PDFPage *page = [self pageForPoint:point nearest:YES];
-    NSRect rect = [self convertRect:selRect fromView:[self documentView]];
-    NSRect bounds;
-    NSInteger factor = 1;
-    BOOL autoFits = NO;
-    
-    if (dragged) {
-    
-        bounds = [self convertRect:[[self documentView] bounds] fromView:[self documentView]];
-        
-        if (NSWidth(rect) < 40.0 && NSHeight(rect) < 40.0)
-            factor = 3;
-        else if (NSWidth(rect) < 60.0 && NSHeight(rect) < 60.0)
-            factor = 2;
-        
-        if (factor * NSWidth(rect) < 60.0) {
-            rect = NSInsetRect(rect, 0.5 * (NSWidth(rect) - 60.0 / factor), 0.0);
-            if (NSMinX(rect) < NSMinX(bounds))
-                rect.origin.x = NSMinX(bounds);
-            if (NSMaxX(rect) > NSMaxX(bounds))
-                rect.origin.x = NSMaxX(bounds) - NSWidth(rect);
-        }
-        if (factor * NSHeight(rect) < 60.0) {
-            rect = NSInsetRect(rect, 0.0, 0.5 * (NSHeight(rect) - 60.0 / factor));
-            if (NSMinY(rect) < NSMinY(bounds))
-                rect.origin.y = NSMinY(bounds);
-            if (NSMaxX(rect) > NSMaxY(bounds))
-                rect.origin.y = NSMaxY(bounds) - NSHeight(rect);
-        }
-        
-        autoFits = YES;
-        
-    } else if (toolMode == SKSelectToolMode && NSIsEmptyRect(selectionRect) == NO) {
-        
-        rect = NSIntersectionRect(selectionRect, [page boundsForBox:kPDFDisplayBoxCropBox]);
-        rect = [self convertRect:rect fromPage:page];
-        autoFits = YES;
-        
-    } else {
-        
-        PDFAnnotation *annotation = [page annotationAtPoint:[self convertPoint:point toPage:page]];
-        if ([annotation isLink]) {
-            PDFDestination *destination = [annotation destination];
-            if ([destination page]) {
-                page = [destination page];
-                point = [self convertPoint:[destination point] fromPage:page];
-                point.y -= 0.5 * DEFAULT_SNAPSHOT_HEIGHT;
-            }
-        }
-        
-        rect = [self convertRect:[page boundsForBox:kPDFDisplayBoxCropBox] fromPage:page];
-        rect.origin.y = point.y - 0.5 * DEFAULT_SNAPSHOT_HEIGHT;
-        rect.size.height = DEFAULT_SNAPSHOT_HEIGHT;
-        
-    }
-    
-    if ([[self delegate] respondsToSelector:@selector(PDFView:showSnapshotAtPageNumber:forRect:scaleFactor:autoFits:)])
-        [[self delegate] PDFView:self showSnapshotAtPageNumber:[page pageIndex] forRect:[self convertRect:rect toPage:page] scaleFactor:[self scaleFactor] * factor autoFits:autoFits];
 }
 
 - (void)doMagnifyWithEvent:(NSEvent *)theEvent {
