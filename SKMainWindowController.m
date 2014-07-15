@@ -259,8 +259,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         mwcFlags.findPaneState = SKSingularFindPaneState;
         pageLabel = nil;
         pageNumber = NSNotFound;
-        markedPageIndex = NSNotFound;
-        beforeMarkedPageIndex = NSNotFound;
         mwcFlags.updatingColor = 0;
         mwcFlags.updatingFont = 0;
         mwcFlags.updatingLine = 0;
@@ -876,7 +874,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         }
         
         // the number of pages may have changed
-        [toolbarController handleChangedHistoryNotification:nil];
         [toolbarController handlePageChangedNotification:nil];
         [self handlePageChangedNotification:nil];
         [self updateLeftStatus];

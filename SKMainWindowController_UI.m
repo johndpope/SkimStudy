@@ -1244,10 +1244,6 @@
     [self showFindBar];
 }
 
-- (void)PDFViewPerformGoToPage:(PDFView *)sender {
-    [self doGoToPage:sender];
-}
-
 - (void)PDFViewPerformPrint:(PDFView *)sender {
     [[self document] printDocument:sender];
 }
@@ -1466,12 +1462,6 @@ static NSArray *allMainDocumentPDFViews() {
         return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(delete:) || action == @selector(copy:) || action == @selector(cut:) || action == @selector(paste:) || action == @selector(alternatePaste:) || action == @selector(pasteAsPlainText:) || action == @selector(deselectAll:) || action == @selector(changeAnnotationMode:) || action == @selector(changeToolMode:) || action == @selector(changeToolMode:)) {
         return [pdfView validateMenuItem:menuItem];
-    } else if (action == @selector(doGoToFirstPage:)) {
-        return [pdfView canGoToFirstPage];
-    } else if (action == @selector(doGoToLastPage:)) {
-        return [pdfView canGoToLastPage];
-    } else if (action == @selector(doGoToPage:)) {
-        return [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(allGoToNextPage:)) {
         return [[allMainDocumentPDFViews() valueForKeyPath:@"@min.canGoToNextPage"] boolValue];
     } else if (action == @selector(allGoToPreviousPage:)) {
@@ -1480,20 +1470,6 @@ static NSArray *allMainDocumentPDFViews() {
         return [[allMainDocumentPDFViews() valueForKeyPath:@"@min.canGoToFirstPage"] boolValue];
     } else if (action == @selector(allGoToLastPage:)) {
         return [[allMainDocumentPDFViews() valueForKeyPath:@"@min.canGoToLastPage"] boolValue];
-    } else if (action == @selector(doGoBack:)) {
-        return [pdfView canGoBack];
-    } else if (action == @selector(doGoForward:)) {
-        return [pdfView canGoForward];
-    } else if (action == @selector(goToMarkedPage:)) {
-        if (beforeMarkedPageIndex != NSNotFound) {
-            [menuItem setTitle:NSLocalizedString(@"Jump Back From Marked Page", @"Menu item title")];
-            return YES;
-        } else {
-            [menuItem setTitle:NSLocalizedString(@"Go To Marked Page", @"Menu item title")];
-            return markedPageIndex != NSNotFound && markedPageIndex != [[pdfView currentPage] pageIndex];
-        }
-    } else if (action == @selector(markPage:)) {
-        return [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(doZoomIn:)) {
         return [self interactionMode] != SKPresentationMode && [pdfView canZoomIn];
     } else if (action == @selector(doZoomOut:)) {
@@ -1641,9 +1617,6 @@ static NSArray *allMainDocumentPDFViews() {
     [self updateOutlineSelection];
     [self updateNoteSelection];
     [self updateThumbnailSelection];
-    
-    if (beforeMarkedPageIndex != NSNotFound && [[pdfView currentPage] pageIndex] != markedPageIndex)
-        beforeMarkedPageIndex = NSNotFound;
     
     [self synchronizeWindowTitleWithDocumentName];
     [self updateLeftStatus];

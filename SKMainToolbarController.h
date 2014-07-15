@@ -44,8 +44,6 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 
 @interface SKMainToolbarController : NSViewController <NSToolbarDelegate> {
     SKMainWindowController *mainController;
-    NSSegmentedControl *backForwardButton;
-    NSTextField *pageNumberField;
     NSSegmentedControl *zoomInOutButton;
     NSSegmentedControl *zoomInActualOutButton;
     NSSegmentedControl *zoomActualButton;
@@ -76,19 +74,17 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 }
 
 @property (nonatomic, assign) IBOutlet SKMainWindowController *mainController;
-@property (nonatomic, retain) IBOutlet NSSegmentedControl *backForwardButton, *zoomInOutButton, *zoomInActualOutButton, *zoomActualButton, *zoomFitButton, *zoomSelectionButton, *fullScreenButton, *presentationButton, *leftPaneButton, *rightPaneButton, *toolModeButton, *textNoteButton, *circleNoteButton, *markupNoteButton, *lineNoteButton, *singleTwoUpButton, *continuousButton, *displayModeButton, *displayBoxButton, *infoButton, *fontsButton, *linesButton, *printButton, *customizeButton, *noteButton;
-@property (nonatomic, retain) IBOutlet NSTextField *pageNumberField, *scaleField;
+@property (nonatomic, retain) IBOutlet NSSegmentedControl *zoomInOutButton, *zoomInActualOutButton, *zoomActualButton, *zoomFitButton, *zoomSelectionButton, *fullScreenButton, *presentationButton, *leftPaneButton, *rightPaneButton, *toolModeButton, *textNoteButton, *circleNoteButton, *markupNoteButton, *lineNoteButton, *singleTwoUpButton, *continuousButton, *displayModeButton, *displayBoxButton, *infoButton, *fontsButton, *linesButton, *printButton, *customizeButton, *noteButton;
+@property (nonatomic, retain) IBOutlet NSTextField *scaleField;
 @property (nonatomic, retain) IBOutlet SKColorSwatch *colorSwatch;
 
 - (void)setupToolbar;
 
 - (void)registerForNotifications;
-- (void)handleChangedHistoryNotification:(NSNotification *)notification;
 - (void)handlePageChangedNotification:(NSNotification *)notification;
 
 #pragma mark Actions
 
-- (IBAction)goBackOrForward:(id)sender;
 - (IBAction)changeScaleFactor:(id)sender;
 - (void)chooseScale:(id)sender;
 - (void)zoomActualPhysical:(id)sender;

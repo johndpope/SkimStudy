@@ -62,7 +62,6 @@
 #define SKDocumentToolbarPreviousItemIdentifier @"SKDocumentToolbarPreviousItemIdentifier"
 #define SKDocumentToolbarNextItemIdentifier @"SKDocumentToolbarNextItemIdentifier"
 #define SKDocumentToolbarPreviousNextItemIdentifier @"SKDocumentToolbarPreviousNextItemIdentifier"
-#define SKDocumentToolbarBackForwardItemIdentifier @"SKDocumentToolbarBackForwardItemIdentifier"
 #define SKDocumentToolbarPageNumberItemIdentifier @"SKDocumentToolbarPageNumberItemIdentifier"
 #define SKDocumentToolbarScaleItemIdentifier @"SKDocumentToolbarScaleItemIdentifier"
 #define SKDocumentToolbarZoomActualItemIdentifier @"SKDocumentToolbarZoomActualItemIdentifier"
@@ -115,7 +114,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
 
 @implementation SKMainToolbarController
 
-@synthesize mainController, backForwardButton, pageNumberField, zoomInOutButton, zoomInActualOutButton, zoomActualButton, zoomFitButton, zoomSelectionButton, fullScreenButton, presentationButton, leftPaneButton, rightPaneButton, toolModeButton, textNoteButton, circleNoteButton, markupNoteButton, lineNoteButton, singleTwoUpButton, continuousButton, displayModeButton, displayBoxButton, infoButton, fontsButton, linesButton, printButton, customizeButton, scaleField, noteButton, colorSwatch;
+@synthesize mainController, zoomInOutButton, zoomInActualOutButton, zoomActualButton, zoomFitButton, zoomSelectionButton, fullScreenButton, presentationButton, leftPaneButton, rightPaneButton, toolModeButton, textNoteButton, circleNoteButton, markupNoteButton, lineNoteButton, singleTwoUpButton, continuousButton, displayModeButton, displayBoxButton, infoButton, fontsButton, linesButton, printButton, customizeButton, scaleField, noteButton, colorSwatch;
 
 + (void)initialize {
     SKINITIALIZE;
@@ -130,7 +129,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
     mainController = nil;
     SKDESTROY(toolbarItems);
-    SKDESTROY(backForwardButton);
     SKDESTROY(zoomInOutButton);
     SKDESTROY(zoomInActualOutButton);
     SKDESTROY(zoomActualButton);
@@ -155,7 +153,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
     SKDESTROY(printButton);
     SKDESTROY(customizeButton);
     SKDESTROY(noteButton);
-    SKDESTROY(pageNumberField);
     SKDESTROY(scaleField);
     SKDESTROY(colorSwatch);
     [super dealloc];
@@ -199,30 +196,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
         item = [[[SKToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
         [toolbarItems setObject:item forKey:identifier];
     
-        if ([identifier isEqualToString:SKDocumentToolbarBackForwardItemIdentifier]) {
-            
-            menuItem = [NSMenuItem menuItemWithSubmenuAndTitle:NSLocalizedString(@"Back/Forward", @"Toolbar item label")];
-            menu = [menuItem submenu];
-            [menu addItemWithTitle:NSLocalizedString(@"Back", @"Menu item title") action:@selector(doGoBack:) target:mainController];
-            [menu addItemWithTitle:NSLocalizedString(@"Forward", @"Menu item title") action:@selector(doGoForward:) target:mainController];
-            
-            [item setLabels:NSLocalizedString(@"Back/Forward", @"Toolbar item label")];
-            [item setToolTip:NSLocalizedString(@"Back/Forward", @"Tool tip message")];
-            [backForwardButton setToolTip:NSLocalizedString(@"Go Back", @"Tool tip message") forSegment:0];
-            [backForwardButton setToolTip:NSLocalizedString(@"Go Forward", @"Tool tip message") forSegment:1];
-            [item setViewWithSizes:backForwardButton];
-            [item setMenuFormRepresentation:menuItem];
-            
-        } else if ([identifier isEqualToString:SKDocumentToolbarPageNumberItemIdentifier]) {
-            
-            menuItem = [NSMenuItem menuItemWithTitle:NSLocalizedString(@"Page", @"Menu item title") action:@selector(doGoToPage:) target:mainController];
-            
-            [item setLabels:NSLocalizedString(@"Page", @"Toolbar item label")];
-            [item setToolTip:NSLocalizedString(@"Go To Page", @"Tool tip message")];
-            [item setViewWithSizes:pageNumberField];
-            [item setMenuFormRepresentation:menuItem];
-            
-        } else if ([identifier isEqualToString:SKDocumentToolbarScaleItemIdentifier]) {
+        if ([identifier isEqualToString:SKDocumentToolbarScaleItemIdentifier]) {
             
             menuItem = [NSMenuItem menuItemWithTitle:NSLocalizedString(@"Scale", @"Menu item title") action:@selector(chooseScale:) target:self];
             
@@ -596,8 +570,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
     return [NSArray arrayWithObjects:
         SKDocumentToolbarPreviousNextItemIdentifier, 
         SKDocumentToolbarPageNumberItemIdentifier, 
-        SKDocumentToolbarBackForwardItemIdentifier, 
-        SKDocumentToolbarZoomInActualOutItemIdentifier, 
+        SKDocumentToolbarZoomInActualOutItemIdentifier,
         SKDocumentToolbarToolModeItemIdentifier, 
         SKDocumentToolbarNewNoteItemIdentifier, nil];
 }
@@ -608,8 +581,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
         SKDocumentToolbarPreviousItemIdentifier,
         SKDocumentToolbarPageNumberItemIdentifier, 
         SKDocumentToolbarNextItemIdentifier, 
-        SKDocumentToolbarBackForwardItemIdentifier, 
-        SKDocumentToolbarZoomInActualOutItemIdentifier, 
+        SKDocumentToolbarZoomInActualOutItemIdentifier,
         SKDocumentToolbarZoomInOutItemIdentifier, 
         SKDocumentToolbarZoomActualItemIdentifier, 
         SKDocumentToolbarZoomToFitItemIdentifier, 
@@ -723,13 +695,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
     NSSize size = [colorSwatch bounds].size;
     [toolbarItem setMinSize:size];
     [toolbarItem setMaxSize:size];
-}
-
-- (IBAction)goBackOrForward:(id)sender {
-    if ([sender selectedTag] == 1)
-        [mainController.pdfView goForward:sender];
-    else
-        [mainController.pdfView goBack:sender];
 }
 
 - (IBAction)changeScaleFactor:(id)sender {
@@ -879,11 +844,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
 
 #pragma mark Notifications
 
-- (void)handleChangedHistoryNotification:(NSNotification *)notification {
-    [backForwardButton setEnabled:[mainController.pdfView canGoBack] forSegment:0];
-    [backForwardButton setEnabled:[mainController.pdfView canGoForward] forSegment:1];
-}
-
 - (void)handlePageChangedNotification:(NSNotification *)notification {
 }
 
@@ -932,10 +892,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
                              name:PDFViewDisplayModeChangedNotification object:mainController.pdfView];
     [nc addObserver:self selector:@selector(handleDisplayBoxChangedNotification:) 
                              name:PDFViewDisplayBoxChangedNotification object:mainController.pdfView];
-    [nc addObserver:self selector:@selector(handleChangedHistoryNotification:) 
-                             name:PDFViewChangedHistoryNotification object:mainController.pdfView];
-    
-    [self handleChangedHistoryNotification:nil];
+
     [self handlePageChangedNotification:nil];
     [self handleScaleChangedNotification:nil];
     [self handleToolModeChangedNotification:nil];

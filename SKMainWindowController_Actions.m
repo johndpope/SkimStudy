@@ -253,14 +253,6 @@
     [pdfView setDisplayBox:[sender tag]];
 }
 
-- (IBAction)doGoToFirstPage:(id)sender {
-    [pdfView goToFirstPage:sender];
-}
-
-- (IBAction)doGoToLastPage:(id)sender {
-    [pdfView goToLastPage:sender];
-}
-
 static NSArray *allMainDocumentPDFViews() {
     NSMutableArray *array = [NSMutableArray array];
     for (id document in [[NSDocumentController sharedDocumentController] documents]) {
@@ -289,43 +281,6 @@ static NSArray *allMainDocumentPDFViews() {
 - (void)pageSheetDidEnd:(SKTextFieldSheetController *)controller returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSOKButton)
         [self setPageLabel:[controller stringValue]];
-}
-
-- (IBAction)doGoToPage:(id)sender {
-    SKTextFieldSheetController *pageSheetController = [[[SKTextFieldSheetController alloc] initWithWindowNibName:@"PageSheet"] autorelease];
-    
-    [(NSComboBox *)[pageSheetController textField] addItemsWithObjectValues:pageLabels];
-    [pageSheetController setStringValue:[self pageLabel]];
-    
-    [pageSheetController beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
-            if (result == NSOKButton)
-                [self setPageLabel:[pageSheetController stringValue]];
-        }];
-}
-
-- (IBAction)doGoBack:(id)sender {
-    [pdfView goBack:sender];
-}
-
-- (IBAction)doGoForward:(id)sender {
-    [pdfView goForward:sender];
-}
-
-- (IBAction)goToMarkedPage:(id)sender {
-    PDFDocument *pdfDoc = [pdfView document];
-    NSUInteger currentPageIndex = [[pdfView currentPage] pageIndex];
-    if (markedPageIndex == NSNotFound || [pdfDoc isLocked] || [pdfDoc pageCount] == 0) {
-        NSBeep();
-    } else if (beforeMarkedPageIndex != NSNotFound) {
-        [pdfView goToPage:[pdfDoc pageAtIndex:MIN(beforeMarkedPageIndex, [pdfDoc pageCount] - 1)]];
-    } else if (currentPageIndex != markedPageIndex) {
-        beforeMarkedPageIndex = currentPageIndex;
-        [pdfView goToPage:[pdfDoc pageAtIndex:MIN(markedPageIndex, [pdfDoc pageCount] - 1)]];
-    }
-}
-
-- (IBAction)markPage:(id)sender {
-    markedPageIndex = [[pdfView currentPage] pageIndex];
 }
 
 - (IBAction)doZoomIn:(id)sender {
