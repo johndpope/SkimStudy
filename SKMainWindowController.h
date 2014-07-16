@@ -183,8 +183,6 @@ enum {
     
 @property (nonatomic, retain) IBOutlet NSView *leftSideContentView, *rightSideContentView;
 
-- (IBAction)enterPresentation:(id)sender;
-
 - (void)displaySearchResultsForString:(NSString *)string;
 - (IBAction)search:(id)sender;
 - (IBAction)searchNotes:(id)sender;

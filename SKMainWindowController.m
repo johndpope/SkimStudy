@@ -962,9 +962,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 - (BOOL)leftSidePaneIsOpen {
     NSInteger state;
-    if ([self interactionMode] == SKPresentationMode)
-        state = [leftSideWindow isVisible] ? NSDrawerOpenState : NSDrawerClosedState;
-    else if (mwcFlags.usesDrawers)
+    if (mwcFlags.usesDrawers)
         state = [leftSideDrawer state];
     else
         state = [splitView isSubviewCollapsed:leftSideContentView] ? NSDrawerClosedState : NSDrawerOpenState;
@@ -973,9 +971,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 - (BOOL)rightSidePaneIsOpen {
     NSInteger state;
-    if ([self interactionMode] == SKPresentationMode)
-        state = [rightSideWindow isVisible] ? NSDrawerOpenState : NSDrawerClosedState;
-    else if (mwcFlags.usesDrawers)
+    if (mwcFlags.usesDrawers)
         state = [rightSideDrawer state];
     else
         state = [splitView isSubviewCollapsed:rightSideContentView] ? NSDrawerClosedState : NSDrawerOpenState;;
@@ -1170,18 +1166,8 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [[leftSideController.view window] makeFirstResponder:nil];
     [leftSideWindow setMainView:leftSideController.view];
     
-    if ([self interactionMode] == SKPresentationMode) {
-        mwcFlags.savedLeftSidePaneState = [self leftSidePaneState];
-        [self setLeftSidePaneState:SKThumbnailSidePaneState];
-        [leftSideWindow setAlphaValue:PRESENTATION_SIDE_WINDOW_ALPHA];
-        [leftSideWindow setEnabled:NO];
-        [leftSideWindow makeFirstResponder:leftSideController.thumbnailTableView];
-        [leftSideWindow attachToWindow:[self window]];
-        [leftSideWindow expand];
-    } else {
-        [leftSideWindow makeFirstResponder:leftSideController.searchField];
-        [leftSideWindow attachToWindow:[self window]];
-    }
+    [leftSideWindow makeFirstResponder:leftSideController.searchField];
+    [leftSideWindow attachToWindow:[self window]];
 }
 
 - (void)showRightSideWindow {
@@ -1192,14 +1178,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [[rightSideController.view window] makeFirstResponder:nil];
     [rightSideWindow setMainView:rightSideController.view];
     
-    if ([self interactionMode] == SKPresentationMode) {
-        [rightSideWindow setAlphaValue:PRESENTATION_SIDE_WINDOW_ALPHA];
-        [rightSideWindow setEnabled:NO];
-        [rightSideWindow attachToWindow:[self window]];
-        [rightSideWindow expand];
-    } else {
-        [rightSideWindow attachToWindow:[self window]];
-    }
+    [rightSideWindow attachToWindow:[self window]];
 }
 
 - (void)hideLeftSideWindow {
@@ -1233,76 +1212,13 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     }
 }
 
-- (void)enterPresentationMode {
-    NSScrollView *scrollView = [[pdfView documentView] enclosingScrollView];
-    [savedNormalSetup setObject:[NSNumber numberWithBool:[scrollView hasHorizontalScroller]] forKey:HASHORIZONTALSCROLLER_KEY];
-    [savedNormalSetup setObject:[NSNumber numberWithBool:[scrollView hasVerticalScroller]] forKey:HASVERTICALSCROLLER_KEY];
-    [savedNormalSetup setObject:[NSNumber numberWithBool:[scrollView autohidesScrollers]] forKey:AUTOHIDESSCROLLERS_KEY];
-    // Set up presentation mode
-    [pdfView setBackgroundColor:[NSColor clearColor]];
-    [pdfView setAutoScales:YES];
-    [pdfView setDisplayMode:kPDFDisplaySinglePage];
-    [pdfView setDisplayBox:kPDFDisplayBoxCropBox];
-    [pdfView setDisplaysPageBreaks:NO];
-    [scrollView setAutohidesScrollers:YES];
-    [scrollView setHasHorizontalScroller:NO];
-    [scrollView setHasVerticalScroller:NO];
-    
-    [pdfView setCurrentSelection:nil];
-    if ([pdfView hasReadingBar])
-        [pdfView toggleReadingBar];
-    
-    [[self presentationNotesDocument] setCurrentPage:[[[self presentationNotesDocument] pdfDocument] pageAtIndex:[[pdfView currentPage] pageIndex]]];
-    
-    // prevent sleep
-    if (activityAssertionID == kIOPMNullAssertionID && kIOReturnSuccess != IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep, kIOPMAssertionLevelOn, CFSTR("Skim"), &activityAssertionID))
-        activityAssertionID = kIOPMNullAssertionID;
-}
-
-- (void)exitPresentationMode {
-    if (activityAssertionID != kIOPMNullAssertionID && kIOReturnSuccess == IOPMAssertionRelease(activityAssertionID))
-        activityAssertionID = kIOPMNullAssertionID;
-    
-    NSScrollView *scrollView = [[pdfView documentView] enclosingScrollView];
-    [scrollView setHasHorizontalScroller:[[savedNormalSetup objectForKey:HASHORIZONTALSCROLLER_KEY] boolValue]];
-    [scrollView setHasVerticalScroller:[[savedNormalSetup objectForKey:HASVERTICALSCROLLER_KEY] boolValue]];
-    [scrollView setAutohidesScrollers:[[savedNormalSetup objectForKey:AUTOHIDESSCROLLERS_KEY] boolValue]];
-}
-
 - (void)removeBlankingWindows {
     [blankingWindows makeObjectsPerformSelector:@selector(fadeOut)];
     [blankingWindows autorelease];
     blankingWindows = nil;
 }
 
-- (IBAction)enterPresentation:(id)sender {
-    SKInteractionMode wasInteractionMode = [self interactionMode];
-    if (wasInteractionMode == SKPresentationMode)
-        return;
-    
-    PDFPage *page = [[self pdfView] currentPage];
-    
-    // remember normal setup to return to, we must do this before changing the interactionMode
-    if (wasInteractionMode == SKNormalMode)
-        [savedNormalSetup setDictionary:[self currentPDFSettings]];
-        
-    if ([[findController view] window])
-        [findController toggleAboveView:nil animate:NO];
-    
-    interactionMode = SKPresentationMode;
-    
-    [self enterPresentationMode];
-    
-    if ([[[self pdfView] currentPage] isEqual:page] == NO)
-        [[self pdfView] goToPage:page];
-    
-    [pdfView setInteractionMode:SKPresentationMode];
-}
-
 - (BOOL)handleRightMouseDown:(NSEvent *)theEvent {
-    if ([self interactionMode] == SKPresentationMode) {
-        return YES;
-    }
     return NO;
 }
 
@@ -2116,10 +2032,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         case kHIDRemoteButtonCodeUp:
             if (remoteScrolling)
                 [[[self pdfView] documentView] scrollLineUp];
-            else if ([self interactionMode] == SKPresentationMode)
-                [self doAutoScale:nil];
-            else
-                
             break;
         case kHIDRemoteButtonCodeDown:
             if (remoteScrolling)
@@ -2138,7 +2050,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
                 [[[self pdfView] documentView] scrollLineLeft];
             break;
         case kHIDRemoteButtonCodeCenter:        
-            [self togglePresentation:nil];
             break;
         default:
             break;

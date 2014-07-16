@@ -323,7 +323,7 @@ enum {
 - (void)resetPDFToolTipRects {
     [self removePDFToolTipRects];
     
-    if ([self document] && [self window] && interactionMode != SKPresentationMode) {
+    if ([self document] && [self window]) {
         NSRect visibleRect = [self visibleContentRect];
         NSView *docView = [self documentView];
         BOOL hasLinkToolTips = (toolMode == SKTextToolMode || toolMode == SKMoveToolMode || toolMode == SKNoteToolMode);
@@ -458,7 +458,7 @@ enum {
 
 - (void)setInteractionMode:(SKInteractionMode)newInteractionMode {
     if (interactionMode != newInteractionMode) {
-        if (interactionMode == SKPresentationMode && [[self documentView] isHidden])
+        if ([[self documentView] isHidden])
             [[self documentView] setHidden:NO];
         interactionMode = newInteractionMode;
         if (interactionMode == SKNormalMode)
@@ -638,20 +638,18 @@ enum {
     if (shouldAnimate) {
         rect = [self convertRect:[[self currentPage] boundsForBox:[self displayBox]] fromPage:[self currentPage]];
         [[self transitionController] animateForRect:rect];
-        if (interactionMode == SKPresentationMode)
-            [self doAutohide:YES];
     }
 }
 
 - (IBAction)goToNextPage:(id)sender {
-    if (interactionMode == SKPresentationMode && [transitionController hasTransition] && [self canGoToNextPage])
+    if ([transitionController hasTransition] && [self canGoToNextPage])
         [self animateTransitionForNextPage:YES];
     else
         [super goToNextPage:sender];
 }
 
 - (IBAction)goToPreviousPage:(id)sender {
-    if (interactionMode == SKPresentationMode && [transitionController hasTransition] && [self canGoToPreviousPage])
+    if ([transitionController hasTransition] && [self canGoToPreviousPage])
         [self animateTransitionForNextPage:NO];
     else
         [super goToPreviousPage:sender];
@@ -1008,84 +1006,63 @@ enum {
     unichar eventChar = [theEvent firstCharacter];
 	NSUInteger modifiers = [theEvent standardModifierFlags];
     
-    if (interactionMode == SKPresentationMode) {
-        // Presentation mode
-        if ([[self scrollView] hasHorizontalScroller] == NO && 
-            (eventChar == NSRightArrowFunctionKey) &&  (modifiers == 0)) {
-            [self goToNextPage:self];
-        } else if ([[self scrollView] hasHorizontalScroller] == NO && 
-                   (eventChar == NSLeftArrowFunctionKey) &&  (modifiers == 0)) {
-            [self goToPreviousPage:self];
-        } else if ((eventChar == 'p') && (modifiers == 0)) {
-            if ([[self delegate] respondsToSelector:@selector(PDFViewToggleContents:)])
-                [[self delegate] PDFViewToggleContents:self];
-        } else if ((eventChar == 'a') && (modifiers == 0)) {
-            [self toggleAutoActualSize:self];
-        } else if ((eventChar == 'b') && (modifiers == 0)) {
-            NSView *documentView = [self documentView];
-            [documentView setHidden:[documentView isHidden] == NO];
-        } else {
-            [super keyDown:theEvent];
-        }
-    } else {
-        // Normal or fullscreen mode
-        BOOL isLeftRightArrow = eventChar == NSRightArrowFunctionKey || eventChar == NSLeftArrowFunctionKey;
-        BOOL isUpDownArrow = eventChar == NSUpArrowFunctionKey || eventChar == NSDownArrowFunctionKey;
-        BOOL isArrow = isLeftRightArrow || isUpDownArrow;
-        
-        if ((eventChar == NSDeleteCharacter || eventChar == NSDeleteFunctionKey) &&
-            (modifiers == 0)) {
-            [self delete:self];
-        } else if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && activeAnnotation && editor == nil && 
-                   (eventChar == NSEnterCharacter || eventChar == NSFormFeedCharacter || eventChar == NSNewlineCharacter || eventChar == NSCarriageReturnCharacter) &&
-                   (modifiers == 0)) {
-            [self editActiveAnnotation:self];
-        } else if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && 
-                   (eventChar == SKEscapeCharacter) && (modifiers == NSAlternateKeyMask)) {
-            [self setActiveAnnotation:nil];
-        } else if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && 
-                   (eventChar == NSTabCharacter) && (modifiers == NSAlternateKeyMask)) {
-            [self selectNextActiveAnnotation:self];
-        // backtab is a bit inconsistent, it seems Shift+Tab gives a Shift-BackTab key event, I would have expected either Shift-Tab (as for the raw event) or BackTab (as for most shift-modified keys)
-        } else if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && 
-                   (((eventChar == NSBackTabCharacter) && ((modifiers & ~NSShiftKeyMask) == NSAlternateKeyMask)) || 
-                    ((eventChar == NSTabCharacter) && (modifiers == (NSAlternateKeyMask | NSShiftKeyMask))))) {
-            [self selectPreviousActiveAnnotation:self];
-        } else if ([self hasReadingBar] && isArrow && (modifiers == moveReadingBarModifiers)) {
-            [self doMoveReadingBarForKey:eventChar];
-        } else if ([self hasReadingBar] && isUpDownArrow && (modifiers == resizeReadingBarModifiers)) {
-            [self doResizeReadingBarForKey:eventChar];
-        } else if (isLeftRightArrow && (modifiers == (NSCommandKeyMask | NSAlternateKeyMask))) {
-            [self setToolMode:(toolMode + (eventChar == NSRightArrowFunctionKey ? 1 : TOOL_MODE_COUNT - 1)) % TOOL_MODE_COUNT];
-        } else if (isUpDownArrow && (modifiers == (NSCommandKeyMask | NSAlternateKeyMask))) {
-            [self setAnnotationMode:(annotationMode + (eventChar == NSDownArrowFunctionKey ? 1 : ANNOTATION_MODE_COUNT - 1)) % ANNOTATION_MODE_COUNT];
-        } else if ([activeAnnotation isMovable] && isArrow && ((modifiers & ~NSShiftKeyMask) == 0)) {
-            [self doMoveActiveAnnotationForKey:eventChar byAmount:(modifiers & NSShiftKeyMask) ? 10.0 : 1.0];
-        } else if ([activeAnnotation isResizable] && isArrow && (modifiers == (NSAlternateKeyMask | NSControlKeyMask) || modifiers == (NSShiftKeyMask | NSControlKeyMask))) {
-            [self doResizeActiveAnnotationForKey:eventChar byAmount:(modifiers & NSShiftKeyMask) ? 10.0 : 1.0];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 't') && (modifiers == 0)) {
-            [self setAnnotationMode:SKFreeTextNote];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'n') && (modifiers == 0)) {
-            [self setAnnotationMode:SKAnchoredNote];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'c') && (modifiers == 0)) {
-            [self setAnnotationMode:SKCircleNote];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'b') && (modifiers == 0)) {
-            [self setAnnotationMode:SKSquareNote];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'h') && (modifiers == 0)) {
-            [self setAnnotationMode:SKHighlightNote];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'u') && (modifiers == 0)) {
-            [self setAnnotationMode:SKUnderlineNote];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 's') && (modifiers == 0)) {
-            [self setAnnotationMode:SKStrikeOutNote];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'l') && (modifiers == 0)) {
-            [self setAnnotationMode:SKLineNote];
-        } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'f') && (modifiers == 0)) {
-            [self setAnnotationMode:SKInkNote];
-        } else if ([typeSelectHelper handleEvent:theEvent] == NO) {
-            [super keyDown:theEvent];
-        }
-        
+    // Normal or fullscreen mode
+    BOOL isLeftRightArrow = eventChar == NSRightArrowFunctionKey || eventChar == NSLeftArrowFunctionKey;
+    BOOL isUpDownArrow = eventChar == NSUpArrowFunctionKey || eventChar == NSDownArrowFunctionKey;
+    BOOL isArrow = isLeftRightArrow || isUpDownArrow;
+    
+    if ((eventChar == NSDeleteCharacter || eventChar == NSDeleteFunctionKey) &&
+        (modifiers == 0)) {
+        [self delete:self];
+    } else if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && activeAnnotation && editor == nil && 
+               (eventChar == NSEnterCharacter || eventChar == NSFormFeedCharacter || eventChar == NSNewlineCharacter || eventChar == NSCarriageReturnCharacter) &&
+               (modifiers == 0)) {
+        [self editActiveAnnotation:self];
+    } else if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && 
+               (eventChar == SKEscapeCharacter) && (modifiers == NSAlternateKeyMask)) {
+        [self setActiveAnnotation:nil];
+    } else if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && 
+               (eventChar == NSTabCharacter) && (modifiers == NSAlternateKeyMask)) {
+        [self selectNextActiveAnnotation:self];
+    // backtab is a bit inconsistent, it seems Shift+Tab gives a Shift-BackTab key event, I would have expected either Shift-Tab (as for the raw event) or BackTab (as for most shift-modified keys)
+    } else if (([self toolMode] == SKTextToolMode || [self toolMode] == SKNoteToolMode) && 
+               (((eventChar == NSBackTabCharacter) && ((modifiers & ~NSShiftKeyMask) == NSAlternateKeyMask)) || 
+                ((eventChar == NSTabCharacter) && (modifiers == (NSAlternateKeyMask | NSShiftKeyMask))))) {
+        [self selectPreviousActiveAnnotation:self];
+    } else if ([self hasReadingBar] && isArrow && (modifiers == moveReadingBarModifiers)) {
+        [self doMoveReadingBarForKey:eventChar];
+    } else if ([self hasReadingBar] && isUpDownArrow && (modifiers == resizeReadingBarModifiers)) {
+        [self doResizeReadingBarForKey:eventChar];
+    } else if (isLeftRightArrow && (modifiers == (NSCommandKeyMask | NSAlternateKeyMask))) {
+        [self setToolMode:(toolMode + (eventChar == NSRightArrowFunctionKey ? 1 : TOOL_MODE_COUNT - 1)) % TOOL_MODE_COUNT];
+    } else if (isUpDownArrow && (modifiers == (NSCommandKeyMask | NSAlternateKeyMask))) {
+        [self setAnnotationMode:(annotationMode + (eventChar == NSDownArrowFunctionKey ? 1 : ANNOTATION_MODE_COUNT - 1)) % ANNOTATION_MODE_COUNT];
+    } else if ([activeAnnotation isMovable] && isArrow && ((modifiers & ~NSShiftKeyMask) == 0)) {
+        [self doMoveActiveAnnotationForKey:eventChar byAmount:(modifiers & NSShiftKeyMask) ? 10.0 : 1.0];
+    } else if ([activeAnnotation isResizable] && isArrow && (modifiers == (NSAlternateKeyMask | NSControlKeyMask) || modifiers == (NSShiftKeyMask | NSControlKeyMask))) {
+        [self doResizeActiveAnnotationForKey:eventChar byAmount:(modifiers & NSShiftKeyMask) ? 10.0 : 1.0];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 't') && (modifiers == 0)) {
+        [self setAnnotationMode:SKFreeTextNote];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'n') && (modifiers == 0)) {
+        [self setAnnotationMode:SKAnchoredNote];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'c') && (modifiers == 0)) {
+        [self setAnnotationMode:SKCircleNote];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'b') && (modifiers == 0)) {
+        [self setAnnotationMode:SKSquareNote];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'h') && (modifiers == 0)) {
+        [self setAnnotationMode:SKHighlightNote];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'u') && (modifiers == 0)) {
+        [self setAnnotationMode:SKUnderlineNote];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 's') && (modifiers == 0)) {
+        [self setAnnotationMode:SKStrikeOutNote];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'l') && (modifiers == 0)) {
+        [self setAnnotationMode:SKLineNote];
+    } else if ([self toolMode] == SKNoteToolMode && (eventChar == 'f') && (modifiers == 0)) {
+        [self setAnnotationMode:SKInkNote];
+    } else if ([typeSelectHelper handleEvent:theEvent] == NO) {
+        [super keyDown:theEvent];
     }
+    
 }
 
 - (BOOL)hasTextNearMouse:(NSEvent *)theEvent {
@@ -1110,17 +1087,6 @@ enum {
     
     if ([[self document] isLocked]) {
         [super mouseDown:theEvent];
-    } else if (interactionMode == SKPresentationMode) {
-        if (hideNotes == NO && IS_TABLET_EVENT(theEvent, NSPenPointingDevice)) {
-            [self doDrawFreehandNoteWithEvent:theEvent];
-            [self setActiveAnnotation:nil];
-        } else if ((area & kPDFLinkArea)) {
-            [super mouseDown:theEvent];
-        } else {
-            [self goToNextPage:self];
-            // Eat up drag events because we don't want to select
-            [self doNothingWithEvent:theEvent];
-        }
     } else if (modifiers == (NSCommandKeyMask | NSShiftKeyMask)) {
         [self doPdfsyncWithEvent:theEvent];
     } else if ((area & SKReadingBarArea) && (area & kPDFLinkArea) == 0 && ((area & kPDFPageArea) == 0 || (toolMode != SKSelectToolMode && toolMode != SKMagnifyToolMode))) {
@@ -1191,7 +1157,7 @@ enum {
             [self showNavWindow:YES];
         }
     }
-    if (navigationMode != SKNavigationNone || interactionMode == SKPresentationMode)
+    if (navigationMode != SKNavigationNone)
         [self doAutohide:YES];
 }
 
@@ -1206,7 +1172,7 @@ enum {
     NSMenuItem *item;
     
     // On Leopard the selection is automatically set. In some cases we never want a selection though.
-    if ((interactionMode == SKPresentationMode) || (toolMode != SKTextToolMode && [self currentSelection])) {
+    if ((toolMode != SKTextToolMode && [self currentSelection])) {
         static NSSet *selectionActions = nil;
         if (selectionActions == nil)
             selectionActions = [[NSSet alloc] initWithObjects:@"_searchInSpotlight:", @"_searchInGoogle:", @"_searchInDictionary:", nil];
@@ -1219,9 +1185,6 @@ enum {
                 break;
         }
     }
-    
-    if (interactionMode == SKPresentationMode)
-        return menu;
     
     NSInteger copyIdx = [menu indexOfItemWithTarget:self andAction:@selector(copy:)];
     if (copyIdx != -1) {
@@ -1441,8 +1404,6 @@ enum {
 }
 
 - (void)rotateWithEvent:(NSEvent *)theEvent {
-    if (interactionMode == SKPresentationMode)
-        return;
     if ([theEvent respondsToSelector:@selector(rotation)])
         gestureRotation -= [theEvent rotation];
     if (fabs(gestureRotation) > 45.0 && gesturePageIndex != NSNotFound) {
@@ -1452,12 +1413,12 @@ enum {
 }
 
 - (void)magnifyWithEvent:(NSEvent *)theEvent {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:SKDisablePinchZoomKey] == NO && interactionMode != SKPresentationMode)
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:SKDisablePinchZoomKey] == NO)
         [super magnifyWithEvent:theEvent];
 }
 
 - (void)swipeWithEvent:(NSEvent *)theEvent {
-    if (interactionMode == SKPresentationMode && [transitionController hasTransition]) {
+    if ([transitionController hasTransition]) {
         if ([theEvent deltaX] < 0.0 || [theEvent deltaY] < 0.0) {
             if ([self canGoToNextPage])
                 [self goToNextPage:nil];
@@ -2069,19 +2030,17 @@ static inline CGFloat secondaryOutset(CGFloat x) {
         PDFSelection *sel = [page selectionForLineAtPoint:point];
         NSRect rect = [sel hasCharacters] ? [sel boundsForPage:page] : SKRectFromCenterAndSquareSize(point, 10.0);
         
-        if (interactionMode != SKPresentationMode) {
-            if (showBar) {
-                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:[readingBar page], SKPDFViewOldPageKey, nil];
-                if ([self hasReadingBar] == NO)
-                    [self toggleReadingBar];
-                [readingBar setPage:page];
-                [readingBar goToLineForPoint:point];
-                [self setNeedsDisplay:YES];
-                [userInfo setObject:page forKey:SKPDFViewNewPageKey];
-                [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification object:self userInfo:userInfo];
-            } else if ([sel hasCharacters] && [self toolMode] == SKTextToolMode) {
-                [self setCurrentSelection:sel];
-            }
+        if (showBar) {
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:[readingBar page], SKPDFViewOldPageKey, nil];
+            if ([self hasReadingBar] == NO)
+                [self toggleReadingBar];
+            [readingBar setPage:page];
+            [readingBar goToLineForPoint:point];
+            [self setNeedsDisplay:YES];
+            [userInfo setObject:page forKey:SKPDFViewNewPageKey];
+            [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification object:self userInfo:userInfo];
+        } else if ([sel hasCharacters] && [self toolMode] == SKTextToolMode) {
+            [self setCurrentSelection:sel];
         }
         if ([self displayMode] == kPDFDisplaySinglePageContinuous || [self displayMode] == kPDFDisplayTwoUpContinuous) {
             NSRect visibleRect = [self convertRect:[self visibleContentRect] toPage:page];
@@ -2336,8 +2295,6 @@ static inline CGFloat secondaryOutset(CGFloat x) {
 - (void)doAutohideDelayed {
     if (NSPointInRect([NSEvent mouseLocation], [navWindow frame]))
         return;
-    if (interactionMode == SKPresentationMode)
-        [NSCursor setHiddenUntilMouseMoves:YES];
     if (interactionMode != SKNormalMode)
         [navWindow fadeOut];
 }
@@ -3937,13 +3894,7 @@ static inline CGFloat secondaryOutset(CGFloat x) {
     NSPoint p = [theEvent locationInView:self];
     NSCursor *cursor = nil;
     
-    if ([[self document] isLocked]) {
-    } else if (interactionMode == SKPresentationMode) {
-        if (([self areaOfInterestForMouse:theEvent] & kPDFLinkArea))
-            cursor = [NSCursor pointingHandCursor];
-        else
-            cursor = [NSCursor arrowCursor];
-    } else if (NSMouseInRect(p, [self visibleContentRect], [self isFlipped]) == NO || ([navWindow isVisible] && NSPointInRect([[self window] convertBaseToScreen:[theEvent locationInWindow]], [navWindow frame]))) {
+    if (NSMouseInRect(p, [self visibleContentRect], [self isFlipped]) == NO || ([navWindow isVisible] && NSPointInRect([[self window] convertBaseToScreen:[theEvent locationInWindow]], [navWindow frame]))) {
         cursor = [NSCursor arrowCursor];
     } else if (([theEvent modifierFlags] & NSCommandKeyMask)) {
         cursor = [NSCursor arrowCursor];

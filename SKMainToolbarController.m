@@ -65,7 +65,6 @@
 #define SKDocumentToolbarPageNumberItemIdentifier @"SKDocumentToolbarPageNumberItemIdentifier"
 #define SKDocumentToolbarScaleItemIdentifier @"SKDocumentToolbarScaleItemIdentifier"
 #define SKDocumentToolbarCropItemIdentifier @"SKDocumentToolbarCropItemIdentifier"
-#define SKDocumentToolbarPresentationItemIdentifier @"SKDocumentToolbarPresentationItemIdentifier"
 #define SKDocumentToolbarNewTextNoteItemIdentifier @"SKDocumentToolbarNewTextNoteItemIdentifier"
 #define SKDocumentToolbarNewCircleNoteItemIdentifier @"SKDocumentToolbarNewCircleNoteItemIdentifier"
 #define SKDocumentToolbarNewMarkupItemIdentifier @"SKDocumentToolbarNewMarkupItemIdentifier"
@@ -104,7 +103,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
 
 @implementation SKMainToolbarController
 
-@synthesize mainController, presentationButton, leftPaneButton, rightPaneButton, toolModeButton, textNoteButton, circleNoteButton, markupNoteButton, lineNoteButton, infoButton, fontsButton, linesButton, printButton, customizeButton, scaleField, noteButton, colorSwatch;
+@synthesize mainController, leftPaneButton, rightPaneButton, toolModeButton, textNoteButton, circleNoteButton, markupNoteButton, lineNoteButton, infoButton, fontsButton, linesButton, printButton, customizeButton, scaleField, noteButton, colorSwatch;
 
 + (void)initialize {
     SKINITIALIZE;
@@ -119,7 +118,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
     mainController = nil;
     SKDESTROY(toolbarItems);
-    SKDESTROY(presentationButton);
     SKDESTROY(leftPaneButton);
     SKDESTROY(rightPaneButton);
     SKDESTROY(toolModeButton);
@@ -189,15 +187,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
                 [(NSNumberFormatter *)[scaleField formatter] setMinimum:[NSNumber numberWithDouble:100.0 * [mainController.pdfView minScaleFactor]]];
             if ([mainController.pdfView respondsToSelector:@selector(maxScaleFactor)])
                 [(NSNumberFormatter *)[scaleField formatter] setMaximum:[NSNumber numberWithDouble:100.0 * [mainController.pdfView maxScaleFactor]]];
-            
-        } else if ([identifier isEqualToString:SKDocumentToolbarPresentationItemIdentifier]) {
-            
-            menuItem = [NSMenuItem menuItemWithTitle:NSLocalizedString(@"Presentation", @"Menu item title") action:@selector(enterPresentation:) target:mainController];
-            
-            [item setLabels:NSLocalizedString(@"Presentation", @"Toolbar item label")];
-            [item setToolTip:NSLocalizedString(@"Presentation", @"Tool tip message")];
-            [item setViewWithSizes:presentationButton];
-            [item setMenuFormRepresentation:menuItem];
             
         } else if ([identifier isEqualToString:SKDocumentToolbarNewTextNoteItemIdentifier]) {
             
@@ -437,8 +426,7 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
         SKDocumentToolbarPageNumberItemIdentifier, 
         SKDocumentToolbarNextItemIdentifier, 
         SKDocumentToolbarScaleItemIdentifier,
-        SKDocumentToolbarPresentationItemIdentifier,
-        SKDocumentToolbarContentsPaneItemIdentifier, 
+        SKDocumentToolbarContentsPaneItemIdentifier,
         SKDocumentToolbarNotesPaneItemIdentifier, 
         SKDocumentToolbarCropItemIdentifier,
         SKDocumentToolbarNewNoteItemIdentifier, 
@@ -480,8 +468,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
         [noteButton setEnabled:enabled forSegment:SKUnderlineNote];
         [noteButton setEnabled:enabled forSegment:SKStrikeOutNote];
         return ([mainController.pdfView toolMode] == SKTextToolMode || [mainController.pdfView toolMode] == SKNoteToolMode) && [mainController.pdfView hideNotes] == NO && [mainController.pdfView.document isLocked] == NO;
-    } else if ([identifier isEqualToString:SKDocumentToolbarPresentationItemIdentifier]) {
-        return [mainController.pdfView.document isLocked] == NO;
     } else if ([identifier isEqualToString:SKDocumentToolbarCropItemIdentifier]) {
         return [mainController.pdfView.document isLocked] == NO;
     } else if ([identifier isEqualToString:NSToolbarPrintItemIdentifier]) {
@@ -496,13 +482,13 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
         return [mainController.pdfView.document isLocked] == NO;
     } else if (action == @selector(createNewTextNote:)) {
         [menuItem setState:[textNoteButton tagForSegment:0] == [menuItem tag] ? NSOnState : NSOffState];
-        return [mainController interactionMode] != SKPresentationMode && [mainController.pdfView.document isLocked] == NO && ([mainController.pdfView toolMode] == SKTextToolMode || [mainController.pdfView toolMode] == SKNoteToolMode) && [mainController.pdfView hideNotes] == NO;
+        return [mainController.pdfView.document isLocked] == NO && ([mainController.pdfView toolMode] == SKTextToolMode || [mainController.pdfView toolMode] == SKNoteToolMode) && [mainController.pdfView hideNotes] == NO;
     } else if (action == @selector(createNewCircleNote:)) {
         [menuItem setState:[circleNoteButton tagForSegment:0] == [menuItem tag] ? NSOnState : NSOffState];
-        return [mainController interactionMode] != SKPresentationMode && [mainController.pdfView.document isLocked] == NO && ([mainController.pdfView toolMode] == SKTextToolMode || [mainController.pdfView toolMode] == SKNoteToolMode) && [mainController.pdfView hideNotes] == NO;
+        return [mainController.pdfView.document isLocked] == NO && ([mainController.pdfView toolMode] == SKTextToolMode || [mainController.pdfView toolMode] == SKNoteToolMode) && [mainController.pdfView hideNotes] == NO;
     } else if (action == @selector(createNewMarkupNote:)) {
         [menuItem setState:[markupNoteButton tagForSegment:0] == [menuItem tag] ? NSOnState : NSOffState];
-        return [mainController interactionMode] != SKPresentationMode && [mainController.pdfView.document isLocked] == NO && ([mainController.pdfView toolMode] == SKTextToolMode || [mainController.pdfView toolMode] == SKNoteToolMode) && [mainController.pdfView hideNotes] == NO && [[mainController.pdfView currentSelection] hasCharacters];
+        return [mainController.pdfView.document isLocked] == NO && ([mainController.pdfView toolMode] == SKTextToolMode || [mainController.pdfView toolMode] == SKNoteToolMode) && [mainController.pdfView hideNotes] == NO && [[mainController.pdfView currentSelection] hasCharacters];
     }
     return YES;
 }
@@ -546,10 +532,6 @@ static NSString *noteToolImageNames[] = {@"ToolbarTextNoteMenu", @"ToolbarAnchor
             if (result == NSOKButton)
                 [mainController.pdfView setScaleFactor:[[scaleSheetController textField] integerValue]];
         }];
-}
-
-- (IBAction)enterPresentation:(id)sender {
-    [mainController enterPresentation:sender];
 }
 
 - (IBAction)toggleLeftSidePane:(id)sender {

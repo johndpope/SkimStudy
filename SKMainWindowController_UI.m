@@ -352,7 +352,7 @@
     if ([[aNotification object] isEqual:leftSideController.findTableView] || [[aNotification object] isEqual:leftSideController.groupedFindTableView]) {
         [self updateFindResultHighlightsForDirection:NSDirectSelection];
         
-        if ([self interactionMode] == SKPresentationMode && [[NSUserDefaults standardUserDefaults] boolForKey:SKAutoHidePresentationContentsKey])
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:SKAutoHidePresentationContentsKey])
             [self hideLeftSideWindow];
     } else if ([[aNotification object] isEqual:leftSideController.thumbnailTableView]) {
         if (mwcFlags.updatingThumbnailSelection == 0) {
@@ -360,7 +360,7 @@
             if (row != -1)
                 [pdfView goToPage:[[pdfView document] pageAtIndex:row]];
             
-            if ([self interactionMode] == SKPresentationMode && [[NSUserDefaults standardUserDefaults] boolForKey:SKAutoHidePresentationContentsKey])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:SKAutoHidePresentationContentsKey])
                 [self hideLeftSideWindow];
         }
     }
@@ -684,7 +684,7 @@
         mwcFlags.updatingOutlineSelection = 1;
         [self goToSelectedOutlineItem:nil];
         mwcFlags.updatingOutlineSelection = 0;
-        if ([self interactionMode] == SKPresentationMode && [[NSUserDefaults standardUserDefaults] boolForKey:SKAutoHidePresentationContentsKey])
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:SKAutoHidePresentationContentsKey])
             [self hideLeftSideWindow];
     }
 }
@@ -1319,13 +1319,13 @@ static NSArray *allMainDocumentPDFViews() {
     SEL action = [menuItem action];
     if (action == @selector(createNewNote:)) {
         BOOL isMarkup = [menuItem tag] == SKHighlightNote || [menuItem tag] == SKUnderlineNote || [menuItem tag] == SKStrikeOutNote;
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO && ([pdfView toolMode] == SKTextToolMode || [pdfView toolMode] == SKNoteToolMode) && [pdfView hideNotes] == NO && (isMarkup == NO || [[pdfView currentSelection] hasCharacters]);
+        return [[self pdfDocument] isLocked] == NO && ([pdfView toolMode] == SKTextToolMode || [pdfView toolMode] == SKNoteToolMode) && [pdfView hideNotes] == NO && (isMarkup == NO || [[pdfView currentSelection] hasCharacters]);
     } else if (action == @selector(editNote:)) {
         PDFAnnotation *annotation = [pdfView activeAnnotation];
-        return [self interactionMode] != SKPresentationMode && [annotation isSkimNote] && ([annotation isEditable]);
+        return [annotation isSkimNote] && ([annotation isEditable]);
     } else if (action == @selector(alignLeft:) || action == @selector(alignRight:) || action == @selector(alignCenter:)) {
         PDFAnnotation *annotation = [pdfView activeAnnotation];
-        return [self interactionMode] != SKPresentationMode && [annotation isSkimNote] && ([annotation isEditable]) && [annotation respondsToSelector:@selector(setAlignment:)];
+        return [annotation isSkimNote] && ([annotation isEditable]) && [annotation respondsToSelector:@selector(setAlignment:)];
     } else if (action == @selector(toggleHideNotes:)) {
         if ([pdfView hideNotes])
             [menuItem setTitle:NSLocalizedString(@"Show Notes", @"Menu item title")];
@@ -1355,19 +1355,19 @@ static NSArray *allMainDocumentPDFViews() {
             [menuItem setTitle:NSLocalizedString(@"Hide Notes Pane", @"Menu item title")];
         else
             [menuItem setTitle:NSLocalizedString(@"Show Notes Pane", @"Menu item title")];
-        return [self interactionMode] != SKPresentationMode;
+        return YES;
     } else if (action == @selector(changeLeftSidePaneState:)) {
         [menuItem setState:mwcFlags.leftSidePaneState == (SKLeftSidePaneState)[menuItem tag] ? (([leftSideController.findTableView window] || [leftSideController.groupedFindTableView window]) ? NSMixedState : NSOnState) : NSOffState];
         return (SKLeftSidePaneState)[menuItem tag] == SKThumbnailSidePaneState || [[pdfView document] outlineRoot];
     } else if (action == @selector(changeRightSidePaneState:)) {
         [menuItem setState:mwcFlags.rightSidePaneState == (SKRightSidePaneState)[menuItem tag] ? NSOnState : NSOffState];
-        return [self interactionMode] != SKPresentationMode;
+        return YES;
     } else if (action == @selector(toggleSplitPDF:)) {
         if ([(NSView *)secondaryPdfView window])
             [menuItem setTitle:NSLocalizedString(@"Hide Split PDF", @"Menu item title")];
         else
             [menuItem setTitle:NSLocalizedString(@"Show Split PDF", @"Menu item title")];
-        return [self interactionMode] != SKPresentationMode;
+        return YES;
     } else if (action == @selector(toggleStatusBar:)) {
         if ([statusBar isVisible])
             [menuItem setTitle:NSLocalizedString(@"Hide Status Bar", @"Menu item title")];
@@ -1375,23 +1375,17 @@ static NSArray *allMainDocumentPDFViews() {
             [menuItem setTitle:NSLocalizedString(@"Show Status Bar", @"Menu item title")];
         return [self interactionMode] == SKNormalMode;
     } else if (action == @selector(searchPDF:)) {
-        return [self interactionMode] != SKPresentationMode;
-    } else if (action == @selector(togglePresentation:)) {
-        if ([self interactionMode] == SKPresentationMode)
-            [menuItem setTitle:NSLocalizedString(@"Remove Presentation", @"Menu item title")];
-        else
-            [menuItem setTitle:NSLocalizedString(@"Presentation", @"Menu item title")];
-        return [self interactionMode] != SKNormalMode || [[self pdfDocument] isLocked] == NO;
+        return YES;
     } else if (action == @selector(getInfo:)) {
-        return [self interactionMode] != SKPresentationMode;
+        return YES;
     } else if (action == @selector(password:)) {
-        return [self interactionMode] != SKPresentationMode && ([[self pdfDocument] isLocked] || [[self pdfDocument] allowsPrinting] == NO || [[self pdfDocument] allowsCopying] == NO);
+        return ([[self pdfDocument] isLocked] || [[self pdfDocument] allowsPrinting] == NO || [[self pdfDocument] allowsCopying] == NO);
     } else if (action == @selector(toggleReadingBar:)) {
         if ([[self pdfView] hasReadingBar])
             [menuItem setTitle:NSLocalizedString(@"Hide Reading Bar", @"Menu item title")];
         else
             [menuItem setTitle:NSLocalizedString(@"Show Reading Bar", @"Menu item title")];
-        return [self interactionMode] != SKPresentationMode && [[self pdfDocument] isLocked] == NO;
+        return [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(chooseTransition:)) {
         return [[self pdfDocument] pageCount] > 1;
     } else if (action == @selector(toggleCaseInsensitiveSearch:)) {
@@ -1404,8 +1398,6 @@ static NSArray *allMainDocumentPDFViews() {
         [menuItem setState:mwcFlags.caseInsensitiveNoteSearch ? NSOnState : NSOffState];
         return YES;
     } else if (action == @selector(performFindPanelAction:)) {
-        if (interactionMode == SKPresentationMode)
-            return NO;
         switch ([menuItem tag]) {
             case NSFindPanelActionShowFindPanel:
                 return YES;
@@ -1453,9 +1445,6 @@ static NSArray *allMainDocumentPDFViews() {
     
     [self synchronizeWindowTitleWithDocumentName];
     [self updateLeftStatus];
-    
-    if ([self interactionMode] == SKPresentationMode)
-        [[self presentationNotesDocument] setCurrentPage:[[[self presentationNotesDocument] pdfDocument] pageAtIndex:[page pageIndex]]];
 }
 
 - (void)handleDisplayBoxChangedNotification:(NSNotification *)notification {
@@ -1470,13 +1459,13 @@ static NSArray *allMainDocumentPDFViews() {
 }
 
 - (void)handleApplicationDidResignActiveNotification:(NSNotification *)notification {
-    if ([self interactionMode] == SKPresentationMode && [[NSUserDefaults standardUserDefaults] boolForKey:SKUseNormalLevelForPresentationKey] == NO) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:SKUseNormalLevelForPresentationKey] == NO) {
         [[self window] setLevel:NSNormalWindowLevel];
     }
 }
 
 - (void)handleApplicationWillBecomeActiveNotification:(NSNotification *)notification {
-    if ([self interactionMode] == SKPresentationMode && [[NSUserDefaults standardUserDefaults] boolForKey:SKUseNormalLevelForPresentationKey] == NO) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:SKUseNormalLevelForPresentationKey] == NO) {
         [[self window] setLevel:NSPopUpMenuWindowLevel];
     }
 }

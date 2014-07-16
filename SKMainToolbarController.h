@@ -44,7 +44,6 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 
 @interface SKMainToolbarController : NSViewController <NSToolbarDelegate> {
     SKMainWindowController *mainController;
-    NSSegmentedControl *presentationButton;
     NSSegmentedControl *leftPaneButton;
     NSSegmentedControl *rightPaneButton;
     NSSegmentedControl *toolModeButton;
@@ -64,7 +63,7 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 }
 
 @property (nonatomic, assign) IBOutlet SKMainWindowController *mainController;
-@property (nonatomic, retain) IBOutlet NSSegmentedControl *presentationButton, *leftPaneButton, *rightPaneButton, *toolModeButton, *textNoteButton, *circleNoteButton, *markupNoteButton, *lineNoteButton, *infoButton, *fontsButton, *linesButton, *printButton, *customizeButton, *noteButton;
+@property (nonatomic, retain) IBOutlet NSSegmentedControl *leftPaneButton, *rightPaneButton, *toolModeButton, *textNoteButton, *circleNoteButton, *markupNoteButton, *lineNoteButton, *infoButton, *fontsButton, *linesButton, *printButton, *customizeButton, *noteButton;
 @property (nonatomic, retain) IBOutlet NSTextField *scaleField;
 @property (nonatomic, retain) IBOutlet SKColorSwatch *colorSwatch;
 
@@ -77,7 +76,6 @@ extern NSString *SKUnarchiveFromDataArrayTransformerName;
 
 - (IBAction)changeScaleFactor:(id)sender;
 - (void)chooseScale:(id)sender;
-- (IBAction)enterPresentation:(id)sender;
 - (IBAction)toggleLeftSidePane:(id)sender;
 - (IBAction)toggleRightSidePane:(id)sender;
 - (void)createNewTextNote:(id)sender;

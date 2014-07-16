@@ -357,12 +357,7 @@ static NSArray *allMainDocumentPDFViews() {
 }
 
 - (IBAction)toggleLeftSidePane:(id)sender {
-    if ([self interactionMode] == SKPresentationMode) {
-        if ([leftSideWindow isVisible])
-            [self hideLeftSideWindow];
-        else
-            [self showLeftSideWindow];
-    } else if (mwcFlags.usesDrawers) {
+    if (mwcFlags.usesDrawers) {
         if ([self leftSidePaneIsOpen]) {
             if (mwcFlags.leftSidePaneState == SKOutlineSidePaneState || [[leftSideController.searchField stringValue] length])
                 [[SKImageToolTipWindow sharedToolTipWindow] fadeOut];
@@ -388,12 +383,7 @@ static NSArray *allMainDocumentPDFViews() {
 }
 
 - (IBAction)toggleRightSidePane:(id)sender {
-    if ([self interactionMode] == SKPresentationMode) {
-        if ([rightSideWindow isVisible])
-            [self hideRightSideWindow];
-        else
-            [self showRightSideWindow];
-    } else if (mwcFlags.usesDrawers) {
+    if (mwcFlags.usesDrawers) {
         if ([self rightSidePaneIsOpen])
             [rightSideDrawer close];
         else
@@ -491,17 +481,7 @@ static NSArray *allMainDocumentPDFViews() {
     [[self window] recalculateKeyViewLoop];
 }
 
-- (IBAction)togglePresentation:(id)sender {
-    if ([self interactionMode] != SKPresentationMode)
-        [self enterPresentation:sender];
-}
-
 - (IBAction)performFindPanelAction:(id)sender {
-    if (interactionMode == SKPresentationMode) {
-        NSBeep();
-        return;
-    }
-	
     NSStringCompareOptions forward = YES;
     NSString *findString = nil;
     

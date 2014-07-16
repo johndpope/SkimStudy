@@ -1181,26 +1181,6 @@
 						<object class="NSMenu" key="NSSubmenu" id="530389574">
 							<string key="NSTitle">View</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="876638821">
-									<reference key="NSMenu" ref="530389574"/>
-									<string key="NSTitle">Presentation</string>
-									<string key="NSKeyEquiv">p</string>
-									<int key="NSKeyEquivModMask">1572864</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
-								<object class="NSMenuItem" id="670062297">
-									<reference key="NSMenu" ref="530389574"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
 								<object class="NSMenuItem" id="158804039">
 									<reference key="NSMenu" ref="530389574"/>
 									<string key="NSTitle">Toggle Reading Bar</string>
@@ -1682,14 +1662,6 @@
 						<reference key="destination" ref="820440108"/>
 					</object>
 					<int key="connectionID">238</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">togglePresentation:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="876638821"/>
-					</object>
-					<int key="connectionID">290</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2774,7 +2746,6 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="820440108"/>
 							<reference ref="890756999"/>
-							<reference ref="876638821"/>
 							<reference ref="214752096"/>
 							<reference ref="683380761"/>
 							<reference ref="852057694"/>
@@ -2787,7 +2758,6 @@
 							<reference ref="625269054"/>
 							<reference ref="379032852"/>
 							<reference ref="968995865"/>
-							<reference ref="670062297"/>
 							<reference ref="336506150"/>
 							<reference ref="745792954"/>
 						</array>
@@ -2801,11 +2771,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">229</int>
 						<reference key="object" ref="890756999"/>
-						<reference key="parent" ref="530389574"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">287</int>
-						<reference key="object" ref="876638821"/>
 						<reference key="parent" ref="530389574"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -2866,11 +2831,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">796</int>
 						<reference key="object" ref="968995865"/>
-						<reference key="parent" ref="530389574"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">800</int>
-						<reference key="object" ref="670062297"/>
 						<reference key="parent" ref="530389574"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -3314,7 +3274,6 @@
 				<string key="229.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="287.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="326.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="327.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3377,7 +3336,6 @@
 				<string key="782.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="794.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="796.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="800.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="83.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="851.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3968,7 +3926,6 @@
 						<string key="changeScaleFactor:">id</string>
 						<string key="changeToolMode:">id</string>
 						<string key="createNewNote:">id</string>
-						<string key="enterPresentation:">id</string>
 						<string key="selectColor:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
 						<string key="toggleRightSidePane:">id</string>
@@ -3984,10 +3941,6 @@
 						</object>
 						<object class="IBActionInfo" key="createNewNote:">
 							<string key="name">createNewNote:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="enterPresentation:">
-							<string key="name">enterPresentation:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="selectColor:">
@@ -4015,7 +3968,6 @@
 						<string key="mainController">SKMainWindowController</string>
 						<string key="markupNoteButton">NSSegmentedControl</string>
 						<string key="noteButton">NSSegmentedControl</string>
-						<string key="presentationButton">NSSegmentedControl</string>
 						<string key="printButton">NSSegmentedControl</string>
 						<string key="rightPaneButton">NSSegmentedControl</string>
 						<string key="scaleField">NSTextField</string>
@@ -4065,10 +4017,6 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="noteButton">
 							<string key="name">noteButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="presentationButton">
-							<string key="name">presentationButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="printButton">
@@ -4123,7 +4071,6 @@
 						<string key="deselectAll:">id</string>
 						<string key="doAutoScale:">id</string>
 						<string key="editNote:">id</string>
-						<string key="enterPresentation:">id</string>
 						<string key="password:">id</string>
 						<string key="paste:">id</string>
 						<string key="pasteAsPlainText:">id</string>
@@ -4135,7 +4082,6 @@
 						<string key="toggleCaseInsensitiveSearch:">id</string>
 						<string key="toggleHideNotes:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
-						<string key="togglePresentation:">id</string>
 						<string key="toggleReadingBar:">id</string>
 						<string key="toggleRightSidePane:">id</string>
 						<string key="toggleSplitPDF:">id</string>
@@ -4231,10 +4177,6 @@
 							<string key="name">editNote:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="enterPresentation:">
-							<string key="name">enterPresentation:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="password:">
 							<string key="name">password:</string>
 							<string key="candidateClassName">id</string>
@@ -4277,10 +4219,6 @@
 						</object>
 						<object class="IBActionInfo" key="toggleLeftSidePane:">
 							<string key="name">toggleLeftSidePane:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="togglePresentation:">
-							<string key="name">togglePresentation:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleReadingBar:">

@@ -288,35 +288,6 @@
 							<int key="NSSegmentStyle">5</int>
 						</object>
 					</object>
-					<object class="NSSegmentedControl" id="1058504007">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{57, 162}, {33, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="633037374"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="422472624">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="586405658"/>
-							<reference key="NSControlView" ref="1058504007"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarPresentation</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSTrackingMode">2</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
 					<object class="NSSegmentedControl" id="633037374">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
@@ -742,14 +713,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">presentationButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1058504007"/>
-					</object>
-					<int key="connectionID">109</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">leftPaneButton</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="633037374"/>
@@ -878,14 +841,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">enterPresentation:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1058504007"/>
-					</object>
-					<int key="connectionID">189</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">orderFrontFontPanel:</string>
 						<reference key="source" ref="1003"/>
 						<reference key="destination" ref="354912557"/>
@@ -982,7 +937,6 @@
 							<reference ref="373684916"/>
 							<reference ref="1047787411"/>
 							<reference ref="633037374"/>
-							<reference ref="1058504007"/>
 							<reference ref="76372141"/>
 							<reference ref="177296294"/>
 							<reference ref="404684452"/>
@@ -1080,14 +1034,6 @@
 						<reference key="parent" ref="850098044"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">23</int>
-						<reference key="object" ref="1058504007"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="422472624"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">34</int>
 						<reference key="object" ref="76372141"/>
 						<array class="NSMutableArray" key="children">
@@ -1138,11 +1084,6 @@
 						<int key="objectID">45</int>
 						<reference key="object" ref="259829563"/>
 						<reference key="parent" ref="76372141"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">56</int>
-						<reference key="object" ref="422472624"/>
-						<reference key="parent" ref="1058504007"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">60</int>
@@ -1221,7 +1162,6 @@
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="190.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1231,7 +1171,6 @@
 				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="0" key="45.IBSegmentedControlInspectorSelectedSegmentMetadataKey"/>
-				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="60.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="61.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="62.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1348,20 +1287,14 @@
 					<string key="className">SKMainToolbarController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="changeDisplaySinglePages:">id</string>
 						<string key="changeScaleFactor:">id</string>
 						<string key="changeToolMode:">id</string>
 						<string key="createNewNote:">id</string>
-						<string key="enterPresentation:">id</string>
 						<string key="selectColor:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
 						<string key="toggleRightSidePane:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="changeDisplaySinglePages:">
-							<string key="name">changeDisplaySinglePages:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="changeScaleFactor:">
 							<string key="name">changeScaleFactor:</string>
 							<string key="candidateClassName">id</string>
@@ -1372,10 +1305,6 @@
 						</object>
 						<object class="IBActionInfo" key="createNewNote:">
 							<string key="name">createNewNote:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="enterPresentation:">
-							<string key="name">enterPresentation:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="selectColor:">
@@ -1403,7 +1332,6 @@
 						<string key="mainController">SKMainWindowController</string>
 						<string key="markupNoteButton">NSSegmentedControl</string>
 						<string key="noteButton">NSSegmentedControl</string>
-						<string key="presentationButton">NSSegmentedControl</string>
 						<string key="printButton">NSSegmentedControl</string>
 						<string key="rightPaneButton">NSSegmentedControl</string>
 						<string key="scaleField">NSTextField</string>
@@ -1453,10 +1381,6 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="noteButton">
 							<string key="name">noteButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="presentationButton">
-							<string key="name">presentationButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="printButton">
@@ -1512,7 +1436,6 @@
 						<string key="doAutoScale:">id</string>
 						<string key="editNote:">id</string>
 						<string key="enterPresentation:">id</string>
-						<string key="exitFullscreen:">id</string>
 						<string key="password:">id</string>
 						<string key="paste:">id</string>
 						<string key="pasteAsPlainText:">id</string>
@@ -1522,7 +1445,6 @@
 						<string key="searchPDF:">id</string>
 						<string key="toggleCaseInsensitiveNoteSearch:">id</string>
 						<string key="toggleCaseInsensitiveSearch:">id</string>
-						<string key="toggleFullscreen:">id</string>
 						<string key="toggleHideNotes:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
 						<string key="togglePresentation:">id</string>
@@ -1625,10 +1547,6 @@
 							<string key="name">enterPresentation:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="exitFullscreen:">
-							<string key="name">exitFullscreen:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="password:">
 							<string key="name">password:</string>
 							<string key="candidateClassName">id</string>
@@ -1663,10 +1581,6 @@
 						</object>
 						<object class="IBActionInfo" key="toggleCaseInsensitiveSearch:">
 							<string key="name">toggleCaseInsensitiveSearch:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleFullscreen:">
-							<string key="name">toggleFullscreen:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleHideNotes:">
@@ -1911,7 +1825,6 @@
 			<string key="ToolbarLines">{27, 20}</string>
 			<string key="ToolbarMagnifyTool">{128, 128}</string>
 			<string key="ToolbarMoveTool">{27, 19}</string>
-			<string key="ToolbarPresentation">{128, 128}</string>
 			<string key="ToolbarPrint">{27, 20}</string>
 			<string key="ToolbarRightPane">{128, 128}</string>
 			<string key="ToolbarSelectTool">{128, 128}</string>
