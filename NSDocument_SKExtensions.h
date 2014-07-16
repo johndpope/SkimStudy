@@ -43,7 +43,6 @@ extern NSString *SKDocumentFileURLDidChangeNotification;
 
 enum {
     SKNormalMode,
-    SKFullScreenMode,
     SKPresentationMode
 };
 typedef NSInteger SKInteractionMode;

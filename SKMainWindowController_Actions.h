@@ -72,7 +72,6 @@
 - (IBAction)toggleSplitPDF:(id)sender;
 - (IBAction)toggleReadingBar:(id)sender;
 - (IBAction)searchPDF:(id)sender;
-- (IBAction)toggleFullscreen:(id)sender;
 - (IBAction)togglePresentation:(id)sender;
 - (IBAction)password:(id)sender;
 - (IBAction)chooseTransition:(id)sender;

@@ -46,8 +46,8 @@
 
 - (IBAction)showPreferencePanel:(id)sender;
 
-@property (nonatomic, copy) NSDictionary *defaultPdfViewSettings, *defaultFullScreenPdfViewSettings;
-@property (nonatomic, copy) NSColor *backgroundColor, *fullScreenBackgroundColor, *pageBackgroundColor, *defaultTextNoteFontColor;
+@property (nonatomic, copy) NSDictionary *defaultPdfViewSettings;
+@property (nonatomic, copy) NSColor *backgroundColor, *pageBackgroundColor, *defaultTextNoteFontColor;
 @property (nonatomic, copy) NSDictionary *defaultNoteColors, *defaultLineWidths, *defaultLineStyles, *defaultDashPatterns, *defaultFontNames, *defaultFontSizes;
 @property (nonatomic, copy) NSArray *favoriteColors;
 @property (nonatomic) PDFLineStyle defaultStartLineStyle, defaultEndLineStyle;

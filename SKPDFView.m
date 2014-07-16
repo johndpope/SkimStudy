@@ -868,11 +868,6 @@ enum {
         [self setAutoScales:YES];
 }
 
-- (void)exitFullscreen:(id)sender {
-    if ([[self delegate] respondsToSelector:@selector(PDFViewExitFullscreen:)])
-        [[self delegate] PDFViewExitFullscreen:self];
-}
-
 - (void)showColorsForThisAnnotation:(id)sender {
     PDFAnnotation *annotation = [sender representedObject];
     if (annotation)
@@ -1411,7 +1406,6 @@ enum {
     NSTrackingArea *eventArea = [theEvent trackingArea];
     PDFAnnotation *annotation;
     if ([eventArea owner] == self && [eventArea isEqual:trackingArea]) {
-        [[self window] setAcceptsMouseMovedEvents:([self interactionMode] == SKFullScreenMode)];
     } else if ([eventArea owner] == self && (annotation = [[eventArea userInfo] objectForKey:SKAnnotationKey])) {
         if ([annotation isEqual:[[SKImageToolTipWindow sharedToolTipWindow] currentImageContext]])
             [[SKImageToolTipWindow sharedToolTipWindow] fadeOut];
@@ -2316,7 +2310,7 @@ static inline CGFloat secondaryOutset(CGFloat x) {
 }
 
 - (void)enableNavigation {
-    navigationMode = [[NSUserDefaults standardUserDefaults] integerForKey:interactionMode == SKPresentationMode ? SKPresentationNavigationOptionKey : SKFullScreenNavigationOptionKey];
+    navigationMode = [[NSUserDefaults standardUserDefaults] integerForKey:SKPresentationNavigationOptionKey ];
     
     // always recreate the navWindow, since moving between screens of different resolution can mess up the location (in spite of moveToScreen:)
     if (navWindow != nil) {

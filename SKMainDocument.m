@@ -1752,8 +1752,7 @@ static inline SecKeychainAttribute makeKeychainAttribute(SecKeychainAttrType tag
 - (void)setInteractionMode:(NSInteger)interactionMode {
     if ([[self pdfDocument] isLocked] == NO && interactionMode != [[self mainWindowController] interactionMode]) {
         switch (interactionMode) {
-            case SKNormalMode:       [[self mainWindowController] exitFullscreen:nil];    break;
-            case SKFullScreenMode:   [[self mainWindowController] enterFullscreen:nil];   break;
+//            case SKNormalMode:       [[self mainWindowController] exitFullscreen:nil];    break;
             case SKPresentationMode: [[self mainWindowController] enterPresentation:nil]; break;
         }
     }

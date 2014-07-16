@@ -6,8 +6,6 @@
 	<dict>
 		<key>SKBackgroundColor</key>
 		<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMDhAJmZoM/AAAAAYY=</data>
-		<key>SKFullScreenBackgroundColor</key>
-		<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMDhAJmZoM+gAAAAYY=</data>
 		<key>SKLastOpenFileNames</key>
 		<array/>
 		<key>SKOpenContentsPaneOnlyForTOC</key>
@@ -31,8 +29,6 @@
 			<key>displaysAsBook</key>
 			<true/>
 		</dict>
-		<key>SKDefaultFullScreenPDFDisplaySettings</key>
-		<dict/>
 		<key>SKAutoSaveSkimNotes</key>
 		<false/>
 		<key>SKSnapshotsOnTop</key>
@@ -182,8 +178,6 @@
 		<real>128</real>
 		<key>SKDefaultNoteHeight</key>
 		<real>64</real>
-		<key>SKFullScreenNavigationOption</key>
-		<integer>1</integer>
 		<key>SKPresentationNavigationOption</key>
 		<integer>1</integer>
 		<key>SKAutoHidePresentationContents</key>
@@ -196,8 +190,6 @@
 		<integer>-1</integer>
 		<key>SKSavePasswordOption</key>
 		<integer>-1</integer>
-		<key>SKBlankAllScreensInFullScreen</key>
-		<false/>
 		<key>SKAutoCropBoxMarginHeight</key>
 		<real>10</real>
 		<key>SKAutoCropBoxMarginWidth</key>
@@ -245,7 +237,6 @@
 			<string>SKRememberLastPageViewed</string>
 			<string>SKRememberSnapshots</string>
 			<string>SKDefaultPDFDisplaySettings</string>
-			<string>SKDefaultFullScreenPDFDisplaySettings</string>
 			<string>SKAutoSaveSkimNotes</string>
 			<string>SKSnapshotsOnTop</string>
 			<string>SKSavePasswordOption</string>
@@ -258,7 +249,6 @@
 			<string>SKShouldAntiAlias</string>
 			<string>SKGreekingThreshold</string>
 			<string>SKBackgroundColor</string>
-			<string>SKFullScreenBackgroundColor</string>
 			<string>SKReadingBarColor</string>
 			<string>SKReadingBarInvert</string>
 		</array>
@@ -313,8 +303,6 @@
 			<string>SKLastOpenFileNames</string>
 			<string>SKLastToolMode</string>
 			<string>SKLastAnnotationMode</string>
-			<string>SKBlankAllScreensInFullScreen</string>
-			<string>SKActivateFullScreenNavigationAtBottom</string>
 			<string>SKActivatePresentationNavigationAtBottom</string>
 			<string>SKReadMissingNotesFromSkimFileOption</string>
 			<string>SKEnableAppleRemote</string>

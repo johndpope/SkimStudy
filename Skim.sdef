@@ -817,17 +817,9 @@
                 description="The default PDF view settings for normal mode.">
                 <cocoa key="defaultPdfViewSettings"/>
             </property>
-            <property name="default full screen view settings" type="PDF view settings" code="DFVS"
-                description="The default PDF view settings for full screen mode. An empty dictionary indicates that default view settings for normal mode are used.">
-                <cocoa key="defaultFullScreenPdfViewSettings"/>
-            </property>
             <property name="background color" type="RGBA color" code="NBgC"
                 description="The default background color in normal mode.">
                 <cocoa key="backgroundColor"/>
-            </property>
-            <property name="full screen background color" type="RGBA color" code="FBgC"
-                description="The default background color in full screen mode.">
-                <cocoa key="fullScreenBackgroundColor"/>
             </property>
             <property name="page background color" type="RGBA color" code="PBgC"
                 description="The default page background color.">

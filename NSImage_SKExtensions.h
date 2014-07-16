@@ -60,7 +60,6 @@ extern NSString *SKImageNameToolbarZoomActual;
 extern NSString *SKImageNameToolbarZoomToFit;
 extern NSString *SKImageNameToolbarZoomToSelection;
 extern NSString *SKImageNameToolbarCrop;
-extern NSString *SKImageNameToolbarFullScreen;
 extern NSString *SKImageNameToolbarPresentation;
 extern NSString *SKImageNameToolbarSinglePage;
 extern NSString *SKImageNameToolbarTwoUp;

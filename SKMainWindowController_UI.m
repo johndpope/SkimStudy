@@ -248,16 +248,6 @@
     if ([[notification object] isEqual:[self window]] && [[notification object] isEqual:mainWindow] == NO) {
         NSScreen *screen = [[self window] screen];
         [[self window] setFrame:[screen frame] display:NO];
-        if ([self interactionMode] == SKFullScreenMode) {
-            if ([[leftSideWindow screen] isEqual:screen] == NO) {
-                [leftSideWindow remove];
-                [leftSideWindow attachToWindow:[self window]];
-            }
-            if ([[rightSideWindow screen] isEqual:screen] == NO) {
-                [rightSideWindow remove];
-                [rightSideWindow attachToWindow:[self window]];
-            }
-        }
         [pdfView layoutDocumentView];
         [pdfView setNeedsDisplay:YES];
     }
@@ -269,12 +259,6 @@
         NSRect screenFrame = [screen frame];
         if (NSEqualRects(screenFrame, [[self window] frame]) == NO) {
             [[self window] setFrame:screenFrame display:NO];
-            if ([self interactionMode] == SKFullScreenMode) {
-                [leftSideWindow remove];
-                [leftSideWindow attachToWindow:[self window]];
-                [rightSideWindow remove];
-                [rightSideWindow attachToWindow:[self window]];
-            }
             [pdfView layoutDocumentView];
             [pdfView setNeedsDisplay:YES];
         }
@@ -1178,10 +1162,6 @@
     [self showNote:annotation];
 }
 
-- (void)PDFViewExitFullscreen:(PDFView *)sender {
-    [self exitFullscreen:sender];
-}
-
 - (void)PDFViewToggleContents:(PDFView *)sender {
     [self toggleLeftSidePane:sender];
 }
@@ -1396,20 +1376,12 @@ static NSArray *allMainDocumentPDFViews() {
         return [self interactionMode] == SKNormalMode;
     } else if (action == @selector(searchPDF:)) {
         return [self interactionMode] != SKPresentationMode;
-    } else if (action == @selector(toggleFullscreen:)) {
-        if ([self interactionMode] == SKFullScreenMode)
-            [menuItem setTitle:NSLocalizedString(@"Remove Full Screen", @"Menu item title")];
-        else
-            [menuItem setTitle:NSLocalizedString(@"Full Screen", @"Menu item title")];
-        return [self interactionMode] != SKNormalMode || [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(togglePresentation:)) {
         if ([self interactionMode] == SKPresentationMode)
             [menuItem setTitle:NSLocalizedString(@"Remove Presentation", @"Menu item title")];
         else
             [menuItem setTitle:NSLocalizedString(@"Presentation", @"Menu item title")];
         return [self interactionMode] != SKNormalMode || [[self pdfDocument] isLocked] == NO;
-    } else if (action == @selector(enterFullscreen:) || action == @selector(enterPresentation:)) {
-        return [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(getInfo:)) {
         return [self interactionMode] != SKPresentationMode;
     } else if (action == @selector(password:)) {
@@ -1456,7 +1428,7 @@ static NSArray *allMainDocumentPDFViews() {
     // When the PDFView is changing scale, or when view settings change when switching fullscreen modes, 
     // a lot of wrong page change notifications may be send, which we better ignore. 
     // Full screen switching and zooming should not change the current page anyway.
-    if ([pdfView isZooming] || mwcFlags.isSwitchingFullScreen)
+    if ([pdfView isZooming])
         return;
     
     PDFPage *page = [pdfView currentPage];
@@ -1495,8 +1467,6 @@ static NSArray *allMainDocumentPDFViews() {
 }
 
 - (void)handleApplicationWillTerminateNotification:(NSNotification *)notification {
-    if ([self interactionMode] != SKNormalMode)
-        [self exitFullscreen:self];
 }
 
 - (void)handleApplicationDidResignActiveNotification:(NSNotification *)notification {

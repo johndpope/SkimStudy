@@ -167,7 +167,6 @@ enum {
         unsigned int usesDrawers:1;
         unsigned int isEditingPDF:1;
         unsigned int isEditingTable:1;
-        unsigned int isSwitchingFullScreen:1;
     } mwcFlags;
 }
 
@@ -186,8 +185,6 @@ enum {
     
 @property (nonatomic, retain) IBOutlet NSView *leftSideContentView, *rightSideContentView;
 
-- (IBAction)enterFullscreen:(id)sender;
-- (IBAction)exitFullscreen:(id)sender;
 - (IBAction)enterPresentation:(id)sender;
 
 - (void)displaySearchResultsForString:(NSString *)string;

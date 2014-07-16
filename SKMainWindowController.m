@@ -45,7 +45,6 @@
 #import <Quartz/Quartz.h>
 #import "SKStringConstants.h"
 #import "SKNoteWindowController.h"
-#import "SKFullScreenWindow.h"
 #import "SKNavigationWindow.h"
 #import "SKSideWindow.h"
 #import "PDFPage_SKExtensions.h"
@@ -502,13 +501,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [savedNormalSetup removeAllObjects];
     
     mwcFlags.settingUpWindow = 0;
-}
-
-- (void)synchronizeWindowTitleWithDocumentName {
-    // as the fullscreen window has no title we have to do this manually
-    if ([self interactionMode] == SKFullScreenMode)
-        [NSApp changeWindowsItem:[self window] title:[self windowTitleForDocumentDisplayName:[[self document] displayName]] filename:NO];
-    [super synchronizeWindowTitleWithDocumentName];
 }
 
 - (void)applyLeftSideWidth:(CGFloat)leftSideWidth rightSideWidth:(CGFloat)rightSideWidth {
@@ -971,9 +963,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 - (BOOL)leftSidePaneIsOpen {
     NSInteger state;
-    if ([self interactionMode] == SKFullScreenMode)
-        state = [leftSideWindow state];
-    else if ([self interactionMode] == SKPresentationMode)
+    if ([self interactionMode] == SKPresentationMode)
         state = [leftSideWindow isVisible] ? NSDrawerOpenState : NSDrawerClosedState;
     else if (mwcFlags.usesDrawers)
         state = [leftSideDrawer state];
@@ -984,9 +974,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 - (BOOL)rightSidePaneIsOpen {
     NSInteger state;
-    if ([self interactionMode] == SKFullScreenMode)
-        state = [rightSideWindow state];
-    else if ([self interactionMode] == SKPresentationMode)
+    if ([self interactionMode] == SKPresentationMode)
         state = [rightSideWindow isVisible] ? NSDrawerOpenState : NSDrawerClosedState;
     else if (mwcFlags.usesDrawers)
         state = [rightSideDrawer state];
@@ -1282,162 +1270,10 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     [scrollView setAutohidesScrollers:[[savedNormalSetup objectForKey:AUTOHIDESSCROLLERS_KEY] boolValue]];
 }
 
-- (void)fadeInFullScreenWindowWithBackgroundColor:(NSColor *)backgroundColor level:(NSInteger)level {
-    if ([[mainWindow firstResponder] isDescendantOf:pdfSplitView])
-        [mainWindow makeFirstResponder:nil];
-    
-    SKMainFullScreenWindow *fullScreenWindow = [[SKMainFullScreenWindow alloc] initWithScreen:[mainWindow screen] backgroundColor:backgroundColor level:NSPopUpMenuWindowLevel];
-    
-    [mainWindow setDelegate:nil];
-    [fullScreenWindow fadeInBlocking];
-    [self setWindow:fullScreenWindow];  
-    [fullScreenWindow makeKeyWindow];
-    [mainWindow orderOut:nil];  
-    [fullScreenWindow setLevel:level];
-    [fullScreenWindow orderFront:nil];
-    [NSApp addWindowsItem:fullScreenWindow title:[self windowTitleForDocumentDisplayName:[[self document] displayName]] filename:NO];
-    [fullScreenWindow release];
-}
-
-- (void)fadeInFullScreenView:(NSView *)view inset:(CGFloat)inset {
-    SKMainFullScreenWindow *fullScreenWindow = (SKMainFullScreenWindow *)[self window];
-    SKFullScreenWindow *fadeWindow = [[SKFullScreenWindow alloc] initWithScreen:[fullScreenWindow screen] backgroundColor:[fullScreenWindow backgroundColor] level:[fullScreenWindow level]];
-    
-    [view setFrame:NSInsetRect([[fadeWindow contentView] bounds], inset, 0.0)];
-    [[fadeWindow contentView] addSubview:view];
-    [fadeWindow setAlphaValue:0.0];
-    [pdfView layoutDocumentView];
-    [pdfView setNeedsDisplay:YES];
-    [fadeWindow orderWindow:NSWindowAbove relativeTo:[fullScreenWindow windowNumber]];
-    [fadeWindow fadeInBlocking];
-    [[fullScreenWindow contentView] addSubview:view];
-    [fullScreenWindow makeFirstResponder:pdfView];
-    [fullScreenWindow recalculateKeyViewLoop];
-    [fullScreenWindow setDelegate:self];
-    [fullScreenWindow display];
-    [fadeWindow orderOut:nil];
-    [fadeWindow release];
-}
-
-- (void)fadeOutFullScreenView:(NSView *)view {
-    SKMainFullScreenWindow *fullScreenWindow = (SKMainFullScreenWindow *)[self window];
-    SKFullScreenWindow *fadeWindow = [[SKFullScreenWindow alloc] initWithScreen:[fullScreenWindow screen] backgroundColor:[fullScreenWindow backgroundColor] level:[fullScreenWindow level]];
-    
-    [[fadeWindow contentView] addSubview:view];
-    [fadeWindow orderWindow:NSWindowAbove relativeTo:[fullScreenWindow windowNumber]];
-    [fadeWindow display];
-    [fullScreenWindow display];
-    [fullScreenWindow setDelegate:nil];
-    [fullScreenWindow makeFirstResponder:nil];
-    [fadeWindow fadeOutBlocking];
-    [fadeWindow release];
-}
-
-- (void)fadeOutFullScreenWindow {
-    SKMainFullScreenWindow *fullScreenWindow = (SKMainFullScreenWindow *)[[[self window] retain] autorelease];
-    
-    [self setWindow:mainWindow];
-    // trick to make sure the main window shows up in the same space as the fullscreen window
-    [fullScreenWindow addChildWindow:mainWindow ordered:NSWindowBelow];
-    [fullScreenWindow removeChildWindow:mainWindow];
-    [fullScreenWindow setLevel:NSPopUpMenuWindowLevel];
-    // these can change due to the child window trick
-    [mainWindow setLevel:NSNormalWindowLevel];
-    [mainWindow setCollectionBehavior:NSWindowCollectionBehaviorDefault];
-    [mainWindow display];
-    [mainWindow makeFirstResponder:pdfView];
-    [mainWindow recalculateKeyViewLoop];
-    [mainWindow setDelegate:self];
-    [mainWindow makeKeyWindow];
-    [NSApp removeWindowsItem:fullScreenWindow];
-    [fullScreenWindow fadeOut];
-}
-
-- (void)showBlankingWindows {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:SKBlankAllScreensInFullScreenKey] && [[NSScreen screens] count] > 1) {
-        if (nil == blankingWindows)
-            blankingWindows = [[NSMutableArray alloc] init];
-        NSScreen *screen = [[self window] screen];
-        NSColor *backgroundColor = [[self window] backgroundColor];
-        for (NSScreen *screenToBlank in [NSScreen screens]) {
-            if ([screenToBlank isEqual:screen] == NO) {
-                SKFullScreenWindow *aWindow = [[SKFullScreenWindow alloc] initWithScreen:screenToBlank backgroundColor:backgroundColor level:NSFloatingWindowLevel];
-                [aWindow setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
-                [aWindow setHidesOnDeactivate:YES];
-                [aWindow fadeIn];
-                [blankingWindows addObject:aWindow];
-                [aWindow release];
-            }
-        }
-    }
-}
-
 - (void)removeBlankingWindows {
     [blankingWindows makeObjectsPerformSelector:@selector(fadeOut)];
     [blankingWindows autorelease];
     blankingWindows = nil;
-}
-
-- (IBAction)enterFullscreen:(id)sender {
-    SKInteractionMode wasInteractionMode = [self interactionMode];
-    if (wasInteractionMode == SKFullScreenMode)
-        return;
-    
-    NSColor *backgroundColor = [[NSUserDefaults standardUserDefaults] colorForKey:SKFullScreenBackgroundColorKey];
-    NSDictionary *fullScreenSetup = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SKDefaultFullScreenPDFDisplaySettingsKey];
-    PDFPage *page = [[self pdfView] currentPage];
-    
-    mwcFlags.isSwitchingFullScreen = 1;
-    
-    if ([[findController view] window])
-        [findController toggleAboveView:nil animate:NO];
-    
-    // remember normal setup to return to, we must do this before changing the interactionMode
-    if (wasInteractionMode == SKNormalMode)
-        [savedNormalSetup setDictionary:[self currentPDFSettings]];
-    
-    interactionMode = SKFullScreenMode;
-    
-    if (wasInteractionMode == SKPresentationMode) {
-        [self exitPresentationMode];
-        [self hideLeftSideWindow];
-        
-        [NSApp updatePresentationOptionsForWindow:[self window]];
-        
-        [pdfView setFrame:[pdfContentView bounds]];
-        [pdfContentView addSubview:pdfView];
-        [pdfSplitView setFrame:NSInsetRect([[[self window] contentView] bounds], [SKSideWindow requiredMargin], 0.0)];
-        [[[self window] contentView] addSubview:pdfSplitView];
-        
-        [[self window] setBackgroundColor:backgroundColor];
-        [[self window] setLevel:NSNormalWindowLevel];
-        [pdfView setBackgroundColor:backgroundColor];
-        [secondaryPdfView setBackgroundColor:backgroundColor];
-        [self applyPDFSettings:[fullScreenSetup count] ? fullScreenSetup : savedNormalSetup];
-        [pdfView layoutDocumentView];
-        [pdfView setNeedsDisplay:YES];
-    } else {
-        [self fadeInFullScreenWindowWithBackgroundColor:backgroundColor level:NSNormalWindowLevel];
-        
-        [pdfView setBackgroundColor:backgroundColor];
-        [secondaryPdfView setBackgroundColor:backgroundColor];
-        [self applyPDFSettings:fullScreenSetup];
-        
-        [self fadeInFullScreenView:pdfSplitView inset:[SKSideWindow requiredMargin]];
-    }
-    
-    if ([[[self pdfView] currentPage] isEqual:page] == NO)
-        [[self pdfView] goToPage:page];
-    
-    mwcFlags.isSwitchingFullScreen = 0;
-    
-    [self forceSubwindowsOnTop:YES];
-    
-    [pdfView setInteractionMode:SKFullScreenMode];
-    
-    [self showBlankingWindows];
-    [self showLeftSideWindow];
-    [self showRightSideWindow];
 }
 
 - (IBAction)enterPresentation:(id)sender {
@@ -1452,110 +1288,18 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     // remember normal setup to return to, we must do this before changing the interactionMode
     if (wasInteractionMode == SKNormalMode)
         [savedNormalSetup setDictionary:[self currentPDFSettings]];
-    
-    mwcFlags.isSwitchingFullScreen = 1;
-    
+        
     if ([[findController view] window])
         [findController toggleAboveView:nil animate:NO];
     
     interactionMode = SKPresentationMode;
     
-    if (wasInteractionMode == SKFullScreenMode) {
-        [self enterPresentationMode];
-        
-        [NSApp updatePresentationOptionsForWindow:[self window]];
-        
-        [pdfSplitView setFrame:[centerContentView bounds]];
-        [centerContentView addSubview:pdfSplitView];
-        [pdfView setFrame:[[[self window] contentView] bounds]];
-        [[[self window] contentView] addSubview:pdfView];
-        
-        [[self window] setBackgroundColor:backgroundColor];
-        [[self window] setLevel:level];
-        [pdfView layoutDocumentView];
-        [pdfView setNeedsDisplay:YES];
-        
-        [self forceSubwindowsOnTop:NO];
-        
-        [self hideLeftSideWindow];
-        [self hideRightSideWindow];
-        [self removeBlankingWindows];
-    } else {
-        [self fadeInFullScreenWindowWithBackgroundColor:backgroundColor level:level];
-        
-        [self enterPresentationMode];
-        
-        [self fadeInFullScreenView:pdfView inset:0.0];
-    }
+    [self enterPresentationMode];
     
     if ([[[self pdfView] currentPage] isEqual:page] == NO)
         [[self pdfView] goToPage:page];
-    
-    mwcFlags.isSwitchingFullScreen = 0;
     
     [pdfView setInteractionMode:SKPresentationMode];
-}
-
-- (IBAction)exitFullscreen:(id)sender {
-    SKInteractionMode wasInteractionMode = [self interactionMode];
-    if (wasInteractionMode == SKNormalMode)
-        return;
-    
-    NSColor *backgroundColor = [[NSUserDefaults standardUserDefaults] colorForKey:SKBackgroundColorKey];
-    NSView *view;
-    NSView *contentView;
-    PDFPage *page = [[self pdfView] currentPage];
-    
-    mwcFlags.isSwitchingFullScreen = 1;
-    
-    if ([[findController view] window])
-        [findController toggleAboveView:nil animate:NO];
-    
-    if (wasInteractionMode == SKFullScreenMode) {
-        view = pdfSplitView;
-        contentView = centerContentView;
-    } else {
-        view = pdfView;
-        contentView = pdfContentView;
-    }
-    
-    [self hideLeftSideWindow];
-    [self hideRightSideWindow];
-    
-    // do this first, otherwise the navigation window may be covered by fadeWindow and then reveiled again, which looks odd
-    [pdfView setInteractionMode:SKNormalMode];
-    
-    [self fadeOutFullScreenView:view];
-    
-    // this should be done before exitPresentationMode to get a smooth transition
-    [view setFrame:[contentView bounds]];
-    [contentView addSubview:view];
-    [pdfView setBackgroundColor:backgroundColor];
-    [secondaryPdfView setBackgroundColor:backgroundColor];
-    
-    if (wasInteractionMode == SKPresentationMode)
-        [self exitPresentationMode];
-    [self applyPDFSettings:savedNormalSetup];
-    [savedNormalSetup removeAllObjects];
-    
-    [pdfView layoutDocumentView];
-    [pdfView setNeedsDisplay:YES];
-    
-    if ([[[self pdfView] currentPage] isEqual:page] == NO)
-        [[self pdfView] goToPage:page];
-    
-    mwcFlags.isSwitchingFullScreen = 0;
-    
-    [self forceSubwindowsOnTop:NO];
-    
-    interactionMode = SKNormalMode;
-    
-    [self fadeOutFullScreenWindow];
-    
-    // the page number may have changed
-    [self synchronizeWindowTitleWithDocumentName];
-    
-    [self removeBlankingWindows];
 }
 
 - (BOOL)handleRightMouseDown:(NSEvent *)theEvent {
@@ -1682,7 +1426,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
         [findController setDelegate:self];
     }
     if ([[findController view] window] == nil)
-        [findController toggleAboveView:(interactionMode == SKFullScreenMode ? pdfSplitView : splitView) animate:YES];
+        [findController toggleAboveView:splitView animate:YES];
     [[findController findField] selectText:nil];
 }
 
@@ -1943,7 +1687,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 
 - (void)registerAsObserver {
     [[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeys:
-        [NSArray arrayWithObjects:SKBackgroundColorKey, SKFullScreenBackgroundColorKey, SKPageBackgroundColorKey, 
+        [NSArray arrayWithObjects:SKBackgroundColorKey, SKPageBackgroundColorKey, 
                                   SKThumbnailSizeKey,
                                   SKShouldAntiAliasKey, SKGreekingThresholdKey, 
                                   SKTableFontSizeKey, nil]
@@ -1953,7 +1697,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 - (void)unregisterAsObserver {
     @try {
         [[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self forKeys:
-            [NSArray arrayWithObjects:SKBackgroundColorKey, SKFullScreenBackgroundColorKey, SKPageBackgroundColorKey, 
+            [NSArray arrayWithObjects:SKBackgroundColorKey, SKPageBackgroundColorKey, 
                                       SKThumbnailSizeKey, 
                                       SKShouldAntiAliasKey, SKGreekingThresholdKey, 
                                       SKTableFontSizeKey, nil]];
@@ -2008,21 +1752,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
             if ([self interactionMode] == SKNormalMode) {
                 [pdfView setBackgroundColor:[[NSUserDefaults standardUserDefaults] colorForKey:SKBackgroundColorKey]];
                 [secondaryPdfView setBackgroundColor:[[NSUserDefaults standardUserDefaults] colorForKey:SKBackgroundColorKey]];
-            }
-        } else if ([key isEqualToString:SKFullScreenBackgroundColorKey]) {
-            if ([self interactionMode] == SKFullScreenMode) {
-                NSColor *color = [[NSUserDefaults standardUserDefaults] colorForKey:SKFullScreenBackgroundColorKey];
-                if (color) {
-                    [pdfView setBackgroundColor:color];
-                    [secondaryPdfView setBackgroundColor:color];
-                    [[self window] setBackgroundColor:color];
-                    [[[self window] contentView] setNeedsDisplay:YES];
-                    
-                    for (NSWindow *window in blankingWindows) {
-                        [window setBackgroundColor:color];
-                        [[window contentView] setNeedsDisplay:YES];
-                    }
-                }
             }
         } else if ([key isEqualToString:SKPageBackgroundColorKey]) {
             [pdfView setNeedsDisplay:YES];

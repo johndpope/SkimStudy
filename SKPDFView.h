@@ -155,7 +155,6 @@ enum {
 
 - (void)zoomLog:(id)sender;
 - (void)toggleAutoActualSize:(id)sender;
-- (void)exitFullscreen:(id)sender;
 
 - (void)addAnnotation:(id)sender;
 - (void)addAnnotationWithType:(SKNoteType)annotationType;
@@ -193,6 +192,5 @@ enum {
 - (void)PDFViewDidBeginEditing:(PDFView *)sender;
 - (void)PDFViewDidEndEditing:(PDFView *)sender;
 - (void)PDFView:(PDFView *)sender editAnnotation:(PDFAnnotation *)annotation;
-- (void)PDFViewExitFullscreen:(PDFView *)sender;
 - (void)PDFViewToggleContents:(PDFView *)sender;
 @end

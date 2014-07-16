@@ -66,18 +66,11 @@ typedef NSInteger NSWindowAnimationBehavior;
 
 enum {
     NSWindowDocumentVersionsButton = 6,
-    NSWindowFullScreenButton,
-};
-
-enum {
-    NSWindowCollectionBehaviorFullScreenPrimary = 1 << 7,
-    NSWindowCollectionBehaviorFullScreenAuxiliary = 1 << 8
 };
 
 @interface NSWindow (SKLionDeclarations)
 - (NSWindowAnimationBehavior)animationBehavior;
 - (void)setAnimationBehavior:(NSWindowAnimationBehavior)newAnimationBehavior;
-- (void)toggleFullScreen:(id)sender;
 @end
 
 #endif

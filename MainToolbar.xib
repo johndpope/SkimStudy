@@ -288,35 +288,6 @@
 							<int key="NSSegmentStyle">5</int>
 						</object>
 					</object>
-					<object class="NSSegmentedControl" id="206221324">
-						<reference key="NSNextResponder" ref="850098044"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{20, 162}, {33, 23}}</string>
-						<reference key="NSSuperview" ref="850098044"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1058504007"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSSegmentedCell" key="NSCell" id="102653450">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<reference key="NSSupport" ref="586405658"/>
-							<reference key="NSControlView" ref="206221324"/>
-							<array class="NSMutableArray" key="NSSegmentImages">
-								<object class="NSSegmentItem">
-									<double key="NSSegmentItemWidth">27</double>
-									<object class="NSCustomResource" key="NSSegmentItemImage">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ToolbarFullScreen</string>
-									</object>
-									<string key="NSSegmentItemLabel"/>
-									<int key="NSSegmentItemImageScaling">2</int>
-								</object>
-							</array>
-							<int key="NSSelectedSegment">-1</int>
-							<int key="NSTrackingMode">2</int>
-							<int key="NSSegmentStyle">5</int>
-						</object>
-					</object>
 					<object class="NSSegmentedControl" id="1058504007">
 						<reference key="NSNextResponder" ref="850098044"/>
 						<int key="NSvFlags">256</int>
@@ -648,7 +619,7 @@
 						<string key="NSFrame">{{132, 104}, {33, 23}}</string>
 						<reference key="NSSuperview" ref="850098044"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="76372141"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSegmentedCell" key="NSCell" id="244067068">
 							<int key="NSCellFlags">67239424</int>
@@ -673,7 +644,7 @@
 				<string key="NSFrameSize">{348, 205}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="206221324"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSClassName">NSView</string>
 				<string key="NSExtension">NSResponder</string>
 			</object>
@@ -776,14 +747,6 @@
 						<reference key="destination" ref="1058504007"/>
 					</object>
 					<int key="connectionID">109</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">fullScreenButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="206221324"/>
-					</object>
-					<int key="connectionID">110</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -962,14 +925,6 @@
 					<int key="connectionID">149</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">enterFullscreen:</string>
-						<reference key="source" ref="1003"/>
-						<reference key="destination" ref="206221324"/>
-					</object>
-					<int key="connectionID">194</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">contentObject: mainController</string>
 						<reference key="source" ref="622374864"/>
@@ -1028,7 +983,6 @@
 							<reference ref="1047787411"/>
 							<reference ref="633037374"/>
 							<reference ref="1058504007"/>
-							<reference ref="206221324"/>
 							<reference ref="76372141"/>
 							<reference ref="177296294"/>
 							<reference ref="404684452"/>
@@ -1134,14 +1088,6 @@
 						<reference key="parent" ref="850098044"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">24</int>
-						<reference key="object" ref="206221324"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="102653450"/>
-						</array>
-						<reference key="parent" ref="850098044"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">34</int>
 						<reference key="object" ref="76372141"/>
 						<array class="NSMutableArray" key="children">
@@ -1192,11 +1138,6 @@
 						<int key="objectID">45</int>
 						<reference key="object" ref="259829563"/>
 						<reference key="parent" ref="76372141"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">55</int>
-						<reference key="object" ref="102653450"/>
-						<reference key="parent" ref="206221324"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">56</int>
@@ -1281,7 +1222,6 @@
 				<string key="190.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1291,7 +1231,6 @@
 				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="0" key="45.IBSegmentedControlInspectorSelectedSegmentMetadataKey"/>
-				<string key="55.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="60.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="61.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1409,16 +1348,20 @@
 					<string key="className">SKMainToolbarController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="changeDisplaySinglePages:">id</string>
 						<string key="changeScaleFactor:">id</string>
 						<string key="changeToolMode:">id</string>
 						<string key="createNewNote:">id</string>
-						<string key="enterFullscreen:">id</string>
 						<string key="enterPresentation:">id</string>
 						<string key="selectColor:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
 						<string key="toggleRightSidePane:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="changeDisplaySinglePages:">
+							<string key="name">changeDisplaySinglePages:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="changeScaleFactor:">
 							<string key="name">changeScaleFactor:</string>
 							<string key="candidateClassName">id</string>
@@ -1429,10 +1372,6 @@
 						</object>
 						<object class="IBActionInfo" key="createNewNote:">
 							<string key="name">createNewNote:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="enterFullscreen:">
-							<string key="name">enterFullscreen:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="enterPresentation:">
@@ -1457,7 +1396,6 @@
 						<string key="colorSwatch">SKColorSwatch</string>
 						<string key="customizeButton">NSSegmentedControl</string>
 						<string key="fontsButton">NSSegmentedControl</string>
-						<string key="fullScreenButton">NSSegmentedControl</string>
 						<string key="infoButton">NSSegmentedControl</string>
 						<string key="leftPaneButton">NSSegmentedControl</string>
 						<string key="lineNoteButton">NSSegmentedControl</string>
@@ -1487,10 +1425,6 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="fontsButton">
 							<string key="name">fontsButton</string>
-							<string key="candidateClassName">NSSegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="fullScreenButton">
-							<string key="name">fullScreenButton</string>
 							<string key="candidateClassName">NSSegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="infoButton">
@@ -1577,18 +1511,15 @@
 						<string key="deselectAll:">id</string>
 						<string key="doAutoScale:">id</string>
 						<string key="editNote:">id</string>
-						<string key="enterFullscreen:">id</string>
 						<string key="enterPresentation:">id</string>
 						<string key="exitFullscreen:">id</string>
 						<string key="password:">id</string>
 						<string key="paste:">id</string>
 						<string key="pasteAsPlainText:">id</string>
 						<string key="performFindPanelAction:">id</string>
-						<string key="savePDFSettingToDefaults:">id</string>
 						<string key="search:">id</string>
 						<string key="searchNotes:">id</string>
 						<string key="searchPDF:">id</string>
-						<string key="takeSnapshot:">id</string>
 						<string key="toggleCaseInsensitiveNoteSearch:">id</string>
 						<string key="toggleCaseInsensitiveSearch:">id</string>
 						<string key="toggleFullscreen:">id</string>
@@ -1690,10 +1621,6 @@
 							<string key="name">editNote:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="enterFullscreen:">
-							<string key="name">enterFullscreen:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="enterPresentation:">
 							<string key="name">enterPresentation:</string>
 							<string key="candidateClassName">id</string>
@@ -1718,10 +1645,6 @@
 							<string key="name">performFindPanelAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="savePDFSettingToDefaults:">
-							<string key="name">savePDFSettingToDefaults:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="search:">
 							<string key="name">search:</string>
 							<string key="candidateClassName">id</string>
@@ -1732,10 +1655,6 @@
 						</object>
 						<object class="IBActionInfo" key="searchPDF:">
 							<string key="name">searchPDF:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takeSnapshot:">
-							<string key="name">takeSnapshot:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleCaseInsensitiveNoteSearch:">
@@ -1865,7 +1784,6 @@
 						<string key="noteArrayController">NSArrayController</string>
 						<string key="noteOutlineView">SKNoteOutlineView</string>
 						<string key="snapshotArrayController">NSArrayController</string>
-						<string key="snapshotTableView">SKThumbnailTableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="noteArrayController">
@@ -1879,10 +1797,6 @@
 						<object class="IBToOneOutletInfo" key="snapshotArrayController">
 							<string key="name">snapshotArrayController</string>
 							<string key="candidateClassName">NSArrayController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="snapshotTableView">
-							<string key="name">snapshotTableView</string>
-							<string key="candidateClassName">SKThumbnailTableView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1992,7 +1906,6 @@
 			<string key="ToolbarAddUnderlineNote">{128, 128}</string>
 			<string key="ToolbarCustomize">{27, 19}</string>
 			<string key="ToolbarFonts">{27, 20}</string>
-			<string key="ToolbarFullScreen">{128, 128}</string>
 			<string key="ToolbarInfo">{27, 17}</string>
 			<string key="ToolbarLeftPane">{128, 128}</string>
 			<string key="ToolbarLines">{27, 20}</string>

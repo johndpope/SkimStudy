@@ -52,8 +52,6 @@
 
 static CGFloat WINDOW_OFFSET = 8.0;
 
-#define SKHideClosedFullScreenSidePanelsKey @"SKHideClosedFullScreenSidePanels"
-
 enum { SKClosedSidePanelCollapse, SKClosedSidePanelAutoHide, SKClosedSidePanelHide };
 
 @implementation SKSideWindow
@@ -65,8 +63,6 @@ static NSUInteger hideWhenClosed = SKClosedSidePanelCollapse;
 
 + (void)initialize {
     SKINITIALIZE;
-    
-    hideWhenClosed = [[NSUserDefaults standardUserDefaults] integerForKey:SKHideClosedFullScreenSidePanelsKey];
     
     if (hideWhenClosed == SKClosedSidePanelHide)
         WINDOW_OFFSET = 0.0;

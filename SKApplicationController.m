@@ -98,7 +98,7 @@
 
 @implementation SKApplicationController
 
-@dynamic defaultPdfViewSettings, defaultFullScreenPdfViewSettings, backgroundColor, fullScreenBackgroundColor, pageBackgroundColor, defaultNoteColors, defaultLineWidths, defaultLineStyles, defaultDashPatterns, defaultStartLineStyle, defaultEndLineStyle, defaultFontNames, defaultFontSizes, defaultTextNoteFontColor, defaultAlignment, defaultIconType, favoriteColors;
+@dynamic defaultPdfViewSettings, backgroundColor, pageBackgroundColor, defaultNoteColors, defaultLineWidths, defaultLineStyles, defaultDashPatterns, defaultStartLineStyle, defaultEndLineStyle, defaultFontNames, defaultFontSizes, defaultTextNoteFontColor, defaultAlignment, defaultIconType, favoriteColors;
 
 + (void)initialize{
     SKINITIALIZE;
@@ -366,7 +366,7 @@
 - (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key {
     static NSSet *applicationScriptingKeys = nil;
     if (applicationScriptingKeys == nil)
-        applicationScriptingKeys = [[NSSet alloc] initWithObjects:@"defaultPdfViewSettings", @"defaultFullScreenPdfViewSettings", @"backgroundColor", @"fullScreenBackgroundColor", @"pageBackgroundColor",
+        applicationScriptingKeys = [[NSSet alloc] initWithObjects:@"defaultPdfViewSettings", @"backgroundColor", @"pageBackgroundColor",
             @"defaultNoteColors", @"defaultLineWidths", @"defaultLineStyles", @"defaultDashPatterns", @"defaultStartLineStyle", @"defaultEndLineStyle", @"defaultFontNames", @"defaultFontSizes", @"defaultTextNoteFontColor", @"defaultAlignment", @"defaultIconType", 
             @"favoriteColors", nil];
 	return [applicationScriptingKeys containsObject:key];
@@ -403,36 +403,12 @@
     [[NSUserDefaults standardUserDefaults] setObject:setup forKey:SKDefaultPDFDisplaySettingsKey];
 }
 
-- (NSDictionary *)defaultFullScreenPdfViewSettings {
-    return [[NSUserDefaults standardUserDefaults] dictionaryForKey:SKDefaultFullScreenPDFDisplaySettingsKey];
-}
-
-- (void)setDefaultFullScreenPdfViewSettings:(NSDictionary *)settings {
-    if (settings == nil)
-        return;
-    NSMutableDictionary *setup = [NSMutableDictionary dictionary];
-    if ([settings count]) {
-        [setup addEntriesFromDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:SKDefaultPDFDisplaySettingsKey]];
-        [setup addEntriesFromDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:SKDefaultFullScreenPDFDisplaySettingsKey]];
-        [setup addEntriesFromDictionary:settings];
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:setup forKey:SKDefaultFullScreenPDFDisplaySettingsKey];
-}
-
 - (NSColor *)backgroundColor {
     return [[NSUserDefaults standardUserDefaults] colorForKey:SKBackgroundColorKey];
 }
 
 - (void)setBackgroundColor:(NSColor *)color {
     [[NSUserDefaults standardUserDefaults] setColor:color forKey:SKBackgroundColorKey];
-}
-
-- (NSColor *)fullScreenBackgroundColor {
-    return [[NSUserDefaults standardUserDefaults] colorForKey:SKFullScreenBackgroundColorKey];
-}
-
-- (void)setFullScreenBackgroundColor:(NSColor *)color {
-    [[NSUserDefaults standardUserDefaults] setColor:color forKey:SKFullScreenBackgroundColorKey];
 }
 
 - (NSColor *)pageBackgroundColor {

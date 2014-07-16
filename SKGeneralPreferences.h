@@ -59,6 +59,5 @@
 @property (nonatomic) NSInteger updateInterval;
 
 - (IBAction)revertPDFViewSettings:(id)sender;
-- (IBAction)revertFullScreenPDFViewSettings:(id)sender;
 
 @end
