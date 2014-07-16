@@ -67,7 +67,7 @@ enum {
 
 @class PDFAnnotation, PDFSelection, SKGroupedSearchResult, SKFloatMapTable;
 @class SKPDFView, SKSecondaryPDFView, SKStatusBar, SKFindController, SKSplitView, SKFieldEditor, SKSideWindow;
-@class SKLeftSideViewController, SKRightSideViewController, SKMainToolbarController, SKProgressController, SKPresentationOptionsSheetController, SKNoteTypeSheetController;
+@class SKLeftSideViewController, SKRightSideViewController, SKMainToolbarController, SKProgressController, SKNoteTypeSheetController;
 
 @interface SKMainWindowController : NSWindowController <SKThumbnailDelegate, SKFindControllerDelegate> {
     SKSplitView                         *splitView;
@@ -117,9 +117,7 @@ enum {
     SKInteractionMode                   interactionMode;
     
     SKProgressController                *progressController;
-    
-    SKPresentationOptionsSheetController *presentationSheetController;
-    
+        
     NSDocument                          *presentationNotesDocument;
     
     NSButton                            *colorAccessoryView;

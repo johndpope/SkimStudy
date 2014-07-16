@@ -51,7 +51,6 @@
 #import "NSString_SKExtensions.h"
 #import "NSGeometry_SKExtensions.h"
 #import "SKTextFieldSheetController.h"
-#import "SKPresentationOptionsSheetController.h"
 #import "SKProgressController.h"
 #import "SKMainDocument.h"
 #import "SKStatusBar.h"
@@ -333,11 +332,7 @@ static NSArray *allMainDocumentPDFViews() {
 }
 
 - (IBAction)chooseTransition:(id)sender {
-    presentationSheetController = [[SKPresentationOptionsSheetController alloc] initForController:self];
-    
-    [presentationSheetController beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
-            SKDESTROY(presentationSheetController);
-        }];
+
 }
 
 - (IBAction)toggleCaseInsensitiveSearch:(id)sender {

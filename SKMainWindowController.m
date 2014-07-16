@@ -78,7 +78,6 @@
 #import "SKLineInspector.h"
 #import "SKStatusBar.h"
 #import "SKTransitionController.h"
-#import "SKPresentationOptionsSheetController.h"
 #import "SKTypeSelectHelper.h"
 #import "NSGeometry_SKExtensions.h"
 #import "SKProgressController.h"
@@ -1281,8 +1280,6 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     if (wasInteractionMode == SKPresentationMode)
         return;
     
-    NSColor *backgroundColor = [NSColor blackColor];
-    NSInteger level = [[NSUserDefaults standardUserDefaults] boolForKey:SKUseNormalLevelForPresentationKey] ? NSNormalWindowLevel : NSPopUpMenuWindowLevel;
     PDFPage *page = [[self pdfView] currentPage];
     
     // remember normal setup to return to, we must do this before changing the interactionMode
@@ -1965,7 +1962,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
 }
 
 - (BOOL)generateImageForThumbnail:(SKThumbnail *)thumbnail {
-    if ([leftSideController.thumbnailTableView isScrolling] || [[pdfView document] isLocked] || [presentationSheetController isScrolling])
+    if ([leftSideController.thumbnailTableView isScrolling] || [[pdfView document] isLocked])
         return NO;
     [self performSelector:@selector(makeImageForThumbnail:) withObject:thumbnail afterDelay:0.0];
     return YES;

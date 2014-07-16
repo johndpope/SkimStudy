@@ -189,7 +189,6 @@
     NSString *versionString = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     NSString *lastVersionString = [sud stringForKey:SKLastVersionLaunchedKey];
     if (lastVersionString == nil || [SKVersionNumber compareVersionString:lastVersionString toVersionString:versionString] == NSOrderedAscending) {
-        [self showReleaseNotes:nil];
         [sud setObject:versionString forKey:SKLastVersionLaunchedKey];
     }
 	
