@@ -70,7 +70,6 @@
 - (IBAction)changeFindPaneState:(id)sender;
 - (IBAction)toggleStatusBar:(id)sender;
 - (IBAction)toggleSplitPDF:(id)sender;
-- (IBAction)toggleReadingBar:(id)sender;
 - (IBAction)searchPDF:(id)sender;
 - (IBAction)password:(id)sender;
 - (IBAction)chooseTransition:(id)sender;

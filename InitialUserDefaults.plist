@@ -53,10 +53,6 @@
 		<real>3</real>
 		<key>SKShouldAntiAlias</key>
 		<true/>
-		<key>SKReadingBarColor</key>
-		<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmAQEAAYY=</data>
-		<key>SKReadingBarInvert</key>
-		<false/>
 		<key>SKAnchoredNoteFontName</key>
 		<string>Helvetica</string>
 		<key>SKAnchoredNoteFontSize</key>
@@ -249,8 +245,6 @@
 			<string>SKShouldAntiAlias</string>
 			<string>SKGreekingThreshold</string>
 			<string>SKBackgroundColor</string>
-			<string>SKReadingBarColor</string>
-			<string>SKReadingBarInvert</string>
 		</array>
 		<key>NotesPreferences</key>
 		<array>

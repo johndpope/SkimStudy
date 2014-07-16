@@ -58,8 +58,6 @@ extern NSString *SKLastAnnotationModeKey;
 extern NSString *SKShouldAntiAliasKey;
 extern NSString *SKImageInterpolationKey;
 extern NSString *SKGreekingThresholdKey;
-extern NSString *SKReadingBarColorKey;
-extern NSString *SKReadingBarInvertKey;
 extern NSString *SKFreeTextNoteFontNameKey;
 extern NSString *SKFreeTextNoteFontSizeKey;
 extern NSString *SKAnchoredNoteFontNameKey;

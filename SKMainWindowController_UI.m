@@ -1380,12 +1380,6 @@ static NSArray *allMainDocumentPDFViews() {
         return YES;
     } else if (action == @selector(password:)) {
         return ([[self pdfDocument] isLocked] || [[self pdfDocument] allowsPrinting] == NO || [[self pdfDocument] allowsCopying] == NO);
-    } else if (action == @selector(toggleReadingBar:)) {
-        if ([[self pdfView] hasReadingBar])
-            [menuItem setTitle:NSLocalizedString(@"Hide Reading Bar", @"Menu item title")];
-        else
-            [menuItem setTitle:NSLocalizedString(@"Show Reading Bar", @"Menu item title")];
-        return [[self pdfDocument] isLocked] == NO;
     } else if (action == @selector(chooseTransition:)) {
         return [[self pdfDocument] pageCount] > 1;
     } else if (action == @selector(toggleCaseInsensitiveSearch:)) {
@@ -1543,16 +1537,6 @@ static NSArray *allMainDocumentPDFViews() {
     [rightSideController.noteOutlineView reloadData];
 }
 
-- (void)handleReadingBarDidChangeNotification:(NSNotification *)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    PDFPage *oldPage = [userInfo objectForKey:SKPDFViewOldPageKey];
-    PDFPage *newPage = [userInfo objectForKey:SKPDFViewNewPageKey];
-    if (oldPage)
-        [self updateThumbnailAtPageIndex:[oldPage pageIndex]];
-    if (newPage && [newPage isEqual:oldPage] == NO)
-        [self updateThumbnailAtPageIndex:[newPage pageIndex]];
-}
-
 - (void)handleWillRemoveDocumentNotification:(NSNotification *)notification {
     if ([[notification userInfo] objectForKey:SKDocumentControllerDocumentKey] == presentationNotesDocument)
         [self setPresentationNotesDocument:nil];
@@ -1586,8 +1570,6 @@ static NSArray *allMainDocumentPDFViews() {
                              name:SKPDFViewDidRemoveAnnotationNotification object:pdfView];
     [nc addObserver:self selector:@selector(handleDidMoveAnnotationNotification:) 
                              name:SKPDFViewDidMoveAnnotationNotification object:pdfView];
-    [nc addObserver:self selector:@selector(handleReadingBarDidChangeNotification:) 
-                             name:SKPDFViewReadingBarDidChangeNotification object:pdfView];
     //  UndoManager
     [nc addObserver:self selector:@selector(observeUndoManagerCheckpoint:) 
                              name:NSUndoManagerCheckpointNotification object:[[self document] undoManager]];

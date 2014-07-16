@@ -46,7 +46,6 @@ extern NSString *SKPDFViewActiveAnnotationDidChangeNotification;
 extern NSString *SKPDFViewDidAddAnnotationNotification;
 extern NSString *SKPDFViewDidRemoveAnnotationNotification;
 extern NSString *SKPDFViewDidMoveAnnotationNotification;
-extern NSString *SKPDFViewReadingBarDidChangeNotification;
 extern NSString *SKPDFViewSelectionChangedNotification;
 extern NSString *SKPDFViewMagnificationChangedNotification;
 
@@ -77,12 +76,7 @@ enum {
 };
 typedef NSInteger SKNoteType;
 
-enum {
-    SKReadingBarArea = 1 << 16,
-    SKReadingBarResizeArea = 1 << 17
-};
-
-@class SKReadingBar, SKTransitionController, SKTypeSelectHelper, SKNavigationWindow, SKTextNoteEditor, SKSyncDot;
+@class SKTransitionController, SKTypeSelectHelper, SKNavigationWindow, SKTextNoteEditor, SKSyncDot;
 
 @interface SKPDFView : PDFView {
     SKToolMode toolMode;
@@ -93,9 +87,7 @@ enum {
     
     NSInteger navigationMode;
     SKNavigationWindow *navWindow;
-    
-    SKReadingBar *readingBar;
-    
+        
     SKTransitionController *transitionController;
     
     SKTypeSelectHelper *typeSelectHelper;
@@ -136,12 +128,8 @@ enum {
 @property (nonatomic, retain) PDFPage *currentSelectionPage;
 @property (nonatomic, readonly) CGFloat currentMagnification;
 @property (nonatomic) BOOL hideNotes;
-@property (nonatomic, readonly) BOOL hasReadingBar;
-@property (nonatomic, readonly) SKReadingBar *readingBar;
 @property (nonatomic, readonly) SKTransitionController *transitionController;
 @property (nonatomic, retain) SKTypeSelectHelper *typeSelectHelper;
-
-- (void)toggleReadingBar;
 
 - (IBAction)delete:(id)sender;
 - (IBAction)paste:(id)sender;
@@ -171,7 +159,7 @@ enum {
 
 - (void)scrollAnnotationToVisible:(PDFAnnotation *)annotation;
 - (void)scrollPageToVisible:(PDFPage *)page;
-- (void)displayLineAtPoint:(NSPoint)point inPageAtIndex:(NSUInteger)pageIndex showReadingBar:(BOOL)showBar;
+- (void)displayLineAtPoint:(NSPoint)point inPageAtIndex:(NSUInteger)pageIndex;
 
 - (void)resetPDFToolTipRects;
 - (void)removePDFToolTipRects;

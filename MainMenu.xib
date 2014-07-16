@@ -1181,26 +1181,6 @@
 						<object class="NSMenu" key="NSSubmenu" id="530389574">
 							<string key="NSTitle">View</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="158804039">
-									<reference key="NSMenu" ref="530389574"/>
-									<string key="NSTitle">Toggle Reading Bar</string>
-									<string key="NSKeyEquiv">B</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
-								<object class="NSMenuItem" id="968995865">
-									<reference key="NSMenu" ref="530389574"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="1022008517"/>
-									<reference key="NSMixedImage" ref="290280874"/>
-								</object>
 								<object class="NSMenuItem" id="683380761">
 									<reference key="NSMenu" ref="530389574"/>
 									<string key="NSTitle">Toggle Contents Pane</string>
@@ -1862,14 +1842,6 @@
 						<reference key="destination" ref="145817286"/>
 					</object>
 					<int key="connectionID">711</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleReadingBar:</string>
-						<reference key="source" ref="660174102"/>
-						<reference key="destination" ref="158804039"/>
-					</object>
-					<int key="connectionID">718</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2754,10 +2726,8 @@
 							<reference ref="457433529"/>
 							<reference ref="366370221"/>
 							<reference ref="630909763"/>
-							<reference ref="158804039"/>
 							<reference ref="625269054"/>
 							<reference ref="379032852"/>
-							<reference ref="968995865"/>
 							<reference ref="336506150"/>
 							<reference ref="745792954"/>
 						</array>
@@ -2814,11 +2784,6 @@
 						<reference key="parent" ref="530389574"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">716</int>
-						<reference key="object" ref="158804039"/>
-						<reference key="parent" ref="530389574"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">717</int>
 						<reference key="object" ref="625269054"/>
 						<reference key="parent" ref="530389574"/>
@@ -2826,11 +2791,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">794</int>
 						<reference key="object" ref="379032852"/>
-						<reference key="parent" ref="530389574"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">796</int>
-						<reference key="object" ref="968995865"/>
 						<reference key="parent" ref="530389574"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -3319,7 +3279,6 @@
 				<string key="697.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="709.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="710.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="716.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="717.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="723.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3335,7 +3294,6 @@
 				<string key="781.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="782.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="794.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="796.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="83.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="851.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4082,7 +4040,6 @@
 						<string key="toggleCaseInsensitiveSearch:">id</string>
 						<string key="toggleHideNotes:">id</string>
 						<string key="toggleLeftSidePane:">id</string>
-						<string key="toggleReadingBar:">id</string>
 						<string key="toggleRightSidePane:">id</string>
 						<string key="toggleSplitPDF:">id</string>
 						<string key="toggleStatusBar:">id</string>
@@ -4219,10 +4176,6 @@
 						</object>
 						<object class="IBActionInfo" key="toggleLeftSidePane:">
 							<string key="name">toggleLeftSidePane:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleReadingBar:">
-							<string key="name">toggleReadingBar:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleRightSidePane:">

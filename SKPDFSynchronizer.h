@@ -41,7 +41,6 @@
 
 enum {
     SKPDFSynchronizerDefaultOptions = 0,
-    SKPDFSynchronizerShowReadingBarMask = 1 << 0,
     SKPDFSynchronizerFlippedMask = 1 << 1,
 };
 

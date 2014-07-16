@@ -327,10 +327,6 @@ static NSArray *allMainDocumentPDFViews() {
         }];
 }
 
-- (IBAction)toggleReadingBar:(id)sender {
-    [pdfView toggleReadingBar];
-}
-
 - (IBAction)chooseTransition:(id)sender {
 
 }

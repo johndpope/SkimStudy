@@ -42,14 +42,12 @@
 @interface SKTemporaryData : NSObject {
     PDFDocument *pdfDocument;
     NSArray *noteDicts;
-    NSDictionary *presentationOptions;
     NSArray *openMetaTags;
     double openMetaRating;
 }
 
 @property (nonatomic, retain) PDFDocument *pdfDocument;
 @property (nonatomic, copy) NSArray *noteDicts;
-@property (nonatomic, copy) NSDictionary *presentationOptions;
 @property (nonatomic, copy) NSArray *openMetaTags;
 @property (nonatomic) double openMetaRating;
 

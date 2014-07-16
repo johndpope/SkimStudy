@@ -41,14 +41,13 @@
 
 @implementation SKTemporaryData
 
-@synthesize pdfDocument, noteDicts, presentationOptions, openMetaTags, openMetaRating;
+@synthesize pdfDocument, noteDicts, openMetaTags, openMetaRating;
 
 - (id)init {
     self = [super init];
     if (self) {
         pdfDocument = nil;
         noteDicts = nil;
-        presentationOptions = nil;
         openMetaTags = nil;
         openMetaRating = 0.0;
     }
@@ -58,7 +57,6 @@
 - (void)dealloc {
     SKDESTROY(pdfDocument);
     SKDESTROY(noteDicts);
-    SKDESTROY(presentationOptions);
     SKDESTROY(openMetaTags);
     [super dealloc];
 }

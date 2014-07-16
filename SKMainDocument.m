@@ -203,9 +203,6 @@ enum {
     
     [[self mainWindowController] addAnnotationsFromDictionaries:[tmpData noteDicts] replace:YES];
     
-    if ([tmpData presentationOptions])
-        [[self mainWindowController] setPresentationOptions:[tmpData presentationOptions]];
-    
     [[self mainWindowController] setTags:[tmpData openMetaTags]];
     
     [[self mainWindowController] setRating:[tmpData openMetaRating]];
@@ -1431,7 +1428,7 @@ static BOOL isIgnorablePOSIXError(NSError *error) {
         PDFPage *page = [pdfDoc pageAtIndex:pageIndex];
         if (options & SKPDFSynchronizerFlippedMask)
             point.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - point.y;
-        [[self pdfView] displayLineAtPoint:point inPageAtIndex:pageIndex showReadingBar:(options & SKPDFSynchronizerShowReadingBarMask) != 0];
+        [[self pdfView] displayLineAtPoint:point inPageAtIndex:pageIndex];
     }
 }
 
@@ -1896,8 +1893,7 @@ static inline SecKeychainAttribute makeKeychainAttribute(SecKeychainAttrType tag
         [[self pdfView] scrollAnnotationToVisible:(PDFAnnotation *)location];
     } else if ([location isKindOfClass:[SKLine class]]) {
         id source = [args objectForKey:@"Source"];
-        BOOL showBar = [[args objectForKey:@"ShowReadingBar"] boolValue];
-        NSInteger options = showBar ? SKPDFSynchronizerShowReadingBarMask : 0;
+        NSInteger options = 0;
         if ([source isKindOfClass:[NSString class]])
             source = [NSURL fileURLWithPath:source];
         if ([source isKindOfClass:[NSURL class]] == NO)

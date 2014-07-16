@@ -40,7 +40,6 @@
 #import <SkimNotes/SkimNotes.h>
 #import "SKMainDocument.h"
 #import "SKPDFView.h"
-#import "SKReadingBar.h"
 #import "PDFSelection_SKExtensions.h"
 #import "SKRuntime.h"
 #import "NSBitmapImageRep_SKExtensions.h"
@@ -135,20 +134,16 @@ static BOOL usesSequentialPageNumbering = NO;
 }
 
 - (NSImage *)pageImage {
-    return [self thumbnailWithSize:0.0 forBox:kPDFDisplayBoxCropBox shadowBlurRadius:0.0 shadowOffset:NSZeroSize readingBar:nil];
+    return [self thumbnailWithSize:0.0 forBox:kPDFDisplayBoxCropBox shadowBlurRadius:0.0 shadowOffset:NSZeroSize];
 }
 
 - (NSImage *)thumbnailWithSize:(CGFloat)aSize forBox:(PDFDisplayBox)box {
-    return  [self thumbnailWithSize:aSize forBox:box readingBar:nil];
-}
-
-- (NSImage *)thumbnailWithSize:(CGFloat)aSize forBox:(PDFDisplayBox)box readingBar:(SKReadingBar *)readingBar {
     CGFloat shadowBlurRadius = round(aSize / 32.0);
     CGFloat shadowOffset = - ceil(shadowBlurRadius * 0.75);
-    return  [self thumbnailWithSize:aSize forBox:box shadowBlurRadius:shadowBlurRadius shadowOffset:NSMakeSize(0.0, shadowOffset) readingBar:readingBar];
+    return  [self thumbnailWithSize:aSize forBox:box shadowBlurRadius:shadowBlurRadius shadowOffset:NSMakeSize(0.0, shadowOffset)];
 }
 
-- (NSImage *)thumbnailWithSize:(CGFloat)aSize forBox:(PDFDisplayBox)box shadowBlurRadius:(CGFloat)shadowBlurRadius shadowOffset:(NSSize)shadowOffset readingBar:(SKReadingBar *)readingBar {
+- (NSImage *)thumbnailWithSize:(CGFloat)aSize forBox:(PDFDisplayBox)box shadowBlurRadius:(CGFloat)shadowBlurRadius shadowOffset:(NSSize)shadowOffset {
     NSRect bounds = [self boundsForBox:box];
     NSSize pageSize = bounds.size;
     BOOL isScaled = aSize > 0.0;
@@ -215,11 +210,6 @@ static BOOL usesSequentialPageNumbering = NO;
         [pageImage release];
     }
     
-    if (readingBar) {
-        [self transformContextForBox:box];
-        [readingBar drawForPage:self withBox:box];
-    }
-    
     [image unlockFocus];
     
     return [image autorelease];
@@ -279,7 +269,7 @@ static BOOL usesSequentialPageNumbering = NO;
 
 - (NSData *)TIFFDataForRect:(NSRect)rect {
     PDFDisplayBox box = NSEqualRects(rect, [self boundsForBox:kPDFDisplayBoxCropBox]) ? kPDFDisplayBoxCropBox : kPDFDisplayBoxMediaBox;
-    NSImage *pageImage = [self thumbnailWithSize:0.0 forBox:box shadowBlurRadius:0.0 shadowOffset:NSZeroSize readingBar:nil];
+    NSImage *pageImage = [self thumbnailWithSize:0.0 forBox:box shadowBlurRadius:0.0 shadowOffset:NSZeroSize];
     NSRect bounds = [self boundsForBox:box];
     
     if (NSEqualRects(rect, NSZeroRect) || NSEqualRects(rect, bounds))

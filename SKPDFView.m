@@ -50,7 +50,6 @@
 #import "SKStringConstants.h"
 #import "NSUserDefaultsController_SKExtensions.h"
 #import "NSUserDefaults_SKExtensions.h"
-#import "SKReadingBar.h"
 #import "SKTransitionController.h"
 #import "SKTextNoteEditor.h"
 #import "SKSyncDot.h"
@@ -80,7 +79,6 @@
 
 #define ANNOTATION_MODE_IS_MARKUP (annotationMode == SKHighlightNote || annotationMode == SKUnderlineNote || annotationMode == SKStrikeOutNote)
 
-#define READINGBAR_RESIZE_EDGE_HEIGHT 3.0
 #define NAVIGATION_BOTTOM_EDGE_HEIGHT 3.0
 
 #define TEXT_SELECT_MARGIN_SIZE ((NSSize){80.0, 100.0})
@@ -103,7 +101,6 @@ NSString *SKPDFViewActiveAnnotationDidChangeNotification = @"SKPDFViewActiveAnno
 NSString *SKPDFViewDidAddAnnotationNotification = @"SKPDFViewDidAddAnnotationNotification";
 NSString *SKPDFViewDidRemoveAnnotationNotification = @"SKPDFViewDidRemoveAnnotationNotification";
 NSString *SKPDFViewDidMoveAnnotationNotification = @"SKPDFViewDidMoveAnnotationNotification";
-NSString *SKPDFViewReadingBarDidChangeNotification = @"SKPDFViewReadingBarDidChangeNotification";
 NSString *SKPDFViewSelectionChangedNotification = @"SKPDFViewSelectionChangedNotification";
 NSString *SKPDFViewMagnificationChangedNotification = @"SKPDFViewMagnificationChangedNotification";
 
@@ -116,21 +113,14 @@ NSString *SKPDFViewNewPageKey = @"newPage";
 #define SKSmallMagnificationHeightKey @"SKSmallMagnificationHeight"
 #define SKLargeMagnificationWidthKey @"SKLargeMagnificationWidth"
 #define SKLargeMagnificationHeightKey @"SKLargeMagnificationHeight"
-#define SKMoveReadingBarModifiersKey @"SKMoveReadingBarModifiers"
-#define SKResizeReadingBarModifiersKey @"SKResizeReadingBarModifiers"
 #define SKDefaultFreeTextNoteContentsKey @"SKDefaultFreeTextNoteContents"
 #define SKDefaultAnchoredNoteContentsKey @"SKDefaultAnchoredNoteContents"
 #define SKUseToolModeCursorsKey @"SKUseToolModeCursors"
-
-#define SKReadingBarNumberOfLinesKey @"SKReadingBarNumberOfLines"
 
 #define SKAnnotationKey @"SKAnnotation"
 
 static char SKPDFViewDefaultsObservationContext;
 static char SKPDFViewTransitionsObservationContext;
-
-static NSUInteger moveReadingBarModifiers = NSAlternateKeyMask;
-static NSUInteger resizeReadingBarModifiers = NSAlternateKeyMask | NSShiftKeyMask;
 
 static BOOL useToolModeCursors = NO;
 
@@ -161,8 +151,6 @@ enum {
 
 - (void)doMoveActiveAnnotationForKey:(unichar)eventChar byAmount:(CGFloat)delta;
 - (void)doResizeActiveAnnotationForKey:(unichar)eventChar byAmount:(CGFloat)delta;
-- (void)doMoveReadingBarForKey:(unichar)eventChar;
-- (void)doResizeReadingBarForKey:(unichar)eventChar;
 
 - (BOOL)doSelectAnnotationWithEvent:(NSEvent *)theEvent;
 - (void)doDragAnnotationWithEvent:(NSEvent *)theEvent;
@@ -172,13 +160,10 @@ enum {
 - (void)doDrawFreehandNoteWithEvent:(NSEvent *)theEvent;
 - (void)doEraseAnnotationsWithEvent:(NSEvent *)theEvent;
 - (void)doSelectWithEvent:(NSEvent *)theEvent;
-- (void)doDragReadingBarWithEvent:(NSEvent *)theEvent;
-- (void)doResizeReadingBarWithEvent:(NSEvent *)theEvent;
 - (void)doNothingWithEvent:(NSEvent *)theEvent;
 - (NSCursor *)cursorForResizeHandle:(SKRectEdges)mask rotation:(NSInteger)rotation;
 - (NSCursor *)getCursorForEvent:(NSEvent *)theEvent;
 - (void)doUpdateCursor;
-- (NSInteger)readingBarAreaForMouse:(NSEvent *)theEvent;
 
 - (void)handlePageChangedNotification:(NSNotification *)notification;
 - (void)handleScaleChangedNotification:(NSNotification *)notification;
@@ -190,23 +175,16 @@ enum {
 
 @implementation SKPDFView
 
-@synthesize toolMode, annotationMode, interactionMode, activeAnnotation, hideNotes, readingBar, transitionController, typeSelectHelper;
+@synthesize toolMode, annotationMode, interactionMode, activeAnnotation, hideNotes, transitionController, typeSelectHelper;
 @synthesize currentMagnification=magnification, isZooming;
-@dynamic editTextField, hasReadingBar, currentSelectionPage, currentSelectionRect;
+@dynamic editTextField, currentSelectionPage, currentSelectionRect;
 
 + (void)initialize {
     SKINITIALIZE;
     
     NSArray *sendTypes = [NSArray arrayWithObjects:NSPasteboardTypePDF, NSPasteboardTypeTIFF, nil];
     [NSApp registerServicesMenuSendTypes:sendTypes returnTypes:nil];
-    
-    NSNumber *moveReadingBarModifiersNumber = [[NSUserDefaults standardUserDefaults] objectForKey:SKMoveReadingBarModifiersKey];
-    NSNumber *resizeReadingBarModifiersNumber = [[NSUserDefaults standardUserDefaults] objectForKey:SKResizeReadingBarModifiersKey];
-    if (moveReadingBarModifiersNumber)
-        moveReadingBarModifiers = [moveReadingBarModifiersNumber integerValue];
-    if (resizeReadingBarModifiersNumber)
-        resizeReadingBarModifiers = [resizeReadingBarModifiersNumber integerValue];
-    
+
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Double-click to edit.", @"Default text for new text note"), SKDefaultFreeTextNoteContentsKey, NSLocalizedString(@"New note", @"Default text for new anchored note"), SKDefaultAnchoredNoteContentsKey, nil]];
     
     
@@ -229,9 +207,7 @@ enum {
     hideNotes = NO;
     
     navWindow = nil;
-    
-    readingBar = nil;
-    
+        
     activeAnnotation = nil;
     selectionRect = NSZeroRect;
     selectionPageIndex = NSNotFound;
@@ -252,9 +228,6 @@ enum {
                                                  name:PDFViewPageChangedNotification object:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleScaleChangedNotification:) 
                                                  name:PDFViewScaleChangedNotification object:self];
-    [[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeys:
-        [NSArray arrayWithObjects:SKReadingBarColorKey, SKReadingBarInvertKey, nil]
-        context:&SKPDFViewDefaultsObservationContext];
 }
 
 - (id)initWithFrame:(NSRect)frameRect {
@@ -275,8 +248,6 @@ enum {
 
 - (void)dealloc {
     [[NSSpellChecker sharedSpellChecker] closeSpellDocumentWithTag:spellingTag];
-    [[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self forKeys:
-        [NSArray arrayWithObjects:SKReadingBarColorKey, SKReadingBarInvertKey, nil]];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [transitionController removeObserver:self forKeyPath:@"transitionStyle"];
     [transitionController removeObserver:self forKeyPath:@"duration"];
@@ -293,7 +264,6 @@ enum {
     SKDESTROY(typeSelectHelper);
     SKDESTROY(transitionController);
     SKDESTROY(navWindow);
-    SKDESTROY(readingBar);
     SKDESTROY(accessibilityChildren);
     SKDESTROY(editor);
     [super dealloc];
@@ -395,9 +365,6 @@ enum {
     if ([[activeAnnotation page] isEqual:pdfPage])
         [activeAnnotation drawSelectionHighlightForView:self];
     
-    if (readingBar)
-        [readingBar drawForPage:pdfPage withBox:[self displayBox]];
-    
     if (selectionPageIndex != NSNotFound)
         [self drawSelectionForPage:pdfPage];
     
@@ -413,8 +380,6 @@ enum {
 #pragma mark Accessors
 
 - (void)setDocument:(PDFDocument *)document {
-    [readingBar release];
-    readingBar = nil;
     selectionRect = NSZeroRect;
     selectionPageIndex = NSNotFound;
     [syncDot invalidate];
@@ -592,32 +557,6 @@ enum {
         [transitionController addObserver:self forKeyPath:@"pageTransitions" options:options context:&SKPDFViewTransitionsObservationContext];
     }
     return transitionController;
-}
-
-#pragma mark Reading bar
-
-- (BOOL)hasReadingBar {
-    return readingBar != nil;
-}
-
-- (SKReadingBar *)readingBar {
-    return readingBar;
-}
-
-- (void)toggleReadingBar {
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:[readingBar page], SKPDFViewOldPageKey, nil];
-    if (readingBar) {
-        [readingBar release];
-        readingBar = nil;
-    } else {
-        readingBar = [[SKReadingBar alloc] initWithPage:[self currentPage]];
-        [readingBar setNumberOfLines:MAX(1, [[NSUserDefaults standardUserDefaults] integerForKey:SKReadingBarNumberOfLinesKey])];
-        [readingBar goToNextLine];
-        [self goToRect:NSInsetRect([readingBar currentBounds], 0.0, -20.0) onPage:[readingBar page]];
-        [userInfo setValue:[readingBar page] forKey:SKPDFViewNewPageKey];
-    }
-    [self setNeedsDisplay:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification object:self userInfo:userInfo];
 }
 
 #pragma mark Actions
@@ -1029,10 +968,6 @@ enum {
                (((eventChar == NSBackTabCharacter) && ((modifiers & ~NSShiftKeyMask) == NSAlternateKeyMask)) || 
                 ((eventChar == NSTabCharacter) && (modifiers == (NSAlternateKeyMask | NSShiftKeyMask))))) {
         [self selectPreviousActiveAnnotation:self];
-    } else if ([self hasReadingBar] && isArrow && (modifiers == moveReadingBarModifiers)) {
-        [self doMoveReadingBarForKey:eventChar];
-    } else if ([self hasReadingBar] && isUpDownArrow && (modifiers == resizeReadingBarModifiers)) {
-        [self doResizeReadingBarForKey:eventChar];
     } else if (isLeftRightArrow && (modifiers == (NSCommandKeyMask | NSAlternateKeyMask))) {
         [self setToolMode:(toolMode + (eventChar == NSRightArrowFunctionKey ? 1 : TOOL_MODE_COUNT - 1)) % TOOL_MODE_COUNT];
     } else if (isUpDownArrow && (modifiers == (NSCommandKeyMask | NSAlternateKeyMask))) {
@@ -1089,11 +1024,6 @@ enum {
         [super mouseDown:theEvent];
     } else if (modifiers == (NSCommandKeyMask | NSShiftKeyMask)) {
         [self doPdfsyncWithEvent:theEvent];
-    } else if ((area & SKReadingBarArea) && (area & kPDFLinkArea) == 0 && ((area & kPDFPageArea) == 0 || (toolMode != SKSelectToolMode && toolMode != SKMagnifyToolMode))) {
-        if ((area & SKReadingBarResizeArea))
-            [self doResizeReadingBarWithEvent:theEvent];
-        else
-            [self doDragReadingBarWithEvent:theEvent];
     } else if ((area & kPDFPageArea) == 0) {
         [self doDragWithEvent:theEvent];
     } else if (toolMode == SKMoveToolMode) {
@@ -2024,22 +1954,13 @@ static inline CGFloat secondaryOutset(CGFloat x) {
 
 #pragma mark Sync
 
-- (void)displayLineAtPoint:(NSPoint)point inPageAtIndex:(NSUInteger)pageIndex showReadingBar:(BOOL)showBar {
+- (void)displayLineAtPoint:(NSPoint)point inPageAtIndex:(NSUInteger)pageIndex{
     if (pageIndex < [[self document] pageCount]) {
         PDFPage *page = [[self document] pageAtIndex:pageIndex];
         PDFSelection *sel = [page selectionForLineAtPoint:point];
         NSRect rect = [sel hasCharacters] ? [sel boundsForPage:page] : SKRectFromCenterAndSquareSize(point, 10.0);
         
-        if (showBar) {
-            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:[readingBar page], SKPDFViewOldPageKey, nil];
-            if ([self hasReadingBar] == NO)
-                [self toggleReadingBar];
-            [readingBar setPage:page];
-            [readingBar goToLineForPoint:point];
-            [self setNeedsDisplay:YES];
-            [userInfo setObject:page forKey:SKPDFViewNewPageKey];
-            [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification object:self userInfo:userInfo];
-        } else if ([sel hasCharacters] && [self toolMode] == SKTextToolMode) {
+        if ([sel hasCharacters] && [self toolMode] == SKTextToolMode) {
             [self setCurrentSelection:sel];
         }
         if ([self displayMode] == kPDFDisplaySinglePageContinuous || [self displayMode] == kPDFDisplayTwoUpContinuous) {
@@ -2242,16 +2163,7 @@ static inline CGFloat secondaryOutset(CGFloat x) {
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (context == &SKPDFViewDefaultsObservationContext) {
-        NSString *key = [keyPath substringFromIndex:7];
-        if ([key isEqualToString:SKReadingBarColorKey] || [key isEqualToString:SKReadingBarInvertKey]) {
-            if (readingBar) {
-                [self setNeedsDisplay:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification 
-                    object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[readingBar page], SKPDFViewOldPageKey, [readingBar page], SKPDFViewNewPageKey, nil]];
-            }
-        }
-    } else if (context == &SKPDFViewTransitionsObservationContext) {
+    if (context == &SKPDFViewTransitionsObservationContext) {
         id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
         if ([oldValue isEqual:[NSNull null]]) oldValue = nil;
         [[[self undoManager] prepareWithInvocationTarget:self] setTransitionControllerValue:oldValue forKey:keyPath];
@@ -2647,46 +2559,6 @@ static inline CGFloat secondaryOutset(CGFloat x) {
             [activeAnnotation setBounds:newBounds];
             [activeAnnotation autoUpdateString];
         }
-    }
-}
-
-- (void)doMoveReadingBarForKey:(unichar)eventChar {
-    BOOL moved = NO;
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:[readingBar page], SKPDFViewOldPageKey, nil];
-    if (eventChar == NSDownArrowFunctionKey)
-        moved = [readingBar goToNextLine];
-    else if (eventChar == NSUpArrowFunctionKey)
-        moved = [readingBar goToPreviousLine];
-    else if (eventChar == NSRightArrowFunctionKey)
-        moved = [readingBar goToNextPage];
-    else if (eventChar == NSLeftArrowFunctionKey)
-        moved = [readingBar goToPreviousPage];
-    if (moved) {
-        NSRect rect = NSInsetRect([readingBar currentBounds], 0.0, -20.0) ;
-        if ([self displayMode] == kPDFDisplaySinglePageContinuous || [self displayMode] == kPDFDisplayTwoUpContinuous) {
-            NSRect visibleRect = [self convertRect:[self visibleContentRect] toPage:[readingBar page]];
-            rect = NSInsetRect(rect, 0.0, - floor( ( NSHeight(visibleRect) - NSHeight(rect) ) / 2.0 ) );
-        }
-        [self goToRect:rect onPage:[readingBar page]];
-        [self setNeedsDisplay:YES];
-        [userInfo setObject:[readingBar page] forKey:SKPDFViewNewPageKey];
-        [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification object:self userInfo:userInfo];
-    }
-}
-
-- (void)doResizeReadingBarForKey:(unichar)eventChar {
-    NSInteger numberOfLines = [readingBar numberOfLines];
-    if (eventChar == NSDownArrowFunctionKey)
-        numberOfLines++;
-    else if (eventChar == NSUpArrowFunctionKey)
-        numberOfLines--;
-    if (numberOfLines > 0) {
-        [self setNeedsDisplayInRect:[readingBar currentBoundsForBox:[self displayBox]] ofPage:[readingBar page]];
-        [readingBar setNumberOfLines:numberOfLines];
-        [[NSUserDefaults standardUserDefaults] setInteger:numberOfLines forKey:SKReadingBarNumberOfLinesKey];
-        [self setNeedsDisplayInRect:[readingBar currentBoundsForBox:[self displayBox]] ofPage:[readingBar page]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification object:self 
-            userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[readingBar page], SKPDFViewOldPageKey, [readingBar page], SKPDFViewNewPageKey, nil]];
     }
 }
 
@@ -3445,127 +3317,6 @@ static inline CGFloat secondaryOutset(CGFloat x) {
     [[self getCursorForEvent:theEvent] performSelector:@selector(set) withObject:nil afterDelay:0];
 }
 
-- (void)doDragReadingBarWithEvent:(NSEvent *)theEvent {
-    PDFPage *page = [readingBar page];
-    NSPointerArray *lineRects = [page lineRects];
-	NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:page, SKPDFViewOldPageKey, nil];
-    
-    NSEvent *lastMouseEvent = theEvent;
-    NSPoint lastMouseLoc = [theEvent locationInView:self];
-    NSPoint point = [self convertPoint:lastMouseLoc toPage:page];
-    NSInteger lineOffset = SKIndexOfRectAtYInOrderedRects(point.y, lineRects, YES) - [readingBar currentLine];
-    NSDate *lastPageChangeDate = [NSDate distantPast];
-    
-    lastMouseLoc = [self convertPoint:lastMouseLoc toView:[self documentView]];
-    
-    [[NSCursor closedHandBarCursor] push];
-    
-    [NSEvent startPeriodicEventsAfterDelay:0.1 withPeriod:0.1];
-    
-	while (YES) {
-		
-        theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSPeriodicMask];
-		
-        if ([theEvent type] == NSLeftMouseUp)
-            break;
-		if ([theEvent type] == NSLeftMouseDragged)
-            lastMouseEvent = theEvent;
-        
-        // dragging
-        NSPoint mouseLocInWindow = [lastMouseEvent locationInWindow];
-        NSPoint mouseLoc = [self convertPoint:mouseLocInWindow fromView:nil];
-        if ([[[self scrollView] contentView] autoscroll:lastMouseEvent] == NO &&
-            ([self displayMode] == kPDFDisplaySinglePage || [self displayMode] == kPDFDisplayTwoUp) &&
-            [[NSDate date] timeIntervalSinceDate:lastPageChangeDate] > 0.7) {
-            if (mouseLoc.y < NSMinY([self bounds])) {
-                if ([self canGoToNextPage]) {
-                    [self goToNextPage:self];
-                    lastMouseLoc.y = NSMaxY([[self documentView] bounds]);
-                    lastPageChangeDate = [NSDate date];
-                }
-            } else if (mouseLoc.y > NSMaxY([self bounds])) {
-                if ([self canGoToPreviousPage]) {
-                    [self goToPreviousPage:self];
-                    lastMouseLoc.y = NSMinY([[self documentView] bounds]);
-                    lastPageChangeDate = [NSDate date];
-                }
-            }
-        }
-        
-        mouseLoc = [self convertPoint:mouseLocInWindow fromView:nil];
-        
-        PDFPage *currentPage = [self pageForPoint:mouseLoc nearest:YES];
-        NSPoint mouseLocInPage = [self convertPoint:mouseLoc toPage:currentPage];
-        NSPoint mouseLocInDocument = [self convertPoint:mouseLoc toView:[self documentView]];
-        NSInteger currentLine;
-        
-        if ([currentPage isEqual:page] == NO) {
-            page = currentPage;
-            lineRects = [page lineRects];
-        }
-        
-        if ([lineRects count] == 0)
-            continue;
-        
-        currentLine = SKIndexOfRectAtYInOrderedRects(mouseLocInPage.y, lineRects, mouseLocInDocument.y < lastMouseLoc.y) - lineOffset;
-        currentLine = MIN((NSInteger)[lineRects count] - (NSInteger)[readingBar numberOfLines], currentLine);
-        currentLine = MAX(0, currentLine);
-        
-        if ([page isEqual:[readingBar page]] == NO || currentLine != [readingBar currentLine]) {
-            [userInfo setObject:[readingBar page] forKey:SKPDFViewOldPageKey];
-            [self setNeedsDisplayInRect:[readingBar currentBoundsForBox:[self displayBox]] ofPage:[readingBar page]];
-            [readingBar setPage:currentPage];
-            [readingBar setCurrentLine:currentLine];
-            [self setNeedsDisplayInRect:[readingBar currentBoundsForBox:[self displayBox]] ofPage:[readingBar page]];
-            [userInfo setObject:[readingBar page] forKey:SKPDFViewNewPageKey];
-            [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification object:self userInfo:userInfo];
-            lastMouseLoc = mouseLocInDocument;
-        }
-    }
-    
-    [NSEvent stopPeriodicEvents];
-    
-    [NSCursor pop];
-    // ??? PDFView's delayed layout seems to reset the cursor to an arrow
-    [[self getCursorForEvent:lastMouseEvent] performSelector:@selector(set) withObject:nil afterDelay:0];
-}
-
-- (void)doResizeReadingBarWithEvent:(NSEvent *)theEvent {
-    PDFPage *page = [readingBar page];
-    NSInteger firstLine = [readingBar currentLine];
-    NSPointerArray *lineRects = [page lineRects];
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:page, SKPDFViewOldPageKey, page, SKPDFViewNewPageKey, nil];
-    
-    [[NSCursor resizeUpDownCursor] push];
-    
-	while (YES) {
-		
-        theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
-		if ([theEvent type] == NSLeftMouseUp)
-            break;
-        
-        // dragging
-        NSPoint point = NSZeroPoint;
-        if ([[self pageAndPoint:&point forEvent:theEvent nearest:YES] isEqual:page] == NO)
-            continue;
-        
-        NSInteger numberOfLines = MAX(0, SKIndexOfRectAtYInOrderedRects(point.y, lineRects, YES)) - firstLine + 1;
-        
-        if (numberOfLines > 0 && numberOfLines != (NSInteger)[readingBar numberOfLines]) {
-            [self setNeedsDisplayInRect:[readingBar currentBoundsForBox:[self displayBox]] ofPage:[readingBar page]];
-            [readingBar setNumberOfLines:numberOfLines];
-            [[NSUserDefaults standardUserDefaults] setInteger:numberOfLines forKey:SKReadingBarNumberOfLinesKey];
-            [self setNeedsDisplayInRect:[readingBar currentBoundsForBox:[self displayBox]] ofPage:[readingBar page]];
-            [self setNeedsDisplay:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:SKPDFViewReadingBarDidChangeNotification object:self userInfo:userInfo];
-        }
-    }
-    
-    [NSCursor pop];
-    // ??? PDFView's delayed layout seems to reset the cursor to an arrow
-    [[self getCursorForEvent:theEvent] performSelector:@selector(set) withObject:nil afterDelay:0];
-}
-
 - (void)doMagnifyWithEvent:(NSEvent *)theEvent {
 	NSPoint mouseLoc = [theEvent locationInWindow];
 	NSEvent *lastMouseEvent = [theEvent retain];
@@ -3910,8 +3661,8 @@ static inline CGFloat secondaryOutset(CGFloat x) {
             {
                 BOOL isOnActiveAnnotationPage = [[activeAnnotation page] isEqual:page];
                 
-                if ((area & kPDFLinkArea) == 0 && (area & SKReadingBarArea))
-                    cursor = (area & SKReadingBarResizeArea) ? [NSCursor resizeUpDownCursor] : [NSCursor openHandBarCursor];
+                if ((area & kPDFLinkArea) == 0)
+                    [NSCursor openHandBarCursor];
                 else if (editor && isOnActiveAnnotationPage && NSPointInRect(p, [activeAnnotation bounds]))
                     cursor = [NSCursor IBeamCursor];
                 else if (isOnActiveAnnotationPage && [activeAnnotation isResizable] && (resizeHandle = [activeAnnotation resizeHandleForPoint:p scaleFactor:[self scaleFactor]]) != 0)
@@ -3927,21 +3678,12 @@ static inline CGFloat secondaryOutset(CGFloat x) {
             case SKMoveToolMode:
                 if ((area & kPDFLinkArea))
                     cursor = [NSCursor pointingHandCursor];
-                else if ((area == SKReadingBarArea) == 0)
-                    cursor = [NSCursor openHandCursor];
-                else if ((area & SKReadingBarResizeArea))
-                    cursor = [NSCursor resizeUpDownCursor];
                 else
                     cursor = [NSCursor openHandBarCursor];
                 break;
             case SKSelectToolMode:
                 if ((area & kPDFPageArea) == 0) {
-                    if ((area == SKReadingBarArea) == 0)
-                        cursor = [NSCursor openHandCursor];
-                    else if ((area & SKReadingBarResizeArea))
-                        cursor = [NSCursor resizeUpDownCursor];
-                    else
-                        cursor = [NSCursor openHandBarCursor];
+                    cursor = [NSCursor openHandBarCursor];
                 } else {
                     resizeHandle = SKResizeHandleForPointFromRect(p, selectionRect, HANDLE_SIZE / [self scaleFactor]);
                     cursor = [self cursorForResizeHandle:resizeHandle rotation:[page rotation]];
@@ -3951,12 +3693,7 @@ static inline CGFloat secondaryOutset(CGFloat x) {
                 break;
             case SKMagnifyToolMode:
                 if ((area & kPDFPageArea) == 0) {
-                    if ((area == SKReadingBarArea) == 0)
-                        cursor = [NSCursor openHandCursor];
-                    else if ((area & SKReadingBarResizeArea))
-                        cursor = [NSCursor resizeUpDownCursor];
-                    else
-                        cursor = [NSCursor openHandBarCursor];
+                    cursor = [NSCursor openHandBarCursor];
                 } else if (([theEvent modifierFlags] & NSShiftKeyMask)) {
                     cursor = [NSCursor zoomOutCursor];
                 } else {
@@ -3983,18 +3720,6 @@ static inline CGFloat secondaryOutset(CGFloat x) {
 
 - (PDFAreaOfInterest)extendedAreaOfInterestForMouse:(NSEvent *)theEvent {
     PDFAreaOfInterest area = [self areaOfInterestForMouse:theEvent];
-    if (readingBar) {
-        NSPoint p = NSZeroPoint;
-        PDFPage *page = [self pageAndPoint:&p forEvent:theEvent nearest:YES];
-        if ([[readingBar page] isEqual:page]) {
-            NSRect bounds = [readingBar currentBounds];
-            if (p.y >= NSMinY(bounds) && p.y <= NSMaxY(bounds)) {
-                area |= SKReadingBarArea;
-                if (p.y < NSMinY(bounds) + READINGBAR_RESIZE_EDGE_HEIGHT)
-                    area |= SKReadingBarResizeArea;
-            }
-        }
-    }
     return area;
 }
 

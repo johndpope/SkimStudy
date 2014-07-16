@@ -74,7 +74,6 @@
 #import "SKToolbarItem.h"
 #import "NSValue_SKExtensions.h"
 #import "NSString_SKExtensions.h"
-#import "SKReadingBar.h"
 #import "SKLineInspector.h"
 #import "SKStatusBar.h"
 #import "SKTransitionController.h"
@@ -1867,8 +1866,7 @@ static void addSideSubview(NSView *view, NSView *contentView, BOOL usesDrawers) 
     NSSize newSize, oldSize = [thumbnail size];
     PDFDocument *pdfDoc = [pdfView document];
     PDFPage *page = [pdfDoc pageAtIndex:[thumbnail pageIndex]];
-    SKReadingBar *readingBar = [[[pdfView readingBar] page] isEqual:page] ? [pdfView readingBar] : nil;
-    NSImage *image = [page thumbnailWithSize:thumbnailCacheSize forBox:[pdfView displayBox] readingBar:readingBar];
+    NSImage *image = [page thumbnailWithSize:thumbnailCacheSize forBox:[pdfView displayBox]];
     
     [thumbnail setImage:image];
     
